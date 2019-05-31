@@ -1,0 +1,94 @@
+<div class="card">
+    <div class="card-header">
+        <h4>Asignación de Asientos</h4>
+    </div>
+
+    <div class="card-body card-group">
+
+        <div class="form-group col-4">
+            <label>Seleccione una sala</label>
+            <select class="form-control col-lg-8 col-sm-10 col-md-8" id="cmbSalas"></select>
+        </div>
+
+        <div class="form-group col-4">
+            <label>Filtrar por</label>
+            <select class="form-control col-lg-8 col-sm-10 col-md-8" id="cmbStatus">
+                <option value="todas">TODAS</option>
+                <option value="disponibles">DISPONIBLES</option>
+                <option value="ocupadas">OCUPADAS</option>
+            </select>
+        </div>
+
+        <div class="form-group col-4">
+            <button class="btn btn-icon btn-round">
+                <i class="now-ui-icons settings"></i>
+            </button>
+         </div>
+    
+    </div>
+</div>
+
+<div class="card">
+    <br>
+    <div class="card-group" id="tblAsientos">
+
+        <img src="../salas/SALA1.png" usemap="#image-map" id="mapaSala">
+
+            <map name="image-map">
+                <area target="" alt="1" title="1" href="#" coords="143,125,174,155" shape="rect" data-toggle="modal" data-target="#ModOrdenF" onclick="fcnCargarDatosModal(0,1,'ASIENTO 1',1,1);">
+                <area target="" alt="2" title="2" href="#" coords="195,124,229,157" shape="rect" data-toggle="modal" data-target="#ModOrdenF" onclick="fcnCargarDatosModal(0,2,'ASIENTO 2',1,1);">
+                <area target="" alt="3" title="3" href="#" coords="249,125,283,156" shape="rect" data-toggle="modal" data-target="#ModOrdenF" onclick="fcnCargarDatosModal(0,3,'ASIENTO 3',1,1);">
+                <area shape="default" nohref="nohref" alt="" />
+            </map>
+    </div>
+</div>
+
+   <!-- VENTANA MODAL -->
+   <div class="modal fade" id="ModOrdenF" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label class="modal-title text-danger h3">Asignar Asiento</label>
+                    <label>No. de Asiento: <b id="txtDataCodigo">0</b></label>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Descripción del asiento: </label>
+                            <label class="text-danger" id="txtDataDescripcion">.</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Sala : </label>
+                            <label id="txtDataSala" class="">.</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Ubicación : </label>
+                            <label id="txtDataUbicacion" class="">.</label>
+                        </div>
+    
+                        <hr class="sidebar-divider">
+
+                        <div class="form-group">
+                            <label>No. Factura : </label>
+                            <input type="number" id="txtDataFactura" class="form-control">
+                        </div>
+       
+                    </div>
+                </div>
+    
+                <div class="modal-footer">
+                   
+                    <button type="button" class="btn btn-info btn-round" id="" data-dismiss="modal">
+                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                        CANCELAR
+                    </button>
+                    
+                    <button type="button" class="btn btn-wine btn-round" id="" data-dismiss="modal">
+                        <i class="now-ui-icons ui-1_check"></i>
+                        ASIGNAR
+                    </button>
+                
+                </div>
+            </div>
+        </div>
+    </div>
