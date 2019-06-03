@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const config = {user: 'DB_A45479_EXPRESS_admin',password: 'razors1805',server: 'sql7002.site4now.net',database: 'DB_A45479_EXPRESS',pool: {	max: 100,	min: 0,	idleTimeoutMillis: 30000}};
-//const config = {user: 'iEx', password: 'iEx', server: 'SERVIDORPG\\SQLEXPRESS', database: 'EXPRESS-CINEMA', pool: {max: 100,min: 0,idleTimeoutMillis: 30000}};
+//const config = {user: 'iEx', password: 'iEx', server: 'SERVERALEXIS\\SQLEXPRESS', database: 'EXPRESS-CINEMA', pool: {max: 100,min: 0,idleTimeoutMillis: 30000}};
 
 //const sqlString = 'mssql://' + config.user + ':' + config.password + '@' + config.server + '/' + config.database;
 
@@ -18,7 +18,7 @@ router.get("/asientos", async(req,res)=>{
 	const pool = await sql.connect(config)		
 		try {
 			const result = await sql.query `SELECT CINEMA_ASIENTOS.CODASIENTO, CINEMA_ASIENTOS.CODIGO, CINEMA_ASIENTOS.DESCRIPCION, CINEMA_ASIENTOS.CODSALA, CINEMA_SALAS.DESSALA, CINEMA_ASIENTOS.CODUBICACION, 
-								CINEMA_UBICACIONES.DESUBICACION, CINEMA_ASIENTOS.OCUPADO, CINEMA_ASIENTOS.FILA
+								CINEMA_UBICACIONES.DESUBICACION, CINEMA_ASIENTOS.OCUPADO, CINEMA_ASIENTOS.FILA, CINEMA_ASIENTOS.COORDS
 								FROM CINEMA_ASIENTOS LEFT OUTER JOIN
 								CINEMA_UBICACIONES ON CINEMA_ASIENTOS.CODUBICACION = CINEMA_UBICACIONES.CODUBICACION LEFT OUTER JOIN
 								CINEMA_SALAS ON CINEMA_ASIENTOS.CODSALA = CINEMA_SALAS.CODSALA

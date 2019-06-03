@@ -1,45 +1,62 @@
-<div class="card">
-    <div class="card-header">
-        <h4>Asignación de Asientos</h4>
-    </div>
+<section class="no-padding-top no-padding-bottom">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="card">
 
-    <div class="card-body card-group">
+                    <div class="card-body card-group">
+                        <div class="form-group col-12">
+                            <label>Seleccione una sala</label>
+                            <select class="form-control col-lg-12 col-sm-12 col-md-12" id="cmbSalas"></select>
+                        </div>
+                    </div>
 
-        <div class="form-group col-4">
-            <label>Seleccione una sala</label>
-            <select class="form-control col-lg-8 col-sm-10 col-md-8" id="cmbSalas"></select>
-        </div>
+                </div>
+            </div>
 
-        <div class="form-group col-4">
-            <label>Filtrar por</label>
-            <select class="form-control col-lg-8 col-sm-10 col-md-8" id="cmbStatus">
-                <option value="todas">TODAS</option>
-                <option value="disponibles">DISPONIBLES</option>
-                <option value="ocupadas">OCUPADAS</option>
-            </select>
-        </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="statistic-block block">
 
-        <div class="form-group col-4">
-            <button class="btn btn-icon btn-round">
-                <i class="now-ui-icons settings"></i>
-            </button>
-         </div>
+                    <div class="progress-details d-flex align-items-end justify-content-between">
+                        <div class="title">
+                            <div class="icon">
+                                <i class="icon-user-1"></i>
+                            </div>
+                            <label>Asientos Ocupados</label>
+                        </div>
+                        <div class="number text-primary">27</div>
+                    </div>
+                   
+                    <div class="progress-details d-flex align-items-end justify-content-between">
+                        <div class="title">
+                            <div class="icon">
+                                
+                            </div>
+                            <label>Asientos Disponibles</label>
+                            </div>
+                        <div class="number text-warning">110</div>
+                    </div>
     
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+
 
 <div class="card">
     <br>
-    <div class="card-group" id="tblAsientos">
-
-        <img src="../salas/SALA1.png" usemap="#image-map" id="mapaSala">
-
-            <map name="image-map">
-                <area target="" alt="1" title="1" href="#" coords="143,125,174,155" shape="rect" data-toggle="modal" data-target="#ModOrdenF" onclick="fcnCargarDatosModal(0,1,'ASIENTO 1',1,1);">
+    <div class="" id="mapcontainer">
+  
+  
+        <!--<img src="../salas/SALA1.png" usemap="#image-map" id="mapimage">
+            <map name="image-map" id="mapcontainer">
+                <area alt="1" title="1" href="#" coords="143,125,174,155" shape="rect" data-maphilight='{"stroke":false,"fillColor":"000000","fillOpacity":1,"alwaysOn":true}'>
                 <area target="" alt="2" title="2" href="#" coords="195,124,229,157" shape="rect" data-toggle="modal" data-target="#ModOrdenF" onclick="fcnCargarDatosModal(0,2,'ASIENTO 2',1,1);">
                 <area target="" alt="3" title="3" href="#" coords="249,125,283,156" shape="rect" data-toggle="modal" data-target="#ModOrdenF" onclick="fcnCargarDatosModal(0,3,'ASIENTO 3',1,1);">
-                <area shape="default" nohref="nohref" alt="" />
             </map>
+        -->  
+                
     </div>
 </div>
 

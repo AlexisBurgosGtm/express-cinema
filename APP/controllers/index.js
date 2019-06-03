@@ -6,14 +6,14 @@ let btnSalir = document.getElementById('btnSalir');
 
 
 function Iniciarlizar(){
-    btnInicio.click();
+    //btnInicio.click();
 }
 // botón inicio o cartelera
 btnInicio.addEventListener('click',(e)=>{
     e.preventDefault();
     funciones.loadView('../views/viewInicio.html','root')
         .then(()=>{
-            btnToggler.click();
+            //btnToggler.click();
         })
 });
 
@@ -25,13 +25,14 @@ btnAsignar.addEventListener('click',(e)=>{
         .then(()=>{
             funciones.loadScript('../controllers/classAsignar.js','root')
             .then(async ()=>{
-                await fcnCargarCmbSalas('cmbSalas');
-                await fcnCargarButacas('tblAsientos',1);
               
+                await fcnCargarCmbSalas('cmbSalas','mapimage');
+                await fcnCargarButacas('mapcontainer',1);  
+                    
             })
         })
     
-        btnToggler.click();
+        //btnToggler.click();
 });
 
 // boton Config
@@ -40,7 +41,7 @@ btnConfig.addEventListener('click', (e)=>{
     
     funciones.loadView('../views/viewConfig.html','root')
         .then(()=>{
-            btnToggler.click();
+            //btnToggler.click();
         })
 });
 // boton salir
