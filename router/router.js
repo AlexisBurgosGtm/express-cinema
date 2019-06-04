@@ -56,9 +56,9 @@ router.put("/ocupar", async(req,res)=>{
 
 	try {sql.close()} catch (error) {}
 
-	let noasiento = Number(req.body.noasiento);
+	let codasiento = Number(req.body.codasiento);
 			
-	let sqlQry = `UPDATE CINEMA_ASIENTOS SET OCUPADO='SI' WHERE CODASIENTO=${noasiento}`
+	let sqlQry = `UPDATE CINEMA_ASIENTOS SET OCUPADO='SI' WHERE CODASIENTO=${codasiento}`
 		
 		const pool1 = await new sql.ConnectionPool(config, err => {
 			// Query
@@ -84,7 +84,7 @@ router.put("/desocupar", async(req,res)=>{
 
 	try {sql.close()} catch (error) {}
 
-	let noasiento = Number(req.body.noasiento);
+	let noasiento = Number(req.body.codasiento);
 			
 	let sqlQry = `UPDATE CINEMA_ASIENTOS SET OCUPADO='NO' WHERE CODASIENTO=${noasiento}`
 		

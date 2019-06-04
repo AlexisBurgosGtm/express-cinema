@@ -42,11 +42,35 @@ async function fcnCargarButacas(idContainer,codsala){
     })      
 };
 
-function fcnReHabilitarAsiento(idAsiento){
+async function fcnReHabilitarAsiento(idAsiento){
     funciones.Confirmacion('¿Está seguro que desea Re-Habilitar este Asiento?')
-        .then((value)=>{
+        .then(async (value)=>{
             if(value==true){
-               alert('asiento habilitado') 
+                var data =JSON.stringify({
+                    codasiento:idAsiento
+                });
+                          
+                var peticion = new Request('/api/desocupar', {
+                    method: 'PUT',
+                    headers: new Headers({
+                      // Encabezados
+                        'Content-Type': 'application/json'
+                    }),
+                    body: data
+                });
+                await fetch(peticion)
+                    .then(async function(res) {
+                        console.log('Estado: ', res.status);
+                        if (res.status==200)
+                            {   
+                                await fcnCargarButacas('mapcontainer',Number(cmbSalas.value));
+                            }
+                        })
+                    .catch(
+                        ()=>{
+                            console.log('Error al tratar de actualizar el correlativo')
+                        }
+                    )      
             }
         })
 };
@@ -72,13 +96,51 @@ async function fcnCargarCmbSalas(idContainer,idmage){
 };
 
 async function fcnCargarDatosModal(codasiento,codigo,descripcion,sala,ubicacion){
-    
+    $('#ModOrdenF').modal('show');
     document.getElementById('txtDataCodigo').innerText = codigo;
     document.getElementById('txtDataDescripcion').innerText = descripcion;
     document.getElementById('txtDataSala').innerText = sala;
     document.getElementById('txtDataUbicacion').innerText = ubicacion;
+
+    btnAsignarAsiento.addEventListener('click', ()=>{
+        fcnAsignarAsiento(codasiento);
+        
+    })
 };
 
-//$(document).ready(function(e) {
-    //$('img[usemap]').rwdImageMaps();
-//});
+let btnAsignarAsiento = document.getElementById('btnAsignarAsiento');
+
+async function fcnAsignarAsiento(idAsiento){
+    var data =JSON.stringify({
+        codasiento:idAsiento
+    });
+              
+    var peticion = new Request('/api/ocupar', {
+        method: 'PUT',
+        headers: new Headers({
+          // Encabezados
+            'Content-Type': 'application/json'
+        }),
+        body: data
+    });
+    await fetch(peticion)
+        .then(async function(res) {
+            console.log('Estado: ', res.status);
+            if (res.status==200)
+                {   
+                    await fcnCargarButacas('mapcontainer',Number(cmbSalas.value));  
+                    document.getElementById('btnCancelarAsignar').click();;
+                }
+            })
+        .catch(
+            ()=>{
+                console.log('Error al tratar de actualizar el correlativo')
+            }
+        )              
+};
+
+let cmbSalas = document.getElementById('cmbSalas');
+
+cmbSalas.addEventListener('change',async ()=>{
+    await fcnCargarButacas('mapcontainer',Number(cmbSalas.value));  
+})
