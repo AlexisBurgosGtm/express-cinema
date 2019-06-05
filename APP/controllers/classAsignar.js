@@ -1,10 +1,32 @@
 
-
 async function fcnCargarButacas(idContainer,codsala){
+    
+    let strViewSala = '';
 
-    funciones.loadView('../views/sala1.html', idContainer)
+    if (Number(codsala)==1){
+        strViewSala ='../views/sala1.html'
+    };
+
+    if (Number(codsala)==2){
+        strViewSala ='../views/sala2.html'
+    };
+
+    
+    funciones.loadView(strViewSala, idContainer)
     .then(async()=>{
-        
+
+        await fcnCargarGrid(Number(codsala));
+   
+    })      
+};
+
+async function fcnCargarGrid(codsala){
+
+        let contadorOcupadas =0; 
+        let contadorDisponibles = 0;
+        let Ocupadas = document.getElementById('txtOcupadas');
+        let Disponibles = document.getElementById('txtDisponibles');
+
         try {
             const response = await fetch(`/api/asientos?codsala=${codsala}`) //&st=${status}`)
             const json = await response.json();
@@ -12,18 +34,29 @@ async function fcnCargarButacas(idContainer,codsala){
             json.recordset.map((rows)=>{
                 try {
                     if (rows.OCUPADO=='SI'){
+                        contadorOcupadas += 1;
+                        
                         var id ='btn' + rows.FILA.toString() + 'Asiento' + rows.CODIGO.toString();
-                        document.getElementById(id).className = "btn btn-icon btn-md bg-danger text-white"
-                        document.getElementById(id).addEventListener('click',()=>{
+                        let btn = document.getElementById(id);
+                        btn.className = "btn btn-icon btn-md bg-danger text-white"
+
+                        btn.removeEventListener('click',(btn,MouseEvent))
+
+                        btn.addEventListener('click',()=>{
                             fcnReHabilitarAsiento(rows.CODASIENTO);
                         })
                     }
                     if (rows.OCUPADO=='NO'){
+                        contadorDisponibles += 1;
+                        
                         var id ='btn' + rows.FILA.toString() + 'Asiento' + rows.CODIGO.toString();
                         let btn = document.getElementById(id);
                         btn.className = "btn btn-icon btn-md bg-warning";
+                        
+                        btn.removeEventListener('click',(btn,MouseEvent))
+
                         btn.addEventListener('click',()=>{
-                            fcnCargarDatosModal(rows.CODASIENTO,rows.CODIGO,rows.DESCRIPCION,codsala,rows.DESUBICACION)
+                            fcnCargarDatosModal(rows.CODASIENTO,rows.CODIGO, 'Asiento No. ' + rows.CODIGO + ' en Fila ' + rows.FILA, codsala,rows.DESUBICACION)
                         });    
                     }
 
@@ -32,14 +65,15 @@ async function fcnCargarButacas(idContainer,codsala){
                 }
                 
             }).join('\n');
-       
+            
+            Disponibles.innerHTML = contadorDisponibles;
+            Ocupadas.innerHTML = contadorOcupadas;
         
         } catch (error) {
             console.log('NO SE LOGRO CARGAR LA LISTA DE ORDENES ' + error);
             //funciones.AvisoError('No se pudo cargar la lista de Ordenes pendientes');
         }
-   
-    })      
+       
 };
 
 async function fcnReHabilitarAsiento(idAsiento){
@@ -63,12 +97,12 @@ async function fcnReHabilitarAsiento(idAsiento){
                         console.log('Estado: ', res.status);
                         if (res.status==200)
                             {   
-                                await fcnCargarButacas('mapcontainer',Number(cmbSalas.value));
+                                await fcnCargarGrid(Number(cmbSalas.value));
                             }
                         })
                     .catch(
                         ()=>{
-                            console.log('Error al tratar de actualizar el correlativo')
+                            funciones.AvisoError('No se pudo DesOcupar este asiento');
                         }
                     )      
             }
@@ -100,15 +134,13 @@ async function fcnCargarDatosModal(codasiento,codigo,descripcion,sala,ubicacion)
     document.getElementById('txtDataCodigo').innerText = codigo;
     document.getElementById('txtDataDescripcion').innerText = descripcion;
     document.getElementById('txtDataSala').innerText = sala;
-    document.getElementById('txtDataUbicacion').innerText = ubicacion;
+    //document.getElementById('txtDataUbicacion').innerText = ubicacion;
 
     btnAsignarAsiento.addEventListener('click', ()=>{
         fcnAsignarAsiento(codasiento);
         
     })
 };
-
-let btnAsignarAsiento = document.getElementById('btnAsignarAsiento');
 
 async function fcnAsignarAsiento(idAsiento){
     var data =JSON.stringify({
@@ -128,19 +160,76 @@ async function fcnAsignarAsiento(idAsiento){
             console.log('Estado: ', res.status);
             if (res.status==200)
                 {   
-                    await fcnCargarButacas('mapcontainer',Number(cmbSalas.value));  
+                    await funciones.Aviso("Asiento asignado con éxito");
+                    await fcnCargarGrid(Number(cmbSalas.value));
                     document.getElementById('btnCancelarAsignar').click();;
                 }
             })
         .catch(
             ()=>{
-                console.log('Error al tratar de actualizar el correlativo')
+                //console.log('Error al tratar de actualizar el correlativo')
+                funciones.AvisoError('No se pudo Ocupar este asiento');
             }
         )              
 };
 
-let cmbSalas = document.getElementById('cmbSalas');
+async function fcnReHabilitarTodos(){
 
-cmbSalas.addEventListener('change',async ()=>{
-    await fcnCargarButacas('mapcontainer',Number(cmbSalas.value));  
-})
+    funciones.Confirmacion('¿Está seguro que desea Re-Habilitar TODOS LOS ASIENTOS DE ESTA SALA?')
+        .then(async (value)=>{
+            if(value==true){
+
+                var data =JSON.stringify({
+                    codsala: Number(cmbSalas.value)
+                });
+                                          
+                var peticion = new Request('/api/desocupartodos', {
+                    method: 'PUT',
+                    headers: new Headers({
+                      // Encabezados
+                        'Content-Type': 'application/json'
+                    }),
+                    body: data
+                });
+                await fetch(peticion)
+                    .then(async function(res) {
+                        console.log('Estado: ', res.status);
+                        if (res.status==200)
+                            { 
+                                funciones.Aviso('Todos los asientos han sido desocupados');
+                                await fcnCargarGrid(Number(cmbSalas.value));
+                            }
+                        })
+                    .catch(
+                        ()=>{
+                            funciones.AvisoError('No se pudo DesOcupar todos los asientos');
+                        }
+                    )      
+            }
+        })
+};
+
+let btnAsignarAsiento;
+let cmbSalas;
+let btnLiberarAsientos;
+
+function fcnAsignarBotones(){
+    try {
+        btnAsignarAsiento = document.getElementById('btnAsignarAsiento');
+        cmbSalas = document.getElementById('cmbSalas');
+        btnLiberarAsientos = document.getElementById('btnLiberarAsientos');
+    } catch (error) {
+        
+    }
+
+    cmbSalas.addEventListener('change',async ()=>{
+        await fcnCargarButacas('mapcontainer',Number(cmbSalas.value));  
+    });
+
+    btnLiberarAsientos.addEventListener('click',()=>{
+        fcnReHabilitarTodos();
+    })
+
+}
+
+

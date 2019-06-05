@@ -3,10 +3,14 @@ let btnInicio = document.getElementById('btnInicio');
 let btnAsignar = document.getElementById('btnAsignar');
 let btnConfig = document.getElementById('btnConfig');
 let btnSalir = document.getElementById('btnSalir');
+let btnLoginIniciar = document.getElementById('btnLoginIniciar');
 
 
 function Iniciarlizar(){
     //btnInicio.click();
+    btnAsignar.click();
+    btnSalir.click();
+        
 }
 // botón inicio o cartelera
 btnInicio.addEventListener('click',(e)=>{
@@ -25,7 +29,8 @@ btnAsignar.addEventListener('click',(e)=>{
         .then(()=>{
             funciones.loadScript('../controllers/classAsignar.js','root')
             .then(async ()=>{
-              
+                
+                fcnAsignarBotones();
                 await fcnCargarCmbSalas('cmbSalas','mapimage');
                 await fcnCargarButacas('mapcontainer',1);  
                     
@@ -44,14 +49,44 @@ btnConfig.addEventListener('click', (e)=>{
             //btnToggler.click();
         })
 });
+
 // boton salir
-btnSalir.addEventListener('click',()=>{
-    Iniciarlizar();
+btnSalir.addEventListener('click',(e)=>{
+    e.preventDefault();
+    $('.search-panel').fadeIn(100);
 })
 
+// boton login iniciar
+btnLoginIniciar.addEventListener('click',()=>{
+    fcnLogin(document.getElementById('txtLoginUser').value,document.getElementById('txtLoginPass').value);
+})
 
 Iniciarlizar();
 
+async function fcnLogin(user,pass){
+
+    let nivel = 0;
+    try {
+        const response = await fetch(`/api/usuarios?user=${user}&pass=${pass}`) //&st=${status}`)
+        const json = await response.json();
+        
+        json.recordset.map((rows)=>{
+            nivel=  Number(rows.NIVEL);
+       }).join('\n');
+
+       
+    } catch (error) {
+        return 0;
+    }
+
+    if (nivel==0){
+        funciones.AvisoError('Su usuario o contraseña son incorrectos');
+    }else{
+        $('.search-panel').fadeOut(100);
+        document.getElementById('txtLoginUser').value = '';
+        document.getElementById('txtLoginPass').value = '';
+    }
+}
 
 // SOCKET
 socket.on('orden nueva', async function(msg){

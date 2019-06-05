@@ -5,9 +5,16 @@
                 <div class="card">
 
                     <div class="card-body card-group">
-                        <div class="form-group col-12">
+                        <div class="form-group col-10">
                             <label>Seleccione una sala</label>
                             <select class="form-control col-lg-12 col-sm-12 col-md-12" id="cmbSalas"></select>
+                            
+                        </div>
+                        <div class="col-2">
+                            <label> </label><br>
+                            <button class="btn btn-sm btn-danger" id="btnLiberarAsientos">
+                                <i class="icon-settings"></i>
+                            </button>
                         </div>
                     </div>
 
@@ -24,7 +31,7 @@
                             </div>
                             <label>Asientos Ocupados</label>
                         </div>
-                        <div class="number text-primary">27</div>
+                        <div class="number text-primary" id="txtOcupadas">0</div>
                     </div>
                    
                     <div class="progress-details d-flex align-items-end justify-content-between">
@@ -34,7 +41,7 @@
                             </div>
                             <label>Asientos Disponibles</label>
                             </div>
-                        <div class="number text-warning">110</div>
+                        <div class="number text-warning" id="txtDisponibles">0</div>
                     </div>
     
                 </div>
@@ -78,11 +85,12 @@
                             <label>Sala : </label>
                             <label id="txtDataSala" class="">.</label>
                         </div>
+                        <!--
                         <div class="form-group">
                             <label>Ubicación : </label>
                             <label id="txtDataUbicacion" class="">.</label>
                         </div>
-    
+                        -->
                         <hr class="sidebar-divider">
 
                         <div class="form-group">

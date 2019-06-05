@@ -31,16 +31,30 @@
     <header class="header">   
       <nav class="navbar navbar-expand-lg">
 
+        <!-- formulario de login -->
         <div class="search-panel">
           <div class="search-inner d-flex align-items-center justify-content-center">
+            <!--
             <div class="close-btn">Cerrar <i class="fa fa-close"></i></div>
-
-            <form id="searchForm" action="#">
+            -->
+            <div id="searchForm">
               <div class="form-group">
-                <input type="search" name="search" placeholder="What are you searching for...">
-                <button type="submit" class="submit">Search</button>
+                <label>Usuario:</label>
+                <input type="text" placeholder="..." id="txtLoginUser">
               </div>
-            </form>
+
+              <div class="form-group">
+                  <label>Contraseña:</label>
+                  <input type="password" placeholder="..." id="txtLoginPass">
+              </div>
+
+              <div class="form-group">
+                <button class="form-control bg-primary" id="btnLoginIniciar">Iniciar</button>
+              </div>
+  
+
+            </div>
+
           </div>
         </div>
 
@@ -57,7 +71,14 @@
           </div>
 
           <div class="right-menu list-inline no-margin-bottom">    
-            <div class="list-inline-item"><a href="#" class="search-open nav-link"><i class="icon-magnifying-glass-browser"></i></a></div>
+            <!-- boton de la lupa -->
+            <div class="list-inline-item">
+              <!--
+              <a href="#" class="search-open nav-link">
+                <i class="icon-magnifying-glass-browser"></i>
+              </a>
+              -->
+            </div>
           
             <!-- Tasks-->
             <div class="list-inline-item dropdown">
@@ -82,13 +103,7 @@
 
             </div>
             <!-- Tasks end-->
-               
-            <!-- Log out               -->
-            <div class="list-inline-item logout">
-              <a id="logout" href="#" class="nav-link">
-                Salir<i class="icon-logout"></i>
-              </a>
-            </div>
+    
 
           </div>
 
@@ -103,19 +118,30 @@
         <!-- Sidebar Navidation Menus-->
         <span class="heading"></span>
         <ul class="list-unstyled">
-                <li class="active">
+          
+                <li class="">
                   <a href="#" id="btnInicio"><i class="icon-home"></i>Inicio</a>
                 </li>
-                <li><a href="#" id="btnAsignar"> <i class="icon-grid"></i>Salas</a></li>
-                <li><a href="#" id="btnConfig"> <i class="icon-grid"></i>Config</a></li>
-                <li><a href="#" id="btnSalir"> <i class="icon-logout"></i>Salir</a></li>
+                
+                <li class="active">
+                  <a href="#" id="btnAsignar">
+                    <i class="icon-writing-whiteboard"></i>Salas</a>
+                </li>
+
+                <li>
+                  <a href="#" id="btnConfig"> <i class="icon-settings"></i>Config</a>
+                </li>
+                
+                <li>
+                  <a href="#" id="btnSalir"> <i class="icon-logout"></i>Salir</a>
+                </li>
         </ul>
         
       </nav>
       <!-- Sidebar Navigation end-->
       <div class="page-content">
           <div class="page-header">
-            
+       
           </div>
        
         <section class="no-padding-top no-padding-bottom">

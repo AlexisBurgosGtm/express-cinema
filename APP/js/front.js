@@ -92,6 +92,7 @@ $(function () {
         e.preventDefault();
         $('.search-panel').fadeIn(100);
     })
+    
     $('.search-panel .close-btn').on('click', function () {
         $('.search-panel').fadeOut(100);
     });
