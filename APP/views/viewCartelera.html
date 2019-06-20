@@ -1,0 +1,107 @@
+<section class="no-padding-top no-padding-bottom">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-6 col-sm-6 col-lg-6">
+                <div class="form-group">
+                    <label>Fecha: </label>
+                    <input type="date" class="form-control" id="txtFecha">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-6">
+                <div class="form-group text-right">
+                    <label>Configurar Cartelera: </label>
+                    <button class="btn btn-sm btn-danger btn-circle" id="btnConfigCartelera" onclick="funciones.loadView('../views/viewConfigCartelera.html','root');">
+                        <i class="icon-settings"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+</section>
+
+<div class="no-padding-top no-padding-bottom">
+    <div class="">
+        <div class="card col-12">
+            <h2 class="text-white text-center">SALA NO. 1</h2>
+        </div>
+        <div class="card-deck">
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card text-center">
+                    <h5 class="text-white">Jhon Wick 1</h5>
+                    <span>Horario: 08:00 a 10:00</span>
+                    <button class="form-control btn-info text-white" onclick="btnAsignar.click();">Seleccionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="card col-12">
+            <h2 class="text-white text-center">SALA NO. 2</h2>
+        </div>
+        <div class="card-deck">
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card text-center">
+                    <h5 class="text-white">Jhon Wick 1</h5>
+                    <span>Horario: 08:00 a 10:00</span>
+                    <button class="form-control btn-info text-white" onclick="btnAsignar.click();">Seleccionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+   <!-- VENTANA MODAL -->
+   <div class="modal fade" id="ModSalas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label class="modal-title text-danger h3">Asignar Asiento</label>
+                <label>No. de Asiento: <b id="txtDataCodigo">0</b></label>
+            </div>
+            <div class="modal-body">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label>Descripción del asiento: </label>
+                        <label class="text-danger" id="txtDataDescripcion">.</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Sala : </label>
+                        <label id="txtDataSala" class="">.</label>
+                    </div>
+                    <!--
+                    <div class="form-group">
+                        <label>Ubicación : </label>
+                        <label id="txtDataUbicacion" class="">.</label>
+                    </div>
+                    -->
+                    <hr class="sidebar-divider">
+
+                    <div class="form-group">
+                        <label>No. Factura : </label>
+                        <input type="number" id="txtDataFactura" class="form-control">
+                    </div>
+   
+                </div>
+            </div>
+
+            <div class="modal-footer">
+               
+                <button type="button" class="btn btn-info btn-round" id="btnCancelarAsignar" data-dismiss="modal">
+                    <i class="now-ui-icons ui-1_simple-remove"></i>
+                    CANCELAR
+                </button>
+                
+                <button type="button" class="btn btn-success btn-round" id="btnAsignarAsiento">
+                    <i class="now-ui-icons ui-1_check"></i>
+                    ASIGNAR
+                </button>
+            
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 let btnToggler = document.getElementById('btnToggler');
-let btnInicio = document.getElementById('btnInicio');
+//let btnInicio = document.getElementById('btnInicio');
+let btnCartelera = document.getElementById('btnCartelera');
 let btnAsignar = document.getElementById('btnAsignar');
 let btnConfig = document.getElementById('btnConfig');
 let btnSalir = document.getElementById('btnSalir');
@@ -8,14 +9,14 @@ let btnLoginIniciar = document.getElementById('btnLoginIniciar');
 
 function Iniciarlizar(){
     //btnInicio.click();
-    btnAsignar.click();
-    btnSalir.click();
+    $('.search-panel').fadeIn(100);
+    funciones.loadView('../views/viewCartelera.html','root')
         
 }
 // botón inicio o cartelera
-btnInicio.addEventListener('click',(e)=>{
+btnCartelera.addEventListener('click',(e)=>{
     e.preventDefault();
-    funciones.loadView('../views/viewInicio.html','root')
+    funciones.loadView('../views/viewCartelera.html','root')
         .then(()=>{
             //btnToggler.click();
         })
@@ -30,7 +31,7 @@ btnAsignar.addEventListener('click',(e)=>{
             funciones.loadScript('../controllers/classAsignar.js','root')
             .then(async ()=>{
                 
-                fcnAsignarBotones();
+                //fcnAsignarBotones();
                 await fcnCargarCmbSalas('cmbSalas','mapimage');
                 await fcnCargarButacas('mapcontainer',1);  
                     
@@ -61,7 +62,6 @@ btnLoginIniciar.addEventListener('click',()=>{
     fcnLogin(document.getElementById('txtLoginUser').value,document.getElementById('txtLoginPass').value);
 })
 
-Iniciarlizar();
 
 async function fcnLogin(user,pass){
 
@@ -96,3 +96,6 @@ socket.on('orden nueva', async function(msg){
       console.log('No se logró cargar el listado luego del socket')
     }
 });
+
+
+Iniciarlizar();

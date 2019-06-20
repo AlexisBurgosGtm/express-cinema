@@ -30,7 +30,6 @@
   <body>
     <header class="header">   
       <nav class="navbar navbar-expand-lg">
-
         <!-- formulario de login -->
         <div class="search-panel">
           <div class="search-inner d-flex align-items-center justify-content-center">
@@ -49,7 +48,7 @@
               </div>
 
               <div class="form-group">
-                <button class="form-control bg-primary" id="btnLoginIniciar">Iniciar</button>
+                <button class="form-control bg-primary btn-rounded" id="btnLoginIniciar">Iniciar</button>
               </div>
   
 
@@ -108,35 +107,49 @@
           </div>
 
         </div>
+
       </nav>
     </header>
     
     <div class="d-flex align-items-stretch">
       <!-- Sidebar Navigation-->
       <nav id="sidebar">
-
         <!-- Sidebar Navidation Menus-->
         <span class="heading"></span>
         <ul class="list-unstyled">
-          
                 <li class="">
-                  <a href="#" id="btnInicio"><i class="icon-home"></i>Inicio</a>
-                </li>
-                
-                <li class="active">
-                  <a href="#" id="btnAsignar">
-                    <i class="icon-writing-whiteboard"></i>Salas</a>
+                  <a href="#" id="btnCartelera">
+                    <i class="icon-home"></i>Cartelera
+                  </a>
                 </li>
 
                 <li>
-                  <a href="#" id="btnConfig"> <i class="icon-settings"></i>Config</a>
+                  <a href="#" id="btnFull" onclick="document.body.requestFullscreen();">
+                    <i class="icon-settings"></i>FullScreen
+                  </a>
+                </li>
+  
+
+                <li>
+                  <a href="#" id="btnConfig">
+                    <i class="icon-settings"></i>Config
+                  </a>
+                </li>
+                  
+                <li>
+                  <a href="#" id="btnSalir">
+                    <i class="icon-logout"></i>Salir
+                  </a>
+                </li>
+  
+                
+                <li class=""" style="visibility: hidden">
+                  <a href="#" id="btnAsignar">
+                    <i class="icon-writing-whiteboard"></i>Salas
+                  </a>
                 </li>
                 
-                <li>
-                  <a href="#" id="btnSalir"> <i class="icon-logout"></i>Salir</a>
-                </li>
         </ul>
-        
       </nav>
       <!-- Sidebar Navigation end-->
       <div class="page-content">
@@ -153,7 +166,7 @@
         <footer class="footer">
           <div class="footer__block block no-margin-bottom">
             <div class="container-fluid text-center">
-               <p class="no-margin-bottom">2019 &copy; <a href="https://api.whatsapp.com/send?phone=50257255092&text=Hola,%20me%20interesa%20este%20sistema%20(Express-Cinema)">Express-Apps</a>.</p>
+               <p class="no-margin-bottom">2019 &copy; <a href="https://api.whatsapp.com/send?phone=50257255092&text=Hola,%20me%20interesa%20este%20sistema%20(Express-Cinema)">Community-Apps</a>.</p>
             </div>
           </div>
         </footer>

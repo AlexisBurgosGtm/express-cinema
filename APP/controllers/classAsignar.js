@@ -40,11 +40,11 @@ async function fcnCargarGrid(codsala){
                         let btn = document.getElementById(id);
                         btn.className = "btn btn-icon btn-md bg-danger text-white"
 
-                        btn.removeEventListener('click',(btn,MouseEvent))
+                        //btn.removeEventListener('click',fcnReHabilitarAsiento())
 
-                        btn.addEventListener('click',()=>{
-                            fcnReHabilitarAsiento(rows.CODASIENTO);
-                        })
+                        //btn.addEventListener('click',()=>{
+                         //   fcnReHabilitarAsiento(rows.CODASIENTO);
+                        //})
                     }
                     if (rows.OCUPADO=='NO'){
                         contadorDisponibles += 1;
@@ -53,11 +53,11 @@ async function fcnCargarGrid(codsala){
                         let btn = document.getElementById(id);
                         btn.className = "btn btn-icon btn-md bg-warning";
                         
-                        btn.removeEventListener('click',(btn,MouseEvent))
+                        //btn.removeEventListener('click',fcnCargarDatosModal())
 
-                        btn.addEventListener('click',()=>{
-                            fcnCargarDatosModal(rows.CODASIENTO,rows.CODIGO, 'Asiento No. ' + rows.CODIGO + ' en Fila ' + rows.FILA, codsala,rows.DESUBICACION)
-                        });    
+                        //btn.addEventListener('click',()=>{
+                          //  fcnCargarDatosModal(rows.CODASIENTO,rows.CODIGO, 'Asiento No. ' + rows.CODIGO + ' en Fila ' + rows.FILA, codsala,rows.DESUBICACION)
+                        //});    
                     }
 
                 } catch (error) {
