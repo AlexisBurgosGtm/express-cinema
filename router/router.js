@@ -4,7 +4,6 @@ const router = express.Router();
 const config = {user: 'DB_A45479_EXPRESS_admin',password: 'razors1805',server: 'sql7002.site4now.net',database: 'DB_A45479_EXPRESS',pool: {	max: 100,	min: 0,	idleTimeoutMillis: 30000}};
 //const config = {user: 'iEx', password: 'iEx', server: 'SERVERALEXIS\\SQLEXPRESS', database: 'EXPRESS-CINEMA', pool: {max: 100,min: 0,idleTimeoutMillis: 30000}};
 
-//const sqlString = 'mssql://' + config.user + ':' + config.password + '@' + config.server + '/' + config.database;
 
 // OBTIENE LA LISTA DE ASIENTOS DE UNA SALA
 router.get("/asientos", async(req,res)=>{
@@ -157,5 +156,93 @@ router.get("/usuarios", async(req,res)=>{
 			sql.close()
 });
 
+// INSERTA UN REGISTRO EN LA TABLA CARTELERA
+router.post("/nuevapelicula", async(req,res)=>{
+	const sql = require('mssql')
+
+	try {sql.close()} catch (error) {}
+
+	
+	let _anio = Number(req.body.anio);
+	let _mes = Number(req.body.mes);
+	let _dia = Number(req.body.dia);
+	let _hora = req.body.hora;
+	let _minuto = req.body.minuto;
+	let _horaf = req.body.horafin;
+	let _minutof = req.body.minutofin;
+	let _titulo = req.body.titulo;
+	let _codsala = Number(req.body.codsala);
+		
+	let sqlQry = `INSERT INTO CINEMA_CARTELERA (ANIO,MES,DIA,HORA,MINUTO,HORAFIN,MINUTOFIN,TITULO,CODSALA) 
+				  VALUES (${_anio},${_mes},${_dia},'${_hora}','${_minuto}','${_horaf}','${_minutof}','${_titulo}',${_codsala})`
+		
+		const pool1 = await new sql.ConnectionPool(config, err => {
+			// Query
+			new sql.Request(pool1)			
+			 .query(sqlQry, (err, result) => {
+				if (result.rowsAffected){
+					res.send('Nueva pelicula agregada...')
+				}
+			});
+			//sql.close()
+			//pool1.release();
+		})
+		pool1.on('error', err => {
+			// ... error handler
+			console.log('Error al finalizar: ' + err)
+		})
+});
+
+
+// OBTIENE TODAS LAS PELÍCULAS EN CARTELERA
+router.get("/cartelera", async(req,res)=>{
+	const sql = require('mssql')
+	
+	let _anio = req.query.anio;
+	let _mes = req.query.mes;
+	let _dia = req.query.dia;
+
+	try {sql.close()} catch (error) {};
+
+	const pool = await sql.connect(config)		
+		try {
+			const result = await sql.query `SELECT CINEMA_CARTELERA.ID, CINEMA_CARTELERA.ANIO, CINEMA_CARTELERA.MES, CINEMA_CARTELERA.DIA, CINEMA_CARTELERA.HORA, CINEMA_CARTELERA.MINUTO, CINEMA_CARTELERA.HORAFIN, CINEMA_CARTELERA.MINUTOFIN, CINEMA_CARTELERA.TITULO,CINEMA_CARTELERA.CODSALA, CINEMA_SALAS.DESSALA
+											FROM CINEMA_CARTELERA LEFT OUTER JOIN CINEMA_SALAS ON CINEMA_CARTELERA.CODSALA = CINEMA_SALAS.CODSALA`
+				//WHERE (CINEMA_CARTELERA.ANIO = ${_anio}) AND (CINEMA_CARTELERA.MES = ${_mes}) AND (CINEMA_CARTELERA.DIA = ${_dia})
+				res.send(result);
+				console.log('cartelera enviada exitosamente')
+			} catch (err) {
+				console.log(String(err));
+			}
+			sql.close()
+});
+
+// ELIMINA UNA PELICULA
+router.put("/pelicula", async(req,res)=>{
+	const sql = require('mssql')
+
+	try {sql.close()} catch (error) {}
+
+	let _id = Number(req.body.id);
+				
+	let sqlQry = `DELETE FROM CINEMA_CARTELERA WHERE ID=${_id}`
+		
+		const pool1 = await new sql.ConnectionPool(config, err => {
+			// Query
+			new sql.Request(pool1)
+			//pool1.request() // or: new sql.Request(pool1)
+			 .query(sqlQry, (err, result) => {
+				if (result.rowsAffected){
+					res.send('Pelicula eliminada de cartelera..')
+				}
+			});
+			//sql.close()
+			//pool1.release();
+		})
+		pool1.on('error', err => {
+			// ... error handler
+			console.log('Error al finalizar: ' + err)
+		})
+});
 
 module.exports = router;

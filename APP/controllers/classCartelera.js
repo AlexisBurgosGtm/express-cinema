@@ -1,0 +1,180 @@
+async function fcnCargarCmbSalas(idContainer){
+
+    try {
+        const response = await fetch(`/api/salas`) //&st=${status}`)
+        const json = await response.json();
+        
+        let str = json.recordset.map((rows)=>{
+            return `<option value="${rows.CODSALA}">${rows.DESSALA}</option>`;
+            
+       }).join('\n');
+
+       document.getElementById(idContainer).innerHTML = str;
+       //document.getElementById(idmage).attributes.src = '../salas/' + imgroute;
+
+    } catch (error) {
+        console.log('NO SE LOGRO CARGAR LA LISTA DE SALAS ' + error);
+        //funciones.AvisoError('No se pudo cargar la lista de Ordenes pendientes');
+    }
+};
+
+async function fcnCargarPeliculas(idContainer){
+
+    try {
+        const response = await fetch(`/api/cartelera`) //&st=${status}`)
+        const json = await response.json();
+        
+        let str = json.recordset.map((rows)=>{
+            return `<tr>
+                        <td>${rows.TITULO}</td>
+                        <td>Inicia: ${rows.HORA + ':' + rows.MINUTO} - Finaliza: ${rows.HORAFIN + ':' + rows.MINUTOFIN}</td>
+                        <td>${rows.DESSALA}</td>
+                        <td>
+                            <button class="btn btn-icon btn-circle btn-warning btn-md">
+                                <i class="icon-new-file"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-icon btn-circle btn-danger btn-md" onclick="fcnEliminarPelicula(${rows.ID});">
+                                <i class="icon-close"></i>    
+                            </button>
+                        </td>
+                    </tr>`
+       }).join('\n');
+
+       document.getElementById(idContainer).innerHTML = str;
+       //document.getElementById(idmage).attributes.src = '../salas/' + imgroute;
+       console.log('peliculas cargadas')
+    } catch (error) {
+        console.log('NO SE LOGRO CARGAR LA LISTA DE SALAS ' + error);
+        //funciones.AvisoError('No se pudo cargar la lista de Ordenes pendientes');
+    }
+};
+
+async function fcnEliminarPelicula(codpelicula){
+    funciones.Confirmacion('¿Está seguro que desea Eliminar esta Película')
+    .then(async (value)=>{
+        if(value==true){
+            var data =JSON.stringify({
+                id:Number(codpelicula)
+            });
+                      
+            var peticion = new Request('/api/pelicula', {
+                method: 'PUT',
+                headers: new Headers({
+                  // Encabezados
+                    'Content-Type': 'application/json'
+                }),
+                body: data
+            });
+            await fetch(peticion)
+                .then(async function(res) {
+                    console.log('Estado: ', res.status);
+                    if (res.status==200)
+                        {   
+                            funciones.Aviso('Película eliminada Exitosamente')
+                            await fcnCargarPeliculas('tblPeliculas');
+                        }
+                    })
+                .catch(
+                    ()=>{
+                        funciones.AvisoError('No se pudo Eliminar la Película');
+                    }
+                )      
+        }
+    })
+}
+
+async function fcnNuevaPelicula(){
+    funciones.Confirmacion('¿Está seguro que desea GUARDAR esta Película')
+    .then(async (value)=>{
+        if(value==true){
+            let fecha = new Date(document.getElementById('txtFechaPelicula').value);
+
+            let _anio = Number(fecha.getFullYear());
+            let _mes = Number(fecha.getMonth()+1);
+            let _dia = Number(fecha.getDate())
+
+            console.log(_dia + '/' + _mes + '/' + _anio);
+
+            var data =JSON.stringify({
+                anio : _anio,
+                mes : _mes,
+                dia : _dia,
+                hora : document.getElementById('cmbHoraPelicula').value.toString(),
+                minuto : document.getElementById('cmbMinutoPelicula').value.toString(),
+                horafin : document.getElementById('cmbHoraFPelicula').value.toString(),
+                minutofin : document.getElementById('cmbMinutoFPelicula').value.toString(),
+                titulo : document.getElementById('txtTituloPelicula').value,
+                codsala : Number(document.getElementById('cmbSalas').value)
+            });
+                      
+            var peticion = new Request('/api/nuevapelicula', {
+                method: 'POST',
+                headers: new Headers({
+                  // Encabezados
+                    'Content-Type': 'application/json'
+                }),
+                body: data
+            });
+            await fetch(peticion)
+                .then(async function(res) {
+                    console.log('Estado: ', res.status);
+                    if (res.status==200)
+                        {   
+                            funciones.Aviso('Película Agregada Exitosamente')
+                            await fcnCargarPeliculas('tblPeliculas');
+                            fcnLimpiarCampos();
+                            document.getElementById('btnCancelarNuevo').click();
+                        }
+                    })
+                .catch(
+                    ()=>{
+                        funciones.AvisoError('No se pudo Guardar la Película');
+                    }
+                )      
+        }
+    })
+};
+
+function fcnLimpiarCampos(){
+    //document.getElementById('txtFechaPelicula').value = new Date;
+    document.getElementById('txtTituloPelicula').value = "";
+}
+
+
+async function fcnCargarCartelera(){
+
+    try {
+        const response = await fetch(`/api/cartelera`) //&st=${status}`)
+        const json = await response.json();
+        
+        let str1 ='', str2='';
+
+        json.recordset.map((rows)=>{
+            if (rows.CODSALA==1){str1 += `<div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card text-center">
+                <h5 class="text-white">${rows.TITULO}</h5>
+                <span>Horario: ${rows.HORA + ':' + rows.MINUTO} a ${rows.HORAFIN + ':' + rows.MINUTOFIN}</span>
+                <button class="form-control btn-info text-white" onclick="btnAsignar.click();">Seleccionar</button>
+            </div>
+        </div>`}
+        if (rows.CODSALA==2){str2 += `<div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card text-center">
+                <h5 class="text-white">${rows.TITULO}</h5>
+                <span>Horario: ${rows.HORA + ':' + rows.MINUTO} a ${rows.HORAFIN + ':' + rows.MINUTOFIN}</span>
+                <button class="form-control btn-info text-white" onclick="btnAsignar.click();">Seleccionar</button>
+            </div>
+        </div>`}
+       }).join('\n');
+
+
+       document.getElementById('containerS1').innerHTML = str1;
+       document.getElementById('containerS2').innerHTML = str2;
+       
+       
+    } catch (error) {
+        console.log('NO SE LOGRO CARGAR LA LISTA DE CARTELERA ' + error);
+        //funciones.AvisoError('No se pudo cargar la lista de Ordenes pendientes');
+    }
+};

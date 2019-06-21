@@ -5,20 +5,41 @@ let btnAsignar = document.getElementById('btnAsignar');
 let btnConfig = document.getElementById('btnConfig');
 let btnSalir = document.getElementById('btnSalir');
 let btnLoginIniciar = document.getElementById('btnLoginIniciar');
+let btnConfigCartelera = document.getElementById('btnConfigCartelera');
 
 
 function Iniciarlizar(){
-    //btnInicio.click();
-    $('.search-panel').fadeIn(100);
-    funciones.loadView('../views/viewCartelera.html','root')
-        
+    
+    btnCartelera.click();
+    $('.search-panel').fadeIn(100);        
 }
+
 // botón inicio o cartelera
 btnCartelera.addEventListener('click',(e)=>{
     e.preventDefault();
     funciones.loadView('../views/viewCartelera.html','root')
         .then(()=>{
-            //btnToggler.click();
+            funciones.loadScript('../controllers/classCartelera.js','root')
+            .then(async ()=>{
+            
+                await fcnCargarCartelera();  
+                    
+            })
+            
+        })
+});
+// botón config cartelera - oculto
+btnConfigCartelera.addEventListener('click',(e)=>{
+    e.preventDefault();
+    funciones.loadView('../views/viewConfigCartelera.html','root')
+        .then(()=>{
+            funciones.loadScript('../controllers/classCartelera.js','root')
+            .then(async ()=>{
+            
+                await fcnCargarCmbSalas('cmbSalas');
+                await fcnCargarPeliculas('tblPeliculas');  
+                    
+            })
         })
 });
 

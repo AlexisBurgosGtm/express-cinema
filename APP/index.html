@@ -19,8 +19,12 @@
     <link rel="stylesheet" href="css/style.red.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="css/custom.css">
+
+    <link rel="stylesheet" href="css/btn.css">
+    
     <!-- Favicon-->
     <link rel="shortcut icon" href="img/favicon.ico">
+
 
     <!-- service worker -->
      <meta name="application-name" content="Express-Cinema" />
@@ -125,14 +129,19 @@
 
                 <li>
                   <a href="#" id="btnFull" onclick="document.body.requestFullscreen();">
-                    <i class="icon-settings"></i>FullScreen
+                    <i class="icon-writing-whiteboard"></i>FullScreen
                   </a>
                 </li>
-  
+
+                <li class="">
+                    <a href="#" id="btnConfigCartelera">
+                      <i class="icon-settings"></i>Config Cartelera
+                    </a>
+                </li>
 
                 <li>
                   <a href="#" id="btnConfig">
-                    <i class="icon-settings"></i>Config
+                    <i class="icon-settings-1"></i>Config General
                   </a>
                 </li>
                   
@@ -143,11 +152,12 @@
                 </li>
   
                 
-                <li class=""" style="visibility: hidden">
+                <li class="" style="visibility: hidden">
                   <a href="#" id="btnAsignar">
                     <i class="icon-writing-whiteboard"></i>Salas
                   </a>
                 </li>
+                
                 
         </ul>
       </nav>

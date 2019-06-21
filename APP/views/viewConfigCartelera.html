@@ -1,7 +1,7 @@
 <section class="no-padding-top no-padding-bottom">
     <div class="container-fluid">
         <div class="row">
-            <div class="card">
+            <div class="card col-12">
                 <div class="card-header">
                     <h6>Películas en Cartelera</h6>
                 </div>
@@ -17,62 +17,8 @@
                                     <td></td>                               
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>JHON WICK 1</td>
-                                    <td>08:00 - 10:00</td>
-                                    <td>SALA NO. 1</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-icon btn-warning">edit</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-icon btn-danger">x</button>
-                                    </td>    
-                                </tr>
-                                <tr>
-                                    <td>JHON WICK 1</td>
-                                    <td>08:00 - 10:00</td>
-                                    <td>SALA NO. 1</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-icon btn-warning">edit</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-icon btn-danger">x</button>
-                                    </td>        
-                                </tr>
-                                <tr>
-                                    <td>JHON WICK 1</td>
-                                    <td>08:00 - 10:00</td>
-                                    <td>SALA NO. 1</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-icon btn-warning">edit</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-icon btn-danger">x</button>
-                                    </td>    
-                                </tr>
-                                <tr>
-                                    <td>JHON WICK 1</td>
-                                    <td>08:00 - 10:00</td>
-                                    <td>SALA NO. 1</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-icon btn-warning">edit</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-icon btn-danger">x</button>
-                                    </td>    
-                                </tr>   
-                                <tr>
-                                    <td>JHON WICK 1</td>
-                                    <td>08:00 - 10:00</td>
-                                    <td>SALA NO. 1</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-icon btn-warning">edit</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-icon btn-danger">x</button>
-                                    </td>    
-                                </tr>       
+                            <tbody id="tblPeliculas">
+   
                             </tbody>
 
                         </table>
@@ -85,3 +31,313 @@
         </div>
     </div>
 </section>
+
+
+   <!-- VENTANA MODAL NUEVO -->
+   <div class="modal fade" id="ModNuevaPelicula" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label class="modal-title text-danger h3">Nueva película a Cartelera</label>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Titulo de la película: </label>
+                            <input type="text" class="form-control" id="txtTituloPelicula" placeholder="ej: Toy Story ...">
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Sala : </label>
+                            <select class="form-control" id="cmbSalas">
+                                
+    
+                            </select>
+                        </div>
+                        
+                        <hr class="sidebar-divider">
+    
+                        <div class="form-group">
+                            <label>Fecha Inicia: </label>
+                            <input type="date" class="form-control" id="txtFechaPelicula">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Hora: </label>
+                                    <select class="form-control" id="cmbHoraPelicula">
+                                        <option value="00">00</option>                            
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Minuto: </label>
+                                    <select class="form-control" id="cmbMinutoPelicula">
+                                            <option value="00">00</option>
+                                            <option value="05">05</option>
+                                            <option value="10">10</option>
+                                            <option value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="25">25</option>
+                                            <option value="30">30</option>
+                                            <option value="35">35</option>
+                                            <option value="40">40</option>
+                                            <option value="45">45</option>
+                                            <option value="50">50</option>
+                                            <option value="55">55</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Hora Fin: </label>
+                                        <select class="form-control" id="cmbHoraFPelicula">
+                                            <option value="00">00</option>                            
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Minuto Fin: </label>
+                                        <select class="form-control" id="cmbMinutoFPelicula">
+                                                <option value="00">00</option>
+                                                <option value="05">05</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>
+                                                <option value="40">40</option>
+                                                <option value="45">45</option>
+                                                <option value="50">50</option>
+                                                <option value="55">55</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+    
+       
+                    </div>
+                </div>
+    
+                <div class="modal-footer">
+                   
+                    <button type="button" class="btn btn-info btn-round" id="btnCancelarNuevo" data-dismiss="modal">
+                        <i class="icon-close"></i>
+                        CANCELAR
+                    </button>
+                    
+                    <button type="button" class="btn btn-success btn-round" id="btnGuardarNuevo" onclick="fcnNuevaPelicula();">
+                        <i class="icon-new-file"></i>
+                        GUARDAR
+                    </button>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
+       <!-- VENTANA MODAL EDITAR -->
+   <div class="modal fade" id="ModEditarPelicula" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label class="modal-title text-info h3">Editar película en Cartelera</label>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Titulo de la película: </label>
+                            <input type="text" class="form-control" id="txtTituloPeliculaE" placeholder="ej: Toy Story ...">
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Sala : </label>
+                            <select class="form-control" id="cmbSalasE">
+                                
+    
+                            </select>
+                        </div>
+                        
+                        <hr class="sidebar-divider">
+    
+                        <div class="form-group">
+                            <label>Fecha Inicia: </label>
+                            <input type="date" class="form-control" id="txtFechaPeliculaE">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Hora: </label>
+                                    <select class="form-control" id="cmbHoraPeliculaE">
+                                        <option value="00">00</option>                            
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Minuto: </label>
+                                    <select class="form-control" id="cmbMinutoPeliculaE">
+                                            <option value="00">00</option>
+                                            <option value="05">05</option>
+                                            <option value="10">10</option>
+                                            <option value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="25">25</option>
+                                            <option value="30">30</option>
+                                            <option value="35">35</option>
+                                            <option value="40">40</option>
+                                            <option value="45">45</option>
+                                            <option value="50">50</option>
+                                            <option value="55">55</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Hora Fin: </label>
+                                        <select class="form-control" id="cmbHoraFPeliculaE">
+                                            <option value="00">00</option>                            
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Minuto Fin: </label>
+                                        <select class="form-control" id="cmbMinutoFPeliculaE">
+                                                <option value="00">00</option>
+                                                <option value="05">05</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>
+                                                <option value="40">40</option>
+                                                <option value="45">45</option>
+                                                <option value="50">50</option>
+                                                <option value="55">55</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+    
+       
+                    </div>
+                </div>
+    
+                <div class="modal-footer">
+                   
+                    <button type="button" class="btn btn-info btn-round" id="btnCancelarE" data-dismiss="modal">
+                        <i class="icon-close"></i>
+                        CANCELAR
+                    </button>
+                    
+                    <button type="button" class="btn btn-success btn-round" id="btnGuardarE" onclick="fcnNuevaPelicula();">
+                        <i class="icon-new-file"></i>
+                        GUARDAR
+                    </button>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- botón nuevo -->
+    <div id="fixed-btn2">
+        <button class="btn btn-success btn-circle btn-xl" id="btnNuevaPelicula" data-toggle="modal" data-target="#ModNuevaPelicula">+</button>
+    </div>
