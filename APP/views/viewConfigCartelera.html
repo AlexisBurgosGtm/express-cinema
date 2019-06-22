@@ -33,12 +33,17 @@
 </section>
 
 
+    <!-- botón nuevo -->
+    <div id="fixed-btn2">
+        <button class="btn btn-success btn-circle btn-xl" id="btnNuevaPelicula" data-toggle="modal" data-target="#ModNuevaPelicula">+</button>
+    </div>
+
    <!-- VENTANA MODAL NUEVO -->
    <div class="modal fade" id="ModNuevaPelicula" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <label class="modal-title text-danger h3">Nueva película a Cartelera</label>
+                <div class="modal-header bg-success">
+                    <label class="modal-title text-white h3">Nueva película a Cartelera</label>
                 </div>
                 <div class="modal-body">
                     <div class="col-12">
@@ -189,8 +194,11 @@
    <div class="modal fade" id="ModEditarPelicula" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <label class="modal-title text-info h3">Editar película en Cartelera</label>
+                <div class="modal-header bg-info">
+                    
+                    <label class="modal-title text-white h3">
+                            <i class="icon-new-file"></i> Editar película en Cartelera
+                    </label>
                 </div>
                 <div class="modal-body">
                     <div class="col-12">
@@ -209,11 +217,6 @@
                         
                         <hr class="sidebar-divider">
     
-                        <div class="form-group">
-                            <label>Fecha Inicia: </label>
-                            <input type="date" class="form-control" id="txtFechaPeliculaE">
-                        </div>
-
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-3">
@@ -327,7 +330,7 @@
                         CANCELAR
                     </button>
                     
-                    <button type="button" class="btn btn-success btn-round" id="btnGuardarE" onclick="fcnNuevaPelicula();">
+                    <button type="button" class="btn btn-success btn-round" id="btnGuardarE" onclick="fcnEditarPelicula();">
                         <i class="icon-new-file"></i>
                         GUARDAR
                     </button>
@@ -337,7 +340,3 @@
         </div>
     </div>
     
-    <!-- botón nuevo -->
-    <div id="fixed-btn2">
-        <button class="btn btn-success btn-circle btn-xl" id="btnNuevaPelicula" data-toggle="modal" data-target="#ModNuevaPelicula">+</button>
-    </div>

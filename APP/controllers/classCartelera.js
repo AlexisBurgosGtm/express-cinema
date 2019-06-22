@@ -10,6 +10,7 @@ async function fcnCargarCmbSalas(idContainer){
        }).join('\n');
 
        document.getElementById(idContainer).innerHTML = str;
+       document.getElementById('cmbSalasE').innerHTML = str;
        //document.getElementById(idmage).attributes.src = '../salas/' + imgroute;
 
     } catch (error) {
@@ -30,7 +31,7 @@ async function fcnCargarPeliculas(idContainer){
                         <td>Inicia: ${rows.HORA + ':' + rows.MINUTO} - Finaliza: ${rows.HORAFIN + ':' + rows.MINUTOFIN}</td>
                         <td>${rows.DESSALA}</td>
                         <td>
-                            <button class="btn btn-icon btn-circle btn-warning btn-md">
+                            <button class="btn btn-icon btn-circle btn-warning btn-md" data-toggle="modal" data-target="#ModEditarPelicula" onclick="fcnCargarDatosEditar(${rows.ID},'${rows.TITULO}','${rows.HORA}','${rows.MINUTO}','${rows.HORAFIN}','${rows.MINUTOFIN}',${rows.CODSALA});">
                                 <i class="icon-new-file"></i>
                             </button>
                         </td>
@@ -137,11 +138,54 @@ async function fcnNuevaPelicula(){
     })
 };
 
+async function fcnEditarPelicula(){
+    funciones.Confirmacion('¿Está seguro que desea EDITAR esta Película')
+    .then(async (value)=>{
+        if(value==true){          
+
+            var data =JSON.stringify({
+                id:Number(idEditPelicula),
+                hora : document.getElementById('cmbHoraPeliculaE').value.toString(),
+                minuto : document.getElementById('cmbMinutoPeliculaE').value.toString(),
+                horafin : document.getElementById('cmbHoraFPeliculaE').value.toString(),
+                minutofin : document.getElementById('cmbMinutoFPeliculaE').value.toString(),
+                titulo : document.getElementById('txtTituloPeliculaE').value,
+                codsala : Number(document.getElementById('cmbSalasE').value)
+            });
+                      
+            var peticion = new Request('/api/editarpelicula', {
+                method: 'PUT',
+                headers: new Headers({
+                  // Encabezados
+                    'Content-Type': 'application/json'
+                }),
+                body: data
+            });
+            await fetch(peticion)
+                .then(async function(res) {
+                    console.log('Estado: ', res.status);
+                    if (res.status==200)
+                        {   
+                            funciones.Aviso('Película Editada Exitosamente')
+
+                            await fcnCargarPeliculas('tblPeliculas');
+                            fcnLimpiarCampos();
+                            document.getElementById('btnCancelarNuevo').click();
+                        }
+                    })
+                .catch(
+                    ()=>{
+                        funciones.AvisoError('No se pudo editar la Película');
+                    }
+                )      
+        }
+    })
+};
+
 function fcnLimpiarCampos(){
     //document.getElementById('txtFechaPelicula').value = new Date;
     document.getElementById('txtTituloPelicula').value = "";
 }
-
 
 async function fcnCargarCartelera(){
 
@@ -178,3 +222,14 @@ async function fcnCargarCartelera(){
         //funciones.AvisoError('No se pudo cargar la lista de Ordenes pendientes');
     }
 };
+
+function fcnCargarDatosEditar(id,titulo,hora,minuto,horafinal,minutofinal,codsala){
+    document.getElementById('txtTituloPeliculaE').value = titulo;
+    document.getElementById('cmbHoraPeliculaE').value = hora;
+    document.getElementById('cmbMinutoPeliculaE').value = minuto;
+    document.getElementById('cmbHoraFPeliculaE').value = horafinal;
+    document.getElementById('cmbMinutoFPeliculaE').value = minutofinal;
+    document.getElementById('cmbSalasE').value = codsala;
+    idEditPelicula = id;
+}
+

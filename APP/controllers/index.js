@@ -1,3 +1,5 @@
+let idEditPelicula=0;
+
 let btnToggler = document.getElementById('btnToggler');
 //let btnInicio = document.getElementById('btnInicio');
 let btnCartelera = document.getElementById('btnCartelera');

@@ -217,6 +217,40 @@ router.get("/cartelera", async(req,res)=>{
 			sql.close()
 });
 
+// EDITA UNA PELICULA
+router.put("/editarpelicula", async(req,res)=>{
+	const sql = require('mssql')
+
+	try {sql.close()} catch (error) {}
+
+	let _id = Number(req.body.id);
+	let _hora = req.body.hora;
+	let _minuto = req.body.minuto;
+	let _horaf = req.body.horafin;
+	let _minutof = req.body.minutofin;
+	let _titulo = req.body.titulo;
+	let _codsala = Number(req.body.codsala);
+				
+	let sqlQry = `UPDATE CINEMA_CARTELERA SET TITULO='${_titulo}',HORA='${_hora}',MINUTO='${_minuto}',HORAFIN='${_horaf}',MINUTOFIN='${_minutof}',CODSALA=${_codsala}  WHERE ID=${_id}`
+		
+		const pool1 = await new sql.ConnectionPool(config, err => {
+			// Query
+			new sql.Request(pool1)
+			//pool1.request() // or: new sql.Request(pool1)
+			 .query(sqlQry, (err, result) => {
+				if (result.rowsAffected){
+					res.send('Pelicula editada exitosamente..')
+				}
+			});
+			//sql.close()
+			//pool1.release();
+		})
+		pool1.on('error', err => {
+			// ... error handler
+			console.log('Error al finalizar: ' + err)
+		})
+});
+
 // ELIMINA UNA PELICULA
 router.put("/pelicula", async(req,res)=>{
 	const sql = require('mssql')
