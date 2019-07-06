@@ -94,7 +94,7 @@ async function fcnNuevaPelicula(){
 
             let _anio = Number(fecha.getFullYear());
             let _mes = Number(fecha.getMonth()+1);
-            let _dia = Number(fecha.getDate())
+            let _dia = Number(fecha.getDate()+1)
 
             console.log(_dia + '/' + _mes + '/' + _anio);
 
@@ -107,7 +107,8 @@ async function fcnNuevaPelicula(){
                 horafin : document.getElementById('cmbHoraFPelicula').value.toString(),
                 minutofin : document.getElementById('cmbMinutoFPelicula').value.toString(),
                 titulo : document.getElementById('txtTituloPelicula').value,
-                codsala : Number(document.getElementById('cmbSalas').value)
+                codsala : Number(document.getElementById('cmbSalas').value),
+                fecha: fecha
             });
                       
             var peticion = new Request('/api/nuevapelicula', {
@@ -188,9 +189,10 @@ function fcnLimpiarCampos(){
 }
 
 async function fcnCargarCartelera(){
-
+    
     try {
-        const response = await fetch(`/api/cartelera`) //&st=${status}`)
+        let f = new Date(document.getElementById('txtFecha').value)
+        const response = await fetch(`/api/cartelerafecha&fecha=${f}`) //&st=${status}`)
         const json = await response.json();
         
         let str1 ='', str2='';
@@ -221,6 +223,8 @@ async function fcnCargarCartelera(){
         console.log('NO SE LOGRO CARGAR LA LISTA DE CARTELERA ' + error);
         //funciones.AvisoError('No se pudo cargar la lista de Ordenes pendientes');
     }
+    
+
 };
 
 function fcnCargarDatosEditar(id,titulo,hora,minuto,horafinal,minutofinal,codsala){

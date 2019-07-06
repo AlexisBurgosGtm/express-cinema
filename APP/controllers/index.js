@@ -13,7 +13,17 @@ let btnConfigCartelera = document.getElementById('btnConfigCartelera');
 function Iniciarlizar(){
     
     btnCartelera.click();
-    $('.search-panel').fadeIn(100);        
+    $('.search-panel').fadeIn(100); 
+    document.getElementById('txtLoginPass').addEventListener('keydown',(e)=>{
+        
+        if (e.code=='Enter')  {
+            btnLoginIniciar.click();
+        };
+        
+        if (e.code=='NumpadEnter')  {
+            btnLoginIniciar.click();
+        };
+    })       
 }
 
 // botón inicio o cartelera
@@ -25,11 +35,12 @@ btnCartelera.addEventListener('click',(e)=>{
             .then(async ()=>{
             
                 await fcnCargarCartelera();  
-                    
+                
             })
             
         })
 });
+
 // botón config cartelera - oculto
 btnConfigCartelera.addEventListener('click',(e)=>{
     e.preventDefault();
@@ -40,7 +51,7 @@ btnConfigCartelera.addEventListener('click',(e)=>{
             
                 await fcnCargarCmbSalas('cmbSalas');
                 await fcnCargarPeliculas('tblPeliculas');  
-                    
+                document.getElementById('txtFechaPelicula').value = new Date().getDate()
             })
         })
 });
@@ -82,15 +93,17 @@ btnSalir.addEventListener('click',(e)=>{
 
 // boton login iniciar
 btnLoginIniciar.addEventListener('click',()=>{
-    fcnLogin(document.getElementById('txtLoginUser').value,document.getElementById('txtLoginPass').value);
+    //fcnLogin(document.getElementById('txtLoginUser').value,document.getElementById('txtLoginPass').value);
+    fcnLogin(document.getElementById('txtLoginPass').value);
 })
 
 
-async function fcnLogin(user,pass){
+async function fcnLogin(pass){
 
     let nivel = 0;
     try {
-        const response = await fetch(`/api/usuarios?user=${user}&pass=${pass}`) //&st=${status}`)
+        //const response = await fetch(`/api/usuarios?user=${user}&pass=${pass}`) //&st=${status}`)
+        const response = await fetch(`/api/usuarios?pass=${pass}`) //&st=${status}`)
         const json = await response.json();
         
         json.recordset.map((rows)=>{
@@ -103,10 +116,10 @@ async function fcnLogin(user,pass){
     }
 
     if (nivel==0){
-        funciones.AvisoError('Su usuario o contraseña son incorrectos');
+        funciones.AvisoError('Su contraseña es incorrecta');
     }else{
         $('.search-panel').fadeOut(100);
-        document.getElementById('txtLoginUser').value = '';
+        //document.getElementById('txtLoginUser').value = '';
         document.getElementById('txtLoginPass').value = '';
     }
 }

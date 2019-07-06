@@ -139,7 +139,7 @@ router.put("/desocupartodos", async(req,res)=>{
 router.get("/usuarios", async(req,res)=>{
 	const sql = require('mssql')
 	
-	let user = req.query.user;
+	//let user = req.query.user;
 	let pass = req.query.pass;
 
 	
@@ -147,7 +147,8 @@ router.get("/usuarios", async(req,res)=>{
 
 	const pool = await sql.connect(config)		
 		try {
-			const result = await sql.query `SELECT NOMBRE,NIVEL FROM USUARIOS WHERE NOMBRE=${user} AND CLAVE=${pass}`
+			//const result = await sql.query `SELECT NOMBRE,NIVEL FROM USUARIOS WHERE NOMBRE=${user} AND CLAVE=${pass}`
+			const result = await sql.query `SELECT NOMBRE,NIVEL FROM USUARIOS WHERE CLAVE=${pass}`
 				res.send(result);
 				console.log('login: ' + result)
 			} catch (err) {
@@ -172,9 +173,11 @@ router.post("/nuevapelicula", async(req,res)=>{
 	let _minutof = req.body.minutofin;
 	let _titulo = req.body.titulo;
 	let _codsala = Number(req.body.codsala);
+	let _fecha =  req.body.fecha;
+	console.log(_fecha);
 		
-	let sqlQry = `INSERT INTO CINEMA_CARTELERA (ANIO,MES,DIA,HORA,MINUTO,HORAFIN,MINUTOFIN,TITULO,CODSALA) 
-				  VALUES (${_anio},${_mes},${_dia},'${_hora}','${_minuto}','${_horaf}','${_minutof}','${_titulo}',${_codsala})`
+	let sqlQry = `INSERT INTO CINEMA_CARTELERA (FECHA,ANIO,MES,DIA,HORA,MINUTO,HORAFIN,MINUTOFIN,TITULO,CODSALA) 
+				  VALUES ('${_fecha}',${_anio},${_mes},${_dia},'${_hora}','${_minuto}','${_horaf}','${_minutof}','${_titulo}',${_codsala})`
 		
 		const pool1 = await new sql.ConnectionPool(config, err => {
 			// Query
@@ -195,20 +198,39 @@ router.post("/nuevapelicula", async(req,res)=>{
 
 
 // OBTIENE TODAS LAS PELÍCULAS EN CARTELERA
-router.get("/cartelera", async(req,res)=>{
+router.get("/cartelerafecha", async(req,res)=>{
 	const sql = require('mssql')
 	
-	let _anio = req.query.anio;
-	let _mes = req.query.mes;
-	let _dia = req.query.dia;
-
+	let _fecha = req.query.fecha;
+	
+	
 	try {sql.close()} catch (error) {};
 
 	const pool = await sql.connect(config)		
 		try {
-			const result = await sql.query `SELECT CINEMA_CARTELERA.ID, CINEMA_CARTELERA.ANIO, CINEMA_CARTELERA.MES, CINEMA_CARTELERA.DIA, CINEMA_CARTELERA.HORA, CINEMA_CARTELERA.MINUTO, CINEMA_CARTELERA.HORAFIN, CINEMA_CARTELERA.MINUTOFIN, CINEMA_CARTELERA.TITULO,CINEMA_CARTELERA.CODSALA, CINEMA_SALAS.DESSALA
+			const result = await sql.query `SELECT CINEMA_CARTELERA.ID, CINEMA_CARTELERA.FECHA, CINEMA_CARTELERA.ANIO, CINEMA_CARTELERA.MES, CINEMA_CARTELERA.DIA, CINEMA_CARTELERA.HORA, CINEMA_CARTELERA.MINUTO, CINEMA_CARTELERA.HORAFIN, CINEMA_CARTELERA.MINUTOFIN, CINEMA_CARTELERA.TITULO,CINEMA_CARTELERA.CODSALA, CINEMA_SALAS.DESSALA
+											FROM CINEMA_CARTELERA LEFT OUTER JOIN CINEMA_SALAS ON CINEMA_CARTELERA.CODSALA = CINEMA_SALAS.CODSALA
+											WHERE (CINEMA_CARTELERA.FECHA= ${_fecha})`
+				res.send(result);
+				console.log('cartelera enviada exitosamente')
+			} catch (err) {
+				console.log(String(err));
+			}
+			sql.close()
+});
+
+// OBTIENE TODAS LAS PELÍCULAS EN CARTELERA
+router.get("/cartelera", async(req,res)=>{
+	const sql = require('mssql')
+	
+
+	
+	try {sql.close()} catch (error) {};
+
+	const pool = await sql.connect(config)		
+		try {
+			const result = await sql.query `SELECT CINEMA_CARTELERA.ID, CINEMA_CARTELERA.FECHA, CINEMA_CARTELERA.ANIO, CINEMA_CARTELERA.MES, CINEMA_CARTELERA.DIA, CINEMA_CARTELERA.HORA, CINEMA_CARTELERA.MINUTO, CINEMA_CARTELERA.HORAFIN, CINEMA_CARTELERA.MINUTOFIN, CINEMA_CARTELERA.TITULO,CINEMA_CARTELERA.CODSALA, CINEMA_SALAS.DESSALA
 											FROM CINEMA_CARTELERA LEFT OUTER JOIN CINEMA_SALAS ON CINEMA_CARTELERA.CODSALA = CINEMA_SALAS.CODSALA`
-				//WHERE (CINEMA_CARTELERA.ANIO = ${_anio}) AND (CINEMA_CARTELERA.MES = ${_mes}) AND (CINEMA_CARTELERA.DIA = ${_dia})
 				res.send(result);
 				console.log('cartelera enviada exitosamente')
 			} catch (err) {
