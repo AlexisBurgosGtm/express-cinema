@@ -34,8 +34,18 @@ btnCartelera.addEventListener('click',(e)=>{
             funciones.loadScript('../controllers/classCartelera.js','root')
             .then(async ()=>{
             
-                await fcnCargarCartelera();  
                 
+                let f = new Date();
+                let y = f.getFullYear();
+                let m = f.getMonth()+1;
+                if (m<10){m = '0' + m};
+                let d = f.getDate();
+                if (d<10){d = '0' + d};
+                
+                document.getElementById('txtFecha').value = y + '-' + m + '-' + d;
+                await fcnCargarCartelera(); 
+                
+                document.getElementById('btnCargarCartelera').addEventListener('click',async()=>{await fcnCargarCartelera();}) 
             })
             
         })

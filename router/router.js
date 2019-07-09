@@ -164,9 +164,11 @@ router.post("/nuevapelicula", async(req,res)=>{
 	try {sql.close()} catch (error) {}
 
 	
+
 	let _anio = Number(req.body.anio);
 	let _mes = Number(req.body.mes);
 	let _dia = Number(req.body.dia);
+	
 	let _hora = req.body.hora;
 	let _minuto = req.body.minuto;
 	let _horaf = req.body.horafin;
@@ -174,10 +176,12 @@ router.post("/nuevapelicula", async(req,res)=>{
 	let _titulo = req.body.titulo;
 	let _codsala = Number(req.body.codsala);
 	let _fecha =  req.body.fecha;
-	console.log(_fecha);
+
+	console.log(_dia + ' ' + _mes + ' ' + _anio);
+	//console.log(_fecha);
 		
-	let sqlQry = `INSERT INTO CINEMA_CARTELERA (FECHA,ANIO,MES,DIA,HORA,MINUTO,HORAFIN,MINUTOFIN,TITULO,CODSALA) 
-				  VALUES ('${_fecha}',${_anio},${_mes},${_dia},'${_hora}','${_minuto}','${_horaf}','${_minutof}','${_titulo}',${_codsala})`
+	let sqlQry = `INSERT INTO CINEMA_CARTELERA (FECHA,ANIO,MES,DIA,HORA,MINUTO,HORAFIN,MINUTOFIN,TITULO,CODSALA,ACTIVA) 
+				  VALUES ('${_fecha}',${_anio},${_mes},${_dia},'${_hora}','${_minuto}','${_horaf}','${_minutof}','${_titulo}',${_codsala},'SI')`
 		
 		const pool1 = await new sql.ConnectionPool(config, err => {
 			// Query
@@ -199,11 +203,16 @@ router.post("/nuevapelicula", async(req,res)=>{
 
 // OBTIENE TODAS LAS PELÍCULAS EN CARTELERA
 router.get("/cartelerafecha", async(req,res)=>{
-	const sql = require('mssql')
-	
-	let _fecha = req.query.fecha;
+	const sql = require('mssql');
 	
 	
+	let _dia = req.query.dia;
+	let _mes = req.query.mes;
+	let _anio = req.query.anio;
+	let _fecha =   _anio + '/' + _mes + '/' + _dia
+	
+	console.log('solicitando cartelera fecha ' + _fecha)
+
 	try {sql.close()} catch (error) {};
 
 	const pool = await sql.connect(config)		

@@ -24,10 +24,11 @@ async function fcnCargarPeliculas(idContainer){
     try {
         const response = await fetch(`/api/cartelera`) //&st=${status}`)
         const json = await response.json();
-        
+        //<td>${rows.DIA + '/' + rows.MES + '/' + rows.ANIO}</td>
         let str = json.recordset.map((rows)=>{
             return `<tr>
                         <td>${rows.TITULO}</td>
+                        <td>${rows.DIA + '/' + rows.MES + '/' + rows.ANIO}</td>
                         <td>Inicia: ${rows.HORA + ':' + rows.MINUTO} - Finaliza: ${rows.HORAFIN + ':' + rows.MINUTOFIN}</td>
                         <td>${rows.DESSALA}</td>
                         <td>
@@ -93,8 +94,10 @@ async function fcnNuevaPelicula(){
             let fecha = new Date(document.getElementById('txtFechaPelicula').value);
 
             let _anio = Number(fecha.getFullYear());
-            let _mes = Number(fecha.getMonth()+1);
-            let _dia = Number(fecha.getDate()+1)
+
+            let _mes = fecha.getUTCMonth() + 1;
+
+            let _dia = fecha.getUTCDate()
 
             console.log(_dia + '/' + _mes + '/' + _anio);
 
@@ -189,10 +192,14 @@ function fcnLimpiarCampos(){
 }
 
 async function fcnCargarCartelera(){
-    
+    let f = new Date(document.getElementById('txtFecha').value)
+
     try {
-        let f = new Date(document.getElementById('txtFecha').value)
-        const response = await fetch(`/api/cartelerafecha&fecha=${f}`) //&st=${status}`)
+       
+        let d = f.getUTCDate(); let m = f.getUTCMonth()+1; let y = f.getFullYear();
+        
+
+        const response = await fetch(`/api/cartelerafecha?dia=${d}&mes=${m}&anio=${y}`) //&st=${status}`)
         const json = await response.json();
         
         let str1 ='', str2='';
@@ -202,14 +209,14 @@ async function fcnCargarCartelera(){
             <div class="card text-center">
                 <h5 class="text-white">${rows.TITULO}</h5>
                 <span>Horario: ${rows.HORA + ':' + rows.MINUTO} a ${rows.HORAFIN + ':' + rows.MINUTOFIN}</span>
-                <button class="form-control btn-info text-white" onclick="btnAsignar.click();">Seleccionar</button>
+                <button class="form-control btn-info text-white" onclick="CargarSala1(${rows.ID});">Seleccionar</button>
             </div>
         </div>`}
         if (rows.CODSALA==2){str2 += `<div class="col-sm-12 col-md-6 col-lg-4">
             <div class="card text-center">
                 <h5 class="text-white">${rows.TITULO}</h5>
                 <span>Horario: ${rows.HORA + ':' + rows.MINUTO} a ${rows.HORAFIN + ':' + rows.MINUTOFIN}</span>
-                <button class="form-control btn-info text-white" onclick="btnAsignar.click();">Seleccionar</button>
+                <button class="form-control btn-info text-white" onclick="CargarSala2(${rows.ID});">Seleccionar</button>
             </div>
         </div>`}
        }).join('\n');
@@ -227,6 +234,7 @@ async function fcnCargarCartelera(){
 
 };
 
+
 function fcnCargarDatosEditar(id,titulo,hora,minuto,horafinal,minutofinal,codsala){
     document.getElementById('txtTituloPeliculaE').value = titulo;
     document.getElementById('cmbHoraPeliculaE').value = hora;
@@ -237,3 +245,18 @@ function fcnCargarDatosEditar(id,titulo,hora,minuto,horafinal,minutofinal,codsal
     idEditPelicula = id;
 }
 
+function CargarSala1(idAsiento){
+    funciones.loadView('../views/viewSala1.html','root')
+    .then(()=>{
+        //funciones.loadScript('../controllers/classAsignar.js','root')
+        
+    })
+}
+
+function CargarSala2(idAsiento){
+    funciones.loadView('../views/viewSala2.html','root')
+    .then(()=>{
+        //funciones.loadScript('../controllers/classAsignar.js','root')
+        
+    })
+}
