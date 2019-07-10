@@ -174,7 +174,7 @@ async function fcnEditarPelicula(){
 
                             await fcnCargarPeliculas('tblPeliculas');
                             fcnLimpiarCampos();
-                            document.getElementById('btnCancelarNuevo').click();
+                            document.getElementById('btnCancelarE').click();
                         }
                     })
                 .catch(
@@ -245,7 +245,7 @@ function fcnCargarDatosEditar(id,titulo,hora,minuto,horafinal,minutofinal,codsal
     idEditPelicula = id;
 }
 
-function CargarSala1(idAsiento){
+function CargarSala1(DescPelicula){
     funciones.loadView('../views/viewSala1.html','root')
     .then(()=>{
         //funciones.loadScript('../controllers/classAsignar.js','root')
@@ -253,7 +253,7 @@ function CargarSala1(idAsiento){
     })
 }
 
-function CargarSala2(idAsiento){
+function CargarSala2(DescPelicula){
     funciones.loadView('../views/viewSala2.html','root')
     .then(()=>{
         //funciones.loadScript('../controllers/classAsignar.js','root')

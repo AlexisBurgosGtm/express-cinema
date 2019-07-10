@@ -14,7 +14,10 @@ function Iniciarlizar(){
     
     btnCartelera.click();
     $('.search-panel').fadeIn(100); 
-    document.getElementById('txtLoginPass').addEventListener('keydown',(e)=>{
+
+    let txtLogin = document.getElementById('txtLoginPass')
+
+    txtLogin.addEventListener('keydown',(e)=>{
         
         if (e.code=='Enter')  {
             btnLoginIniciar.click();
@@ -24,6 +27,8 @@ function Iniciarlizar(){
             btnLoginIniciar.click();
         };
     })       
+
+    txtLogin.focus();
 }
 
 // botón inicio o cartelera
@@ -85,16 +90,6 @@ btnAsignar.addEventListener('click',(e)=>{
         //btnToggler.click();
 });
 
-// boton Config
-btnConfig.addEventListener('click', (e)=>{
-    e.preventDefault();
-    
-    funciones.loadView('../views/viewConfig.html','root')
-        .then(()=>{
-            //btnToggler.click();
-        })
-});
-
 // boton salir
 btnSalir.addEventListener('click',(e)=>{
     e.preventDefault();
@@ -137,7 +132,7 @@ async function fcnLogin(pass){
 // SOCKET
 socket.on('orden nueva', async function(msg){
     try {
-        await fcnCargarButacas('tblAsientos',document.getElementById('cmbSalas').value);
+       
     } catch (error) {
       console.log('No se logró cargar el listado luego del socket')
     }

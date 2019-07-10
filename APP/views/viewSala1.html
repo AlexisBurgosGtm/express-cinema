@@ -20,7 +20,7 @@
                     <div class="progress-details d-flex align-items-end justify-content-between">
                         <div class="title">
                             <div class="icon">
-                                <i class="icon-user-1"></i>
+                                <i class="icon-grid"></i>
                             </div>
                             <label>Asientos Disponibles</label>
                             </div>
@@ -857,13 +857,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <label class="modal-title text-danger h3">Asignar Asiento</label>
-                    <label>No. de Asiento: <b id="txtDataCodigo">0</b></label>
+                <!--<label>No. de Asiento: <b id="txtDataAsiento">0</b></label>-->
                 </div>
                 <div class="modal-body">
                     <div class="col-12">
                         <div class="form-group">
-                            <label>Descripción del asiento: </label>
-                            <label class="text-danger" id="txtDataDescripcion">.</label>
+                            <label>No. Fila: </label>
+                            <label class="text-danger" id="txtDataFila">0</label>
+                        </div>
+                        <div class="form-group">
+                            <label>No. Asiento: </label>
+                            <label class="text-danger" id="txtDataAsiento">0</label>
                         </div>
                         <div class="form-group">
                             <label>Sala : </label>
@@ -878,8 +882,13 @@
                         <hr class="sidebar-divider">
 
                         <div class="form-group">
+                            <label>Serie Factura : </label>
+                            <input type="text" id="txtDataCoddoc" class="form-control">
+                        </div>
+
+                        <div class="form-group">
                             <label>No. Factura : </label>
-                            <input type="number" id="txtDataFactura" class="form-control">
+                            <input type="number" id="txtDataNumero" class="form-control">
                         </div>
        
                     </div>
