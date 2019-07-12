@@ -10,18 +10,25 @@ router.get("/asientos", async(req,res)=>{
 	const sql = require('mssql')
 	
 	let codsala = Number(req.query.codsala);
-	//let token = req.query.token;
+	let pelicula = req.query.pelicula;
+	let horainicio = req.query.horainicio;
+	let minutoinicio = req.query.minutoinicio;
+	let fecha = req.query.fecha;
+
+	console.log(pelicula);
+	console.log(horainicio + '-' + minutoinicio);
+	console.log(fecha);
 
 	try {sql.close()} catch (error) {};
 
 	const pool = await sql.connect(config)		
 		try {
-			const result = await sql.query `SELECT CINEMA_ASIENTOS.CODASIENTO, CINEMA_ASIENTOS.CODIGO, CINEMA_ASIENTOS.DESCRIPCION, CINEMA_ASIENTOS.CODSALA, CINEMA_SALAS.DESSALA, CINEMA_ASIENTOS.CODUBICACION, 
-								CINEMA_UBICACIONES.DESUBICACION, CINEMA_ASIENTOS.OCUPADO, CINEMA_ASIENTOS.FILA, CINEMA_ASIENTOS.COORDS
-								FROM CINEMA_ASIENTOS LEFT OUTER JOIN
-								CINEMA_UBICACIONES ON CINEMA_ASIENTOS.CODUBICACION = CINEMA_UBICACIONES.CODUBICACION LEFT OUTER JOIN
-								CINEMA_SALAS ON CINEMA_ASIENTOS.CODSALA = CINEMA_SALAS.CODSALA
-								WHERE (CINEMA_ASIENTOS.CODSALA=${codsala})`
+			const result = await sql.query `SELECT FECHA, PELICULA, NOSALA, NOASIENTO, NOFILA, HORAINICIO, MINUTOINICIO, HORAFIN, MINUTOFIN
+											FROM CINEMA_ORDERS 
+											WHERE (PELICULA=${pelicula}) AND (NOSALA = ${codsala}) 
+											AND (HORAINICIO =${horainicio}) 
+											AND (MINUTOINICIO =${minutoinicio}) 
+											AND (FECHA = ${fecha})`
 
 				console.dir('Enviando listado de asientos');
 				res.send(result);
@@ -308,6 +315,24 @@ router.put("/pelicula", async(req,res)=>{
 			// ... error handler
 			console.log('Error al finalizar: ' + err)
 		})
+});
+
+// OBTIENE LOS CODDOC DE LAS FACTURAS
+router.get("/tipodocumentos", async(req,res)=>{
+	const sql = require('mssql')
+		
+	try {sql.close()} catch (error) {};
+
+	const pool = await sql.connect(config)		
+		try {
+			const result = await sql.query `SELECT CODDOC, DESDOC, CORRELATIVO FROM TIPODOCUMENTOS WHERE TIPODOC='FAC'`
+
+				console.dir('Enviando listado de asientos');
+				res.send(result);
+			} catch (err) {
+				console.log(String(err));
+			}
+			sql.close()
 });
 
 module.exports = router;

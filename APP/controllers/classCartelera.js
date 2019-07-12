@@ -209,14 +209,18 @@ async function fcnCargarCartelera(){
             <div class="card text-center">
                 <h5 class="text-white">${rows.TITULO}</h5>
                 <span>Horario: ${rows.HORA + ':' + rows.MINUTO} a ${rows.HORAFIN + ':' + rows.MINUTOFIN}</span>
-                <button class="form-control btn-info text-white" onclick="CargarSala1(${rows.ID});">Seleccionar</button>
+                <button class="form-control btn-info text-white" onclick=
+                    "CargarSala1('${rows.TITULO}','${rows.HORA}','${rows.MINUTO}','${rows.HORAFIN}','${rows.MINUTOFIN}');">Seleccionar
+                </button>
             </div>
         </div>`}
         if (rows.CODSALA==2){str2 += `<div class="col-sm-12 col-md-6 col-lg-4">
             <div class="card text-center">
                 <h5 class="text-white">${rows.TITULO}</h5>
                 <span>Horario: ${rows.HORA + ':' + rows.MINUTO} a ${rows.HORAFIN + ':' + rows.MINUTOFIN}</span>
-                <button class="form-control btn-info text-white" onclick="CargarSala2(${rows.ID});">Seleccionar</button>
+                <button class="form-control btn-info text-white" onclick=
+                    "CargarSala2('${rows.TITULO}','${rows.HORA}','${rows.MINUTO}','${rows.HORAFIN}','${rows.MINUTOFIN}');">Seleccionar
+                </button>
             </div>
         </div>`}
        }).join('\n');
@@ -245,18 +249,36 @@ function fcnCargarDatosEditar(id,titulo,hora,minuto,horafinal,minutofinal,codsal
     idEditPelicula = id;
 }
 
-function CargarSala1(DescPelicula){
+function CargarSala1(DescPelicula,horainicio,minutoinicio,horafin,minutofin){
+    let f = new Date(document.getElementById('txtFecha').value)
+
     funciones.loadView('../views/viewSala1.html','root')
     .then(()=>{
-        //funciones.loadScript('../controllers/classAsignar.js','root')
-        
+        funciones.loadScript('../controllers/classSala1.js','root')
+        .then(async()=>{
+            
+            let d = f.getUTCDate(); let m = f.getUTCMonth()+1; let y = f.getFullYear();
+
+            let fecha = y + '/' + m + '/' + d;
+
+            await fcnCargarGrid(1,fecha,DescPelicula,horainicio,minutoinicio);
+            await fcnCargarTipoDoc()
+        })
     })
 }
 
-function CargarSala2(DescPelicula){
+function CargarSala2(DescPelicula,horainicio,minutoinicio,horafin,minutofin){
+    let f = new Date(document.getElementById('txtFecha').value)
+
     funciones.loadView('../views/viewSala2.html','root')
     .then(()=>{
-        //funciones.loadScript('../controllers/classAsignar.js','root')
-        
+        funciones.loadScript('../controllers/classSala2.js','root')
+        .then(async()=>{
+            
+            let d = f.getUTCDate(); let m = f.getUTCMonth()+1; let y = f.getFullYear();
+            let fecha = y + '/' + m + '/' + d;
+            await fcnCargarGrid(2,fecha,DescPelicula,horainicio,minutoinicio);
+            await fcnCargarTipoDoc()
+        })
     })
 }
