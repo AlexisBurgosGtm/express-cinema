@@ -13,7 +13,7 @@ let btnConfigCartelera = document.getElementById('btnConfigCartelera');
 function Iniciarlizar(){
     
     btnCartelera.click();
-    $('.search-panel').fadeIn(100); 
+    $('.search-panel').fadeIn(90); 
 
     let txtLogin = document.getElementById('txtLoginPass')
 

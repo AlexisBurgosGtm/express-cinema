@@ -24,11 +24,15 @@ async function fcnCargarPeliculas(idContainer){
     try {
         const response = await fetch(`/api/cartelera`) //&st=${status}`)
         const json = await response.json();
-        //<td>${rows.DIA + '/' + rows.MES + '/' + rows.ANIO}</td>
+        
+        
+
         let str = json.recordset.map((rows)=>{
+            let ff = new Date(rows.FECHAFIN); let df = ff.getUTCDate(); let mf = ff.getMonth()+1; let yf = ff.getFullYear();
             return `<tr>
                         <td>${rows.TITULO}</td>
                         <td>${rows.DIA + '/' + rows.MES + '/' + rows.ANIO}</td>
+                        <td>${df + '/' + mf + '/' + yf}</td>
                         <td>Inicia: ${rows.HORA + ':' + rows.MINUTO} - Finaliza: ${rows.HORAFIN + ':' + rows.MINUTOFIN}</td>
                         <td>${rows.DESSALA}</td>
                         <td>
@@ -92,14 +96,15 @@ async function fcnNuevaPelicula(){
     .then(async (value)=>{
         if(value==true){
             let fecha = new Date(document.getElementById('txtFechaPelicula').value);
-
             let _anio = Number(fecha.getFullYear());
-
             let _mes = fecha.getUTCMonth() + 1;
-
             let _dia = fecha.getUTCDate()
 
-            console.log(_dia + '/' + _mes + '/' + _anio);
+            let fechaF = new Date(document.getElementById('txtFechaPeliculaFin').value);
+            let _aniof = Number(fechaF.getFullYear());
+            let _mesf = fechaF.getUTCMonth() + 1;
+            let _diaf = fechaF.getUTCDate()
+
 
             var data =JSON.stringify({
                 anio : _anio,
@@ -111,7 +116,8 @@ async function fcnNuevaPelicula(){
                 minutofin : document.getElementById('cmbMinutoFPelicula').value.toString(),
                 titulo : document.getElementById('txtTituloPelicula').value,
                 codsala : Number(document.getElementById('cmbSalas').value),
-                fecha: fecha
+                fecha : fecha,
+                fechaFin : fechaF
             });
                       
             var peticion = new Request('/api/nuevapelicula', {
@@ -203,26 +209,35 @@ async function fcnCargarCartelera(){
         const json = await response.json();
         
         let str1 ='', str2='';
-
+        //console.log(d + '-' + m + '-' + y);
         json.recordset.map((rows)=>{
+            let ff = new Date(rows.FECHAFIN); let df = ff.getUTCDate(); let mf = ff.getMonth()+1; let yf = ff.getFullYear();
+            let ffinal = new Date(yf + '/' + mf + '/' + df);
+            let finicio = new Date(y + '/' + m + '/' + d);
+            
+        if (ffinal >= finicio){  
+                 
             if (rows.CODSALA==1){str1 += `<div class="col-sm-12 col-md-6 col-lg-4">
-            <div class="card text-center">
-                <h5 class="text-white">${rows.TITULO}</h5>
-                <span>Horario: ${rows.HORA + ':' + rows.MINUTO} a ${rows.HORAFIN + ':' + rows.MINUTOFIN}</span>
-                <button class="form-control btn-info text-white" onclick=
-                    "CargarSala1('${rows.TITULO}','${rows.HORA}','${rows.MINUTO}','${rows.HORAFIN}','${rows.MINUTOFIN}');">Seleccionar
-                </button>
-            </div>
-        </div>`}
-        if (rows.CODSALA==2){str2 += `<div class="col-sm-12 col-md-6 col-lg-4">
-            <div class="card text-center">
-                <h5 class="text-white">${rows.TITULO}</h5>
-                <span>Horario: ${rows.HORA + ':' + rows.MINUTO} a ${rows.HORAFIN + ':' + rows.MINUTOFIN}</span>
-                <button class="form-control btn-info text-white" onclick=
-                    "CargarSala2('${rows.TITULO}','${rows.HORA}','${rows.MINUTO}','${rows.HORAFIN}','${rows.MINUTOFIN}');">Seleccionar
-                </button>
-            </div>
-        </div>`}
+                    <div class="card text-center">
+                        <h5 class="text-white">${rows.TITULO}</h5>
+                        <span>Horario: ${rows.HORA + ':' + rows.MINUTO} a ${rows.HORAFIN + ':' + rows.MINUTOFIN}</span>
+                        <button class="form-control btn-info text-white" onclick=
+                            "CargarSala1('${rows.TITULO}','${rows.HORA}','${rows.MINUTO}','${rows.HORAFIN}','${rows.MINUTOFIN}');">Seleccionar
+                        </button>
+                    </div>
+                </div>`
+            }
+            if (rows.CODSALA==2){str2 += `<div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="card text-center">
+                        <h5 class="text-white">${rows.TITULO}</h5>
+                        <span>Horario: ${rows.HORA + ':' + rows.MINUTO} a ${rows.HORAFIN + ':' + rows.MINUTOFIN}</span>
+                        <button class="form-control btn-info text-white" onclick=
+                            "CargarSala2('${rows.TITULO}','${rows.HORA}','${rows.MINUTO}','${rows.HORAFIN}','${rows.MINUTOFIN}');">Seleccionar
+                        </button>
+                    </div>
+                </div>`
+            }
+        }
        }).join('\n');
 
 

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const config = {user: 'DB_A45479_EXPRESS_admin',password: 'razors1805',server: 'sql7002.site4now.net',database: 'DB_A45479_EXPRESS',pool: {	max: 100,	min: 0,	idleTimeoutMillis: 30000}};
-//const config = {user: 'iEx', password: 'iEx', server: 'SERVERALEXIS\\SQLEXPRESS', database: 'EXPRESS-CINEMA', pool: {max: 100,min: 0,idleTimeoutMillis: 30000}};
+//const config = {user: 'iEx', password: 'iEx', server: 'SERVIDORPG\\SQLEXPRESS', database: 'EXPRESS-CINEMA', pool: {max: 100,min: 0,idleTimeoutMillis: 30000}};
 
 
 // OBTIENE LA LISTA DE ASIENTOS DE UNA SALA
@@ -89,11 +89,21 @@ router.put("/desocupar", async(req,res)=>{
 	const sql = require('mssql')
 
 	try {sql.close()} catch (error) {}
+	
+	let nosala = Number(req.body.nosala);
+	let codasiento = Number(req.body.codasiento);
+	let codfila = Number(req.body.codfila);
+	
+	let pelicula = req.body.pelicula;
+	let fecha = req.body.fecha;
+	let horainicio = req.body.horainicio;
+	let minutoinicio = req.body.minutoinicio;
 
-	let noasiento = Number(req.body.codasiento);
+
 			
-	let sqlQry = `UPDATE CINEMA_ASIENTOS SET OCUPADO='NO' WHERE CODASIENTO=${noasiento}`
-		
+	let sqlQry = `DELETE FROM CINEMA_ORDERS WHERE NOSALA=${nosala} AND FECHA='${fecha}' AND PELICULA='${pelicula}' AND NOASIENTO=${codasiento} AND NOFILA=${codfila} AND HORAINICIO='${horainicio}' AND MINUTOINICIO='${minutoinicio}'`
+		console.log(sqlQry);
+
 		const pool1 = await new sql.ConnectionPool(config, err => {
 			// Query
 			new sql.Request(pool1)
@@ -183,12 +193,13 @@ router.post("/nuevapelicula", async(req,res)=>{
 	let _titulo = req.body.titulo;
 	let _codsala = Number(req.body.codsala);
 	let _fecha =  req.body.fecha;
+	let _fechaFin =  req.body.fechaFin;
 
 	console.log(_dia + ' ' + _mes + ' ' + _anio);
 	//console.log(_fecha);
 		
-	let sqlQry = `INSERT INTO CINEMA_CARTELERA (FECHA,ANIO,MES,DIA,HORA,MINUTO,HORAFIN,MINUTOFIN,TITULO,CODSALA,ACTIVA) 
-				  VALUES ('${_fecha}',${_anio},${_mes},${_dia},'${_hora}','${_minuto}','${_horaf}','${_minutof}','${_titulo}',${_codsala},'SI')`
+	let sqlQry = `INSERT INTO CINEMA_CARTELERA (FECHA,FECHAINICIO,FECHAFIN,ANIO,MES,DIA,HORA,MINUTO,HORAFIN,MINUTOFIN,TITULO,CODSALA,ACTIVA) 
+				  VALUES ('${_fecha}','${_fecha}','${_fechaFin}',${_anio},${_mes},${_dia},'${_hora}','${_minuto}','${_horaf}','${_minutof}','${_titulo}',${_codsala},'SI')`
 		
 		const pool1 = await new sql.ConnectionPool(config, err => {
 			// Query
@@ -207,7 +218,6 @@ router.post("/nuevapelicula", async(req,res)=>{
 		})
 });
 
-
 // OBTIENE TODAS LAS PELÍCULAS EN CARTELERA
 router.get("/cartelerafecha", async(req,res)=>{
 	const sql = require('mssql');
@@ -224,9 +234,9 @@ router.get("/cartelerafecha", async(req,res)=>{
 
 	const pool = await sql.connect(config)		
 		try {
-			const result = await sql.query `SELECT CINEMA_CARTELERA.ID, CINEMA_CARTELERA.FECHA, CINEMA_CARTELERA.ANIO, CINEMA_CARTELERA.MES, CINEMA_CARTELERA.DIA, CINEMA_CARTELERA.HORA, CINEMA_CARTELERA.MINUTO, CINEMA_CARTELERA.HORAFIN, CINEMA_CARTELERA.MINUTOFIN, CINEMA_CARTELERA.TITULO,CINEMA_CARTELERA.CODSALA, CINEMA_SALAS.DESSALA
+			const result = await sql.query `SELECT CINEMA_CARTELERA.ID, CINEMA_CARTELERA.FECHA, CINEMA_CARTELERA.FECHAINICIO, CINEMA_CARTELERA.FECHAFIN, CINEMA_CARTELERA.ANIO, CINEMA_CARTELERA.MES, CINEMA_CARTELERA.DIA, CINEMA_CARTELERA.HORA, CINEMA_CARTELERA.MINUTO, CINEMA_CARTELERA.HORAFIN, CINEMA_CARTELERA.MINUTOFIN, CINEMA_CARTELERA.TITULO,CINEMA_CARTELERA.CODSALA, CINEMA_SALAS.DESSALA
 											FROM CINEMA_CARTELERA LEFT OUTER JOIN CINEMA_SALAS ON CINEMA_CARTELERA.CODSALA = CINEMA_SALAS.CODSALA
-											WHERE (CINEMA_CARTELERA.FECHA= ${_fecha}) ORDER BY CINEMA_CARTELERA.FECHA`
+											WHERE (CINEMA_CARTELERA.FECHA <= ${_fecha}) ORDER BY CINEMA_CARTELERA.FECHA`
 				res.send(result);
 				console.log('cartelera enviada exitosamente')
 			} catch (err) {
@@ -245,7 +255,7 @@ router.get("/cartelera", async(req,res)=>{
 
 	const pool = await sql.connect(config)		
 		try {
-			const result = await sql.query `SELECT CINEMA_CARTELERA.ID, CINEMA_CARTELERA.FECHA, CINEMA_CARTELERA.ANIO, CINEMA_CARTELERA.MES, CINEMA_CARTELERA.DIA, CINEMA_CARTELERA.HORA, CINEMA_CARTELERA.MINUTO, CINEMA_CARTELERA.HORAFIN, CINEMA_CARTELERA.MINUTOFIN, CINEMA_CARTELERA.TITULO,CINEMA_CARTELERA.CODSALA, CINEMA_SALAS.DESSALA
+			const result = await sql.query `SELECT CINEMA_CARTELERA.ID, CINEMA_CARTELERA.FECHA,CINEMA_CARTELERA.FECHAINICIO, CINEMA_CARTELERA.FECHAFIN, CINEMA_CARTELERA.ANIO, CINEMA_CARTELERA.MES, CINEMA_CARTELERA.DIA, CINEMA_CARTELERA.HORA, CINEMA_CARTELERA.MINUTO, CINEMA_CARTELERA.HORAFIN, CINEMA_CARTELERA.MINUTOFIN, CINEMA_CARTELERA.TITULO,CINEMA_CARTELERA.CODSALA, CINEMA_SALAS.DESSALA
 											FROM CINEMA_CARTELERA LEFT OUTER JOIN CINEMA_SALAS ON CINEMA_CARTELERA.CODSALA = CINEMA_SALAS.CODSALA ORDER BY CINEMA_CARTELERA.FECHA`
 				res.send(result);
 				console.log('cartelera enviada exitosamente')
@@ -334,5 +344,6 @@ router.get("/tipodocumentos", async(req,res)=>{
 			}
 			sql.close()
 });
+
 
 module.exports = router;

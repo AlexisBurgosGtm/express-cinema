@@ -129,8 +129,8 @@ async function fcnCargarCmbSalas(idContainer,idmage){
     }
 };
 
-async function fcnCargarDatosModal(codasiento,codigo,descripcion,sala,ubicacion){
-    $('#ModOrdenF').modal('show');
+async function fcnCargarDatosModal(fila,asiento,sala){
+    //$('#ModOrdenF').modal('show');
     document.getElementById('txtDataCodigo').innerText = codigo;
     document.getElementById('txtDataDescripcion').innerText = descripcion;
     document.getElementById('txtDataSala').innerText = sala;
