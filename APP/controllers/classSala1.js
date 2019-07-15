@@ -118,4 +118,43 @@ function fcnOcuparAsiento(idfila,idasiento){
 
 }
 
+async function fcnAsignarAsiento(){
+
+    var data =JSON.stringify({
+        codasiento:GlobalSelectedAsiento,
+        codfila:GlobalSelectedFila,
+        pelicula:GlobalSelectedPelicula,
+        fecha:GlobalSelectedFecha,
+        horainicio:GlobalSelectedHoraInicio,
+        minutoinicio:GlobalSelectedMinutoInicio,
+        nosala:1
+    });
+              
+    var peticion = new Request('/api/ocupar', {
+        method: 'PUT',
+        headers: new Headers({
+          // Encabezados
+            'Content-Type': 'application/json'
+        }),
+        body: data
+    });
+    await fetch(peticion)
+        .then(async function(res) {
+            console.log('Estado: ', res.status);
+            if (res.status==200)
+                {   
+                    await funciones.Aviso("Asiento asignado con éxito");
+                    //await fcnCargarGrid(Number(cmbSalas.value));
+                    document.getElementById('btnCancelarAsignar').click();;
+                }
+            })
+        .catch(
+            ()=>{
+                //console.log('Error al tratar de actualizar el correlativo')
+                funciones.AvisoError('No se pudo Ocupar este asiento');
+            }
+        )           
+
+
+}
 

@@ -62,9 +62,17 @@ router.put("/ocupar", async(req,res)=>{
 
 	try {sql.close()} catch (error) {}
 
+	let nosala = Number(req.body.nosala);
 	let codasiento = Number(req.body.codasiento);
+	let codfila = Number(req.body.codfila);
+	
+	let pelicula = req.body.pelicula;
+	let fecha = req.body.fecha;
+	let horainicio = req.body.horainicio;
+	let minutoinicio = req.body.minutoinicio;
+
 			
-	let sqlQry = `UPDATE CINEMA_ASIENTOS SET OCUPADO='SI' WHERE CODASIENTO=${codasiento}`
+	let sqlQry = `INSERT INTO CINEMA_ORDERS (NOSALA,FECHA,PELICULA,NOASIENTO,NOFILA,HORAINICIO,MINUTOINICIO) VALUES (${nosala},'${fecha}','${pelicula}',${codasiento},${codfila},'${horainicio}','${minutoinicio}')`
 		
 		const pool1 = await new sql.ConnectionPool(config, err => {
 			// Query
