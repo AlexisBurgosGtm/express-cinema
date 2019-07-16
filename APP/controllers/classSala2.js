@@ -6,7 +6,7 @@ async function fcnCargarGrid(codsala,fecha,pelicula,horainicio,minutoinicio){
     GlobalSelectedMinutoInicio=minutoinicio;
 
     let contadorOcupadas =0; 
-    let contadorDisponibles = 135; //144
+    let contadorDisponibles = 144; //135
     let Ocupadas = document.getElementById('txtOcupadas');
     let Disponibles = document.getElementById('txtDisponibles');
 
@@ -86,7 +86,7 @@ function fcnOcuparAsiento(idfila,idasiento){
                     fecha:GlobalSelectedFecha,
                     horainicio:GlobalSelectedHoraInicio,
                     minutoinicio:GlobalSelectedMinutoInicio,
-                    nosala:1
+                    nosala:2
                 });
                           
                 var peticion = new Request('/api/desocupar', {
@@ -105,7 +105,7 @@ function fcnOcuparAsiento(idfila,idasiento){
                                 //await fcnCargarGrid(1,GlobalSelectedFecha,GlobalSelectedPelicula,GlobalSelectedHoraInicio,GlobalSelectedMinutoInicio);
                                 funciones.Aviso('El asiento ha sido desocupado con éxito');
                                 document.getElementById('btn' + idfila + 'Asiento' + idasiento).className="btn btn-icon btn-md bg-warning"
-                                await fcnCargarGrid(1,GlobalSelectedFecha,GlobalSelectedPelicula,GlobalSelectedHoraInicio,GlobalSelectedMinutoInicio);
+                                await fcnCargarGrid(2,GlobalSelectedFecha,GlobalSelectedPelicula,GlobalSelectedHoraInicio,GlobalSelectedMinutoInicio);
 
                             }
                         })
@@ -117,7 +117,7 @@ function fcnOcuparAsiento(idfila,idasiento){
             }
         })
     }else{
-        fcnCargarDatosModal(idfila,idasiento,1);
+        fcnCargarDatosModal(idfila,idasiento,2);
         $('#ModOrdenF').modal('show');
     }
 
@@ -134,7 +134,7 @@ async function fcnAsignarAsiento(){
         fecha:GlobalSelectedFecha,
         horainicio:GlobalSelectedHoraInicio,
         minutoinicio:GlobalSelectedMinutoInicio,
-        nosala:1,
+        nosala:2,
         coddoc:_coddoc,
         correlativo:_correlativo,
         empnit:GlobalEmpnit
@@ -155,7 +155,7 @@ async function fcnAsignarAsiento(){
                 {   
                     await funciones.Aviso("Asiento asignado con éxito");
                     //await fcnCargarGrid(Number(cmbSalas.value));
-                    await fcnCargarGrid(1,GlobalSelectedFecha,GlobalSelectedPelicula,GlobalSelectedHoraInicio,GlobalSelectedMinutoInicio);
+                    await fcnCargarGrid(2,GlobalSelectedFecha,GlobalSelectedPelicula,GlobalSelectedHoraInicio,GlobalSelectedMinutoInicio);
 
                     document.getElementById('btnCancelarAsignar').click();;
                 }
