@@ -158,6 +158,7 @@ async function fcnAsignarAsiento(){
                     await fcnCargarGrid(1,GlobalSelectedFecha,GlobalSelectedPelicula,GlobalSelectedHoraInicio,GlobalSelectedMinutoInicio);
 
                     document.getElementById('btnCancelarAsignar').click();;
+                    fcnImprimirTicket(GlobalSelectedPelicula,GlobalSelectedFila,GlobalSelectedAsiento,1);
                 }
             })
         .catch(

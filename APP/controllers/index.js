@@ -67,6 +67,8 @@ btnConfigCartelera.addEventListener('click',(e)=>{
                 await fcnCargarCmbSalas('cmbSalas');
                 await fcnCargarPeliculas('tblPeliculas');  
                 document.getElementById('txtFechaPelicula').value = new Date().getDate()
+
+                
             })
         })
 });
@@ -140,3 +142,19 @@ socket.on('orden nueva', async function(msg){
 
 
 Iniciarlizar();
+
+function fcnImprimirTicket(pelicula,nofila,noasiento,sala){
+    funciones.loadView('../views/ticket.html','root')
+        .then(()=>{
+            //window.print(); 
+            document.getElementById('lbPelicula').innerText = GlobalSelectedPelicula;
+            document.getElementById('lbAsiento').innerText = GlobalSelectedAsiento;           
+            document.getElementById('lbFila').innerText = GlobalSelectedFila;           
+            document.getElementById('lbFecha').innerText = GlobalSelectedFecha;           
+            document.getElementById('lbSala').innerText = 'Sala ' + sala;           
+
+            document.getElementById('btnAtrasTicket').addEventListener('click',()=>{
+                btnCartelera.click();
+            })
+        })
+}

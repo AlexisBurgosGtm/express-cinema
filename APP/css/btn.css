@@ -1,3 +1,9 @@
+@media print{
+    .oculto-impresion, .oculto-impresion *{
+        display:none !important;
+    }
+}
+
 /* BOTON FLOTANTE ESQUINA DERECHA */
 #fixed-btn2 { 
 position: fixed;

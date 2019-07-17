@@ -37,7 +37,8 @@ app.get("/",function(req,res){
 	res.sendFile(path + 'index.html');
 }); 
 
-//Router para el carwash
+
+//Router para el cine
 app.use('/api', router);
 
 app.use("/",router);

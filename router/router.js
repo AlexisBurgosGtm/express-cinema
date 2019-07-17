@@ -78,7 +78,7 @@ router.put("/ocupar", async(req,res)=>{
 					(EMPNIT,CODDOC,CORRELATIVO,NOSALA,FECHA,PELICULA,NOASIENTO,NOFILA,HORAINICIO,MINUTOINICIO) VALUES 
 					('${empnit}','${coddoc}',${correlativo},${nosala},'${fecha}','${pelicula}',${codasiento},${codfila},'${horainicio}','${minutoinicio}')`
 		
-					console.log(sqlQry);
+					//console.log(sqlQry);
 		const pool1 = await new sql.ConnectionPool(config, err => {
 			// Query
 			new sql.Request(pool1)
@@ -115,7 +115,7 @@ router.put("/desocupar", async(req,res)=>{
 	console.log('solicitando desocupar asiento.. ' + codasiento);
 			
 	let sqlQry = `DELETE FROM CINEMA_ORDERS WHERE NOSALA=${nosala} AND FECHA='${fecha}' AND PELICULA='${pelicula}' AND NOASIENTO=${codasiento} AND NOFILA=${codfila} AND HORAINICIO='${horainicio}' AND MINUTOINICIO='${minutoinicio}'`
-		console.log(sqlQry);
+		//console.log(sqlQry);
 
 		const pool1 = await new sql.ConnectionPool(config, err => {
 			// Query
