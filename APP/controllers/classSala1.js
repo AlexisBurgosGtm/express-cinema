@@ -19,7 +19,7 @@ async function fcnCargarGrid(codsala,fecha,pelicula,horainicio,minutoinicio){
             contadorOcupadas += 1;
             var id = 'btn' + rows.NOFILA + 'Asiento' + rows.NOASIENTO;
             let btn = document.getElementById(id);
-            btn.className = "btn btn-icon btn-md bg-danger text-white"
+            btn.className = "btn btn-icon btn-md bg-danger text-white text-central"
             
         }).join('\n');
         

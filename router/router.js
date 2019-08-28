@@ -1,4 +1,4 @@
-const express = require('express');
+﻿const express = require('express');
 const router = express.Router();
 
 const config = {user: 'DB_A45479_EXPRESS_admin',password: 'razors1805',server: 'sql7002.site4now.net',database: 'DB_A45479_EXPRESS',pool: {	max: 100,	min: 0,	idleTimeoutMillis: 30000}};
@@ -261,8 +261,14 @@ router.put("/editarpelicula", async(req,res)=>{
 	let _minutof = req.body.minutofin;
 	let _titulo = req.body.titulo;
 	let _codsala = Number(req.body.codsala);
+	let _fecha =  req.body.fecha;
+	let _fechaFin =  req.body.fechaFin;
 				
-	let sqlQry = `UPDATE CINEMA_CARTELERA SET TITULO='${_titulo}',HORA='${_hora}',MINUTO='${_minuto}',HORAFIN='${_horaf}',MINUTOFIN='${_minutof}',CODSALA=${_codsala}  WHERE ID=${_id}`
+	let sqlQry = `UPDATE CINEMA_CARTELERA SET 
+	TITULO='${_titulo}',HORA='${_hora}',MINUTO='${_minuto}',
+	HORAFIN='${_horaf}',MINUTOFIN='${_minutof}',CODSALA=${_codsala},
+	FECHA='${_fecha}',FECHAINICIO='${_fecha}',FECHAFIN='${_fechaFin}'
+	WHERE ID=${_id}`
 		
 		const pool1 = await new sql.ConnectionPool(config, err => {
 			// Query
@@ -328,5 +334,48 @@ router.get("/tipodocumentos", async(req,res)=>{
 			sql.close()
 });
 
+// ACTUALIZA EL CORRELATIVO DE TICKETS
+router.post("/correlativo", async(req,res)=>{
+	const sql = require('mssql')
+
+	try {sql.close()} catch (error) {}
+
+	let _correlativo = Number(req.body.anio);
+			
+	let sqlQry = `UPDATE CINEMA_CORRELATIVO SET CORRELATIVO=${_correlativo}`
+						
+		const pool1 = await new sql.ConnectionPool(config, err => {
+			// Query
+			new sql.Request(pool1)			
+			 .query(sqlQry, (err, result) => {
+				if (result.rowsAffected){
+					res.send('Correlativo de ticket actualizado ...')
+				}
+			});
+			//sql.close()
+			//pool1.release();
+		})
+		pool1.on('error', err => {
+			// ... error handler
+			console.log('Error al actualizar correlativo : ' + err)
+		})
+});
+
+// OBTIENE EL CORRELATIVO ACTUAL DEL TICKET
+router.get("/correlativo", async(req,res)=>{
+	const sql = require('mssql')
+	
+	try {sql.close()} catch (error) {};
+
+	const pool = await sql.connect(config)		
+		try {
+			const result = await sql.query `SELECT CORRELATIVO FROM CINEMA_CORRELATIVO`
+				res.send(result);
+				console.log('correlativo: ' + result)
+			} catch (err) {
+				console.log(String(err));
+			}
+			sql.close()
+});
 
 module.exports = router;

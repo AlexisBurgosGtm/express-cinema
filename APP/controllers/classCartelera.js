@@ -28,15 +28,23 @@ async function fcnCargarPeliculas(idContainer){
         
 
         let str = json.recordset.map((rows)=>{
-            let ff = new Date(rows.FECHAFIN); let df = ff.getUTCDate(); let mf = ff.getMonth()+1; let yf = ff.getFullYear();
+            
+            let ff = new Date(rows.FECHAFIN); let df = ff.getUTCDate(); let mf = ff.getUTCMonth()+1; let yf = ff.getFullYear();
+            let fi = new Date(rows.FECHAINICIO); let di = fi.getUTCDate(); let mi = fi.getUTCMonth()+1; let yi = fi.getFullYear();
+
             return `<tr>
                         <td>${rows.TITULO}</td>
                         <td>${rows.DIA + '/' + rows.MES + '/' + rows.ANIO}</td>
                         <td>${df + '/' + mf + '/' + yf}</td>
-                        <td>Inicia: ${rows.HORA + ':' + rows.MINUTO} - Finaliza: ${rows.HORAFIN + ':' + rows.MINUTOFIN}</td>
+                        <td><label>Inicia: ${rows.HORA + ':' + rows.MINUTO}</label>
+                                <br>
+                            <label>Finaliza: ${rows.HORAFIN + ':' + rows.MINUTOFIN}</label>
+                        </td>
                         <td>${rows.DESSALA}</td>
                         <td>
-                            <button class="btn btn-icon btn-circle btn-warning btn-md" data-toggle="modal" data-target="#ModEditarPelicula" onclick="fcnCargarDatosEditar(${rows.ID},'${rows.TITULO}','${rows.HORA}','${rows.MINUTO}','${rows.HORAFIN}','${rows.MINUTOFIN}',${rows.CODSALA});">
+                            <button class="btn btn-icon btn-circle btn-warning btn-md" data-toggle="modal" data-target="#ModEditarPelicula" onclick="fcnCargarDatosEditar(${rows.ID},'${rows.TITULO}','${rows.HORA}','${rows.MINUTO}','${rows.HORAFIN}','${rows.MINUTOFIN}',${rows.CODSALA},
+                                '${yi.toString()}','${mi.toString()}','${di.toString()}',
+                                '${yf.toString()}','${mf.toString()}','${df.toString()}');">
                                 <i class="icon-new-file"></i>
                             </button>
                         </td>
@@ -152,6 +160,8 @@ async function fcnEditarPelicula(){
     funciones.Confirmacion('¿Está seguro que desea EDITAR esta Película')
     .then(async (value)=>{
         if(value==true){          
+            let fecha = new Date(document.getElementById('txtFechaPeliculaE').value);
+            let fechaF = new Date(document.getElementById('txtFechaPeliculaFinE').value);
 
             var data =JSON.stringify({
                 id:Number(idEditPelicula),
@@ -160,7 +170,9 @@ async function fcnEditarPelicula(){
                 horafin : document.getElementById('cmbHoraFPeliculaE').value.toString(),
                 minutofin : document.getElementById('cmbMinutoFPeliculaE').value.toString(),
                 titulo : document.getElementById('txtTituloPeliculaE').value,
-                codsala : Number(document.getElementById('cmbSalasE').value)
+                codsala : Number(document.getElementById('cmbSalasE').value),
+                fecha : fecha,
+                fechaFin : fechaF
             });
                       
             var peticion = new Request('/api/editarpelicula', {
@@ -203,7 +215,7 @@ async function fcnCargarCartelera(){
     try {
        
         let d = f.getUTCDate(); let m = f.getUTCMonth()+1; let y = f.getFullYear();
-        
+       
 
         const response = await fetch(`/api/cartelerafecha?dia=${d}&mes=${m}&anio=${y}`) //&st=${status}`)
         const json = await response.json();
@@ -254,13 +266,35 @@ async function fcnCargarCartelera(){
 };
 
 
-function fcnCargarDatosEditar(id,titulo,hora,minuto,horafinal,minutofinal,codsala){
+function fcnCargarDatosEditar(id,titulo,hora,minuto,horafinal,minutofinal,codsala,yi,mi,di,yf,mf,df){
+    var D = '0' + di;
+    let DDI 
+    if(D.length==3){DDI=di}else{DDI=D}
+    var DF = '0' + df;
+    let DDF 
+    if(DF.length==3){DDF=df}else{DDF=DF}
+
+    var M = '0' + mi;
+    let MMI 
+    if(M.length==3){MMI=mi}else{MMI=M}
+    var MF = '0' + mf;
+    let MMF 
+    if(MF.length==3){MMF=mf}else{MMF=MF}
+
+    
+    console.log(DDI + '/' + MMI + '/' + di);
+    console.log(DDF + '/' + MMF + '/' + df);
+
     document.getElementById('txtTituloPeliculaE').value = titulo;
     document.getElementById('cmbHoraPeliculaE').value = hora;
     document.getElementById('cmbMinutoPeliculaE').value = minuto;
     document.getElementById('cmbHoraFPeliculaE').value = horafinal;
     document.getElementById('cmbMinutoFPeliculaE').value = minutofinal;
     document.getElementById('cmbSalasE').value = codsala;
+    
+    document.getElementById('txtFechaPeliculaE').value = yi + '-' + MMI + '-' + DDI;
+    document.getElementById('txtFechaPeliculaFinE').value = yf + '-' + MMF + '-' + DDF;
+
     idEditPelicula = id;
 }
 

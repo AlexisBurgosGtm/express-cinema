@@ -2,3 +2,7 @@
 .text-centrado{
     text-align: center;
 }
+.text-central{
+    font-size: small;
+    text-align: left;
+}

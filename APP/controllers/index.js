@@ -153,6 +153,31 @@ function fcnImprimirTicket(pelicula,nofila,noasiento,sala){
             document.getElementById('lbFecha').innerText = GlobalSelectedFecha;           
             document.getElementById('lbSala').innerText = 'Sala ' + sala;           
 
+            /*
+            const RUTA_API = "http://localhost:8000"
+            let impresora = new Impresora(RUTA_API);
+            impresora.setFontSize(1, 1);
+            impresora.setEmphasize(0);
+            impresora.setAlign("center");
+            impresora.write(GlobalSelectedPelicula & "\n");
+            impresora.write("No. Asiento: " & GlobalSelectedAsiento & "\n");
+            impresora.write("Telefono: 123456789\n");
+            impresora.write("Fecha/Hora: 2019-08-01 13:21:22\n");
+            impresora.write("--------------------------------\n");
+            impresora.write("Venta de plugin para impresora\n");
+            impresora.setAlign("right");
+            impresora.write("25 USD\n");
+            impresora.write("--------------------------------\n");
+            impresora.write("TOTAL: 25 USD\n");
+            impresora.write("--------------------------------\n");
+            impresora.setAlign("center");
+            impresora.write("***Gracias por su compra***");
+            impresora.end()
+                .then(valor => {
+                    loguear("Al imprimir: " + valor);
+                })
+*/
+
             document.getElementById('btnAtrasTicket').addEventListener('click',()=>{
                 btnCartelera.click();
             })
