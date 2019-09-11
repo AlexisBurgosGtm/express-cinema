@@ -1,0 +1,332 @@
+USE [EXPRESS-CINEMA]
+GO
+
+/****** Object:  Table [dbo].[Tipodocumentos]    Script Date: 12/07/2019 00:08:35 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[Tipodocumentos](
+	[EMP_NIT] [varchar](20) NOT NULL,
+	[CODDOC] [varchar](5) NOT NULL,
+	[DESDOC] [varchar](60) NULL,
+	[TIPOTRAN] [varchar](3) NULL,
+	[CORRELATIVO] [int] NULL,
+	[BODEGAENTRADA] [varchar](10) NULL,
+	[BODEGASALIDA] [varchar](10) NULL,
+	[TIPODOC] [varchar](3) NULL,
+	[MAXIMOPRODUCTOS] [int] NULL,
+	[PAR_PORDEFAULTFAC] [float] NULL,
+	[PAR_PORMAXIMOFAC] [float] NULL,
+	[PRIMERO] [bit] NOT NULL,
+	[IMPRESION] [varchar](1) NULL,
+	[FORMATO] [varchar](15) NULL,
+	[AFECTAIVA] [bit] NOT NULL,
+	[INTERFASEIVA] [bit] NOT NULL,
+	[LIB_NUMERO] [smallint] NULL,
+	[TDC_CODIGOCON] [varchar](5) NULL,
+	[TDC_CODIGOCRE] [varchar](5) NULL,
+	[FRT_CODIGOCON] [varchar](10) NULL,
+	[FRT_CODIGOCRE] [varchar](10) NULL,
+	[DEFAULTENVIO] [bit] NOT NULL,
+	[DEFAULTRECIBO] [bit] NOT NULL,
+	[CALCULACOSTO] [bit] NOT NULL,
+	[TIPOCORRE] [varchar](1) NULL,
+	[DEFAULTTEMPO] [bit] NULL,
+	[TIPOOPE1] [varchar](10) NULL,
+	[TIPOOPE2] [varchar](10) NULL,
+	[TIPOOPE3] [varchar](10) NULL,
+	[TIPOOPE4] [varchar](10) NULL,
+	[TIPOOPE5] [varchar](10) NULL,
+	[TIPOOPE6] [varchar](10) NULL,
+	[TIPOOPE7] [varchar](10) NULL,
+	[AUTORIZA1] [bit] NULL,
+	[AUTORIZA2] [bit] NULL,
+	[AUTORIZA3] [bit] NULL,
+	[AUTORIZA4] [bit] NULL,
+	[AUTORIZA5] [bit] NULL,
+	[AUTORIZA6] [bit] NULL,
+	[AUTORIZA7] [bit] NULL,
+	[EMPAQUE1] [bit] NULL,
+	[EMPAQUE2] [bit] NULL,
+	[EMPAQUE3] [bit] NULL,
+	[EMPAQUE4] [bit] NULL,
+	[EMPAQUE5] [bit] NULL,
+	[EMPAQUE6] [bit] NULL,
+	[EMPAQUE7] [bit] NULL,
+	[TD_SERIE] [varchar](20) NULL,
+	[CODDOCSAL] [varchar](5) NULL,
+	[GENERASERIES] [bit] NULL,
+	[HABILITAVENPROD] [bit] NULL,
+	[TIPOLEECODPROD] [varchar](2) NULL,
+	[NOAINV] [bit] NULL,
+	[COD_CENTRO] [varchar](20) NULL,
+	[REGALO] [bit] NULL,
+	[CANTIDADNOSERIE] [bit] NULL,
+	[DOC_ELECTRONICO] [bit] NULL,
+	[CODDOCNC] [varchar](5) NULL,
+	[GENERAVALES] [bit] NULL,
+	[TIPOVALE] [varchar](2) NULL,
+	[VALEDIAS] [float] NULL,
+	[TIPO_ELECTRONICO] [varchar](5) NOT NULL,
+	[COD_DEPARTA] [varchar](20) NOT NULL,
+	[VERIFICACORRELATIVO] [bit] NOT NULL,
+	[NOVALIDAEXISTENCIA] [bit] NOT NULL,
+	[CODDOCANTICIPO] [varchar](5) NOT NULL,
+	[GUARDA_ELECTRONICO] [bit] NOT NULL,
+	[CODDOC_INTEMP] [varchar](5) NOT NULL,
+	[CC_INTEMP] [varchar](2) NOT NULL,
+	[CD_INTEMP] [varchar](2) NOT NULL,
+	[VARIABLESMARCA] [bit] NOT NULL,
+	[VARIABLESCLASEUNO] [bit] NOT NULL,
+	[VARIABLESCLASEDOS] [bit] NOT NULL,
+	[VARIABLESCLASETRES] [bit] NOT NULL,
+	[VARIABLESCONTA] [varchar](10) NOT NULL,
+	[CALCULAVUELTO] [bit] NOT NULL,
+	[FAC_ESPECIAL] [bit] NOT NULL,
+	[GENERAFIRMAISC] [bit] NOT NULL,
+	[FraseTicket] [varchar](40) NULL,
+	[Resolucion] [varchar](40) NULL,
+	[CorrelativoAutorizado] [varchar](40) NULL,
+ CONSTRAINT [PK_TIPODOCUMENTOS_1__10] PRIMARY KEY CLUSTERED 
+(
+	[EMP_NIT] ASC,
+	[CODDOC] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_EMP_NIT_7__10]  DEFAULT (' ') FOR [EMP_NIT]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_CODDOC_3__10]  DEFAULT (' ') FOR [CODDOC]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_DESDOC_6__10]  DEFAULT (' ') FOR [DESDOC]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_TIPOTRAN_19__10]  DEFAULT (' ') FOR [TIPOTRAN]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_CORRELATIVO4__10]  DEFAULT ((0)) FOR [CORRELATIVO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_BODEGAENTRA1__10]  DEFAULT (' ') FOR [BODEGAENTRADA]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_BODEGASALID2__10]  DEFAULT (' ') FOR [BODEGASALIDA]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_TIPODOC_18__10]  DEFAULT (' ') FOR [TIPODOC]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_MAXIMOPROD13__10]  DEFAULT ((0)) FOR [MAXIMOPRODUCTOS]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_PAR_PORDEF14__10]  DEFAULT ((0)) FOR [PAR_PORDEFAULTFAC]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_PAR_PORMAX15__10]  DEFAULT ((0)) FOR [PAR_PORMAXIMOFAC]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_IMPRESION_11__10]  DEFAULT (' ') FOR [IMPRESION]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_FORMATO_8__10]  DEFAULT (' ') FOR [FORMATO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_LIB_NUMERO12__10]  DEFAULT ((0)) FOR [LIB_NUMERO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_TDC_CODIGO16__10]  DEFAULT (' ') FOR [TDC_CODIGOCON]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_TDC_CODIGO17__10]  DEFAULT (' ') FOR [TDC_CODIGOCRE]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_FRT_CODIGOC9__10]  DEFAULT (' ') FOR [FRT_CODIGOCON]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_FRT_CODIGO10__10]  DEFAULT (' ') FOR [FRT_CODIGOCRE]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocume_DEFAULTENVI5__10]  DEFAULT ((0)) FOR [DEFAULTENVIO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocumentos_DEFAULTRECIBO]  DEFAULT ((0)) FOR [DEFAULTRECIBO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  CONSTRAINT [DF_Tipodocumentos_CALCULACOSTO]  DEFAULT ((0)) FOR [CALCULACOSTO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('N') FOR [TIPOCORRE]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [DEFAULTTEMPO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [TIPOOPE1]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [TIPOOPE2]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [TIPOOPE3]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [TIPOOPE4]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [TIPOOPE5]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [TIPOOPE6]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [TIPOOPE7]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [AUTORIZA1]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [AUTORIZA2]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [AUTORIZA3]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [AUTORIZA4]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [AUTORIZA5]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [AUTORIZA6]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [AUTORIZA7]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [EMPAQUE1]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [EMPAQUE2]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [EMPAQUE3]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [EMPAQUE4]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [EMPAQUE5]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [EMPAQUE6]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [EMPAQUE7]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT (' ') FOR [TD_SERIE]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [CODDOCSAL]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [GENERASERIES]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [HABILITAVENPROD]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [TIPOLEECODPROD]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [NOAINV]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [COD_CENTRO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [REGALO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [CANTIDADNOSERIE]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [DOC_ELECTRONICO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [CODDOCNC]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [GENERAVALES]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('01') FOR [TIPOVALE]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [VALEDIAS]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('TXT') FOR [TIPO_ELECTRONICO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [COD_DEPARTA]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [VERIFICACORRELATIVO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [NOVALIDAEXISTENCIA]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [CODDOCANTICIPO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [GUARDA_ELECTRONICO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [CODDOC_INTEMP]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('01') FOR [CC_INTEMP]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('01') FOR [CD_INTEMP]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [VARIABLESMARCA]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [VARIABLESCLASEUNO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [VARIABLESCLASEDOS]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [VARIABLESCLASETRES]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ('') FOR [VARIABLESCONTA]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [CALCULAVUELTO]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [FAC_ESPECIAL]
+GO
+
+ALTER TABLE [dbo].[Tipodocumentos] ADD  DEFAULT ((0)) FOR [GENERAFIRMAISC]
+GO
+

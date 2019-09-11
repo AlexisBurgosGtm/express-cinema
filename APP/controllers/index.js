@@ -151,6 +151,8 @@ function fcnImprimirTicket(pelicula,nofila,noasiento,sala){
             document.getElementById('lbAsiento').innerText = GlobalSelectedAsiento;           
             document.getElementById('lbFila').innerText = GlobalSelectedFila;           
             document.getElementById('lbFecha').innerText = GlobalSelectedFecha;           
+            let str = `${GlobalSelectedHoraInicio}:${GlobalSelectedMinutoInicio} horas`;
+            document.getElementById('lbHora').innerText = str;
             document.getElementById('lbSala').innerText = 'Sala ' + sala;           
 
             /*

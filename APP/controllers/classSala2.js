@@ -66,59 +66,42 @@ async function fcnCargarDatosModal(idfila,idasiento,sala){
 };
 
 function fcnOcuparAsiento(idfila,idasiento){
+
     GlobalSelectedFila = idfila;
     GlobalSelectedAsiento = idasiento;
+    let Ocupadas = Number(document.getElementById('txtOcupadas').innerHTML);
+    let Disponibles = Number(document.getElementById('txtDisponibles').innerHTML);
+    let lbOcupadas =document.getElementById('txtOcupadas');
+    let lbDisponibles = document.getElementById('txtDisponibles');
+         
+    console.log(Ocupadas);
+    console.log(Disponibles);
+    //normal
+    //btn.className = "btn btn-icon btn-md bg-warning text-central"
+    //ocupado
+    //btn.className = "btn btn-icon btn-md bg-danger text-white text-central"
+    
+    let btn =document.getElementById('btn' + idfila + 'Asiento' + idasiento)
+    //si esta disponible
+    if(btn.className=='btn btn-icon btn-md bg-warning text-central'){
+        btn.className = 'btn btn-icon btn-md bg-danger text-white';
 
-    //btn btn-icon btn-md bg-warning
-    //btn btn-icon btn-md bg-danger text-white
-    //alert(document.getElementById('btn' + idfila + 'Asiento' + idasiento).className);
-  
-    if(document.getElementById('btn' + idfila + 'Asiento' + idasiento).className=='btn btn-icon btn-md bg-danger text-white'){
-           funciones.Confirmacion('¿Está seguro que desea Re-Habilitar este Asiento?')
-            .then(async (value)=>{
-                
-               
-            if(value==true){
-                var data =JSON.stringify({
-                    codasiento:idasiento,
-                    codfila:idfila,
-                    pelicula:GlobalSelectedPelicula,
-                    fecha:GlobalSelectedFecha,
-                    horainicio:GlobalSelectedHoraInicio,
-                    minutoinicio:GlobalSelectedMinutoInicio,
-                    nosala:2
-                });
-                          
-                var peticion = new Request('/api/desocupar', {
-                    method: 'PUT',
-                    headers: new Headers({
-                      // Encabezados
-                        'Content-Type': 'application/json'
-                    }),
-                    body: data
-                });
-                await fetch(peticion)
-                    .then(async function(res) {
-                        console.log('Estado: ', res.status);
-                        if (res.status==200)
-                            {   
-                                //await fcnCargarGrid(1,GlobalSelectedFecha,GlobalSelectedPelicula,GlobalSelectedHoraInicio,GlobalSelectedMinutoInicio);
-                                funciones.Aviso('El asiento ha sido desocupado con éxito');
-                                document.getElementById('btn' + idfila + 'Asiento' + idasiento).className="btn btn-icon btn-md bg-warning"
-                                await fcnCargarGrid(2,GlobalSelectedFecha,GlobalSelectedPelicula,GlobalSelectedHoraInicio,GlobalSelectedMinutoInicio);
+        Ocupadas = (Ocupadas + 1);
+        Disponibles = (Disponibles - 1);
 
-                            }
-                        })
-                    .catch(
-                        ()=>{
-                            funciones.AvisoError('No se pudo DesOcupar este asiento');
-                        }
-                    )      
-            }
-        })
+        
+        lbDisponibles.innerHTML = Disponibles.toString();
+        lbOcupadas.innerHTML = Ocupadas.toString();        
+
     }else{
-        fcnCargarDatosModal(idfila,idasiento,2);
-        $('#ModOrdenF').modal('show');
+    //si esta ocupado
+        btn.className = 'btn btn-icon btn-md bg-warning text-central';
+   
+        Ocupadas = Ocupadas-1;
+        Disponibles = Disponibles+1;
+
+        lbDisponibles.innerHTML = Disponibles.toString();
+        lbOcupadas.innerHTML = Ocupadas.toString();        
     }
 
 }
@@ -171,3 +154,7 @@ async function fcnAsignarAsiento(){
 
 }
 
+
+function fcnTerminarTicket(){
+    $('#ModOrdenF').modal('show')
+}

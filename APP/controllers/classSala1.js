@@ -65,65 +65,50 @@ async function fcnCargarDatosModal(idfila,idasiento,sala){
     })
 };
 
+//EVENTO QUE SE DISPARA AL DARLE CLICK A UN ASIENTO
 function fcnOcuparAsiento(idfila,idasiento){
+
     GlobalSelectedFila = idfila;
     GlobalSelectedAsiento = idasiento;
+    let Ocupadas = Number(document.getElementById('txtOcupadas').innerHTML);
+    let Disponibles = Number(document.getElementById('txtDisponibles').innerHTML);
+    let lbOcupadas =document.getElementById('txtOcupadas');
+    let lbDisponibles = document.getElementById('txtDisponibles');
+         
+    console.log(Ocupadas);
+    console.log(Disponibles);
+    //normal
+    //btn.className = "btn btn-icon btn-md bg-warning text-central"
+    //ocupado
+    //btn.className = "btn btn-icon btn-md bg-danger text-white text-central"
+    
+    let btn =document.getElementById('btn' + idfila + 'Asiento' + idasiento)
+    //si esta disponible
+    if(btn.className=='btn btn-icon btn-md bg-warning text-central'){
+        btn.className = 'btn btn-icon btn-md bg-danger text-white';
 
-    //btn btn-icon btn-md bg-warning
-    //btn btn-icon btn-md bg-danger text-white
-    //alert(document.getElementById('btn' + idfila + 'Asiento' + idasiento).className);
-  
-    if(document.getElementById('btn' + idfila + 'Asiento' + idasiento).className=='btn btn-icon btn-md bg-danger text-white'){
-           funciones.Confirmacion('¿Está seguro que desea Re-Habilitar este Asiento?')
-            .then(async (value)=>{
-                
-               
-            if(value==true){
-                var data =JSON.stringify({
-                    codasiento:idasiento,
-                    codfila:idfila,
-                    pelicula:GlobalSelectedPelicula,
-                    fecha:GlobalSelectedFecha,
-                    horainicio:GlobalSelectedHoraInicio,
-                    minutoinicio:GlobalSelectedMinutoInicio,
-                    nosala:1
-                });
-                          
-                var peticion = new Request('/api/desocupar', {
-                    method: 'PUT',
-                    headers: new Headers({
-                      // Encabezados
-                        'Content-Type': 'application/json'
-                    }),
-                    body: data
-                });
-                await fetch(peticion)
-                    .then(async function(res) {
-                        console.log('Estado: ', res.status);
-                        if (res.status==200)
-                            {   
-                                //await fcnCargarGrid(1,GlobalSelectedFecha,GlobalSelectedPelicula,GlobalSelectedHoraInicio,GlobalSelectedMinutoInicio);
-                                funciones.Aviso('El asiento ha sido desocupado con éxito');
-                                document.getElementById('btn' + idfila + 'Asiento' + idasiento).className="btn btn-icon btn-md bg-warning"
-                                await fcnCargarGrid(1,GlobalSelectedFecha,GlobalSelectedPelicula,GlobalSelectedHoraInicio,GlobalSelectedMinutoInicio);
+        Ocupadas = (Ocupadas + 1);
+        Disponibles = (Disponibles - 1);
 
-                            }
-                        })
-                    .catch(
-                        ()=>{
-                            funciones.AvisoError('No se pudo DesOcupar este asiento');
-                        }
-                    )      
-            }
-        })
+        
+        lbDisponibles.innerHTML = Disponibles.toString();
+        lbOcupadas.innerHTML = Ocupadas.toString();        
+
     }else{
-        fcnCargarDatosModal(idfila,idasiento,1);
-        $('#ModOrdenF').modal('show');
+    //si esta ocupado
+        btn.className = 'btn btn-icon btn-md bg-warning text-central';
+   
+        Ocupadas = Ocupadas-1;
+        Disponibles = Disponibles+1;
+
+        lbDisponibles.innerHTML = Disponibles.toString();
+        lbOcupadas.innerHTML = Ocupadas.toString();        
     }
 
 }
 
 async function fcnAsignarAsiento(){
+    
     let _coddoc = document.getElementById('cmbTipoDoc').value;
     let _correlativo =document.getElementById('txtDataNumero').value;
 
@@ -171,3 +156,55 @@ async function fcnAsignarAsiento(){
 
 }
 
+async function fcnAsignarAsiento2(){
+    let _coddoc = document.getElementById('cmbTipoDoc').value;
+    let _correlativo =document.getElementById('txtDataNumero').value;
+
+    var data =JSON.stringify({
+        codasiento:GlobalSelectedAsiento,
+        codfila:GlobalSelectedFila,
+        pelicula:GlobalSelectedPelicula,
+        fecha:GlobalSelectedFecha,
+        horainicio:GlobalSelectedHoraInicio,
+        minutoinicio:GlobalSelectedMinutoInicio,
+        nosala:1,
+        coddoc:_coddoc,
+        correlativo:_correlativo,
+        empnit:GlobalEmpnit
+    });
+              
+    var peticion = new Request('/api/ocupar', {
+        method: 'PUT',
+        headers: new Headers({
+          // Encabezados
+            'Content-Type': 'application/json'
+        }),
+        body: data
+    });
+    await fetch(peticion)
+        .then(async function(res) {
+            console.log('Estado: ', res.status);
+            if (res.status==200)
+                {   
+                    await funciones.Aviso("Asiento asignado con éxito");
+                    //await fcnCargarGrid(Number(cmbSalas.value));
+                    await fcnCargarGrid(1,GlobalSelectedFecha,GlobalSelectedPelicula,GlobalSelectedHoraInicio,GlobalSelectedMinutoInicio);
+
+                    document.getElementById('btnCancelarAsignar').click();;
+                    fcnImprimirTicket(GlobalSelectedPelicula,GlobalSelectedFila,GlobalSelectedAsiento,1);
+                }
+            })
+        .catch(
+            ()=>{
+                //console.log('Error al tratar de actualizar el correlativo')
+                funciones.AvisoError('No se pudo Ocupar este asiento');
+            }
+        )           
+
+
+}
+
+// abre el modal
+function fcnTerminarTicket(){
+    $('#ModOrdenF').modal('show')
+}

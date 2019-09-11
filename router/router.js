@@ -135,7 +135,6 @@ router.put("/desocupar", async(req,res)=>{
 		})
 });
 
-
 // LOGIN
 router.get("/usuarios", async(req,res)=>{
 	const sql = require('mssql')

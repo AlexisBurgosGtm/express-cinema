@@ -1,33 +1,48 @@
 <section class="no-padding-top no-padding-bottom">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 col-sm-6">
-                <div class="statistic-block block">
-                    <div class="progress-details d-flex align-items-end justify-content-between">
-                        <div class="title">
-                            <div class="icon">
-                                <i class="icon-user-1"></i>
+                <div class="col-md-4 col-sm-4">
+                        <div class="statistic-block block">
+                            <div class="progress-details d-flex align-items-end justify-content-between">
+                                <div class="title">
+                                    <div class="icon">
+                                        <i class="icon-user-1"></i>
+                                    </div>
+                                    <label>Asientos Ocupados</label>
+                                </div>
+                                <div class="number text-primary" id="txtOcupadas">0</div>
                             </div>
-                            <label>Asientos Ocupados</label>
                         </div>
-                        <div class="number text-primary" id="txtOcupadas">0</div>
                     </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-sm-6">
-                <div class="statistic-block block">
-                    <div class="progress-details d-flex align-items-end justify-content-between">
-                        <div class="title">
-                            <div class="icon">
-                                <i class="icon-grid"></i>
+        
+                    <div class="col-md-4 col-sm-4">
+                        <div class="statistic-block block">
+                            <div class="progress-details d-flex align-items-end justify-content-between">
+                                <div class="title">
+                                    <div class="icon">
+                                        <i class="icon-grid"></i>
+                                    </div>
+                                    <label>Asientos Disponibles</label>
+                                    </div>
+                                <div class="number text-warning" id="txtDisponibles">0</div>
                             </div>
-                            <label>Asientos Disponibles</label>
-                            </div>
-                        <div class="number text-warning" id="txtDisponibles">0</div>
+                        </div>
                     </div>
-                </div>
-            </div>
+        
+                    <div class="col-md-4 col-sm-4">
+                            <button class="btn btn-success btn-icon col-12" id="btnFinalizarTicket" onclick="fcnTerminarTicket();">
+                                    <i class="icon-info"></i>
+                                Finalizar
+                            </button>
+                        <!--
+                        <div class="statistic-block block">
+                            <div class="progress-details d-flex align-items-end justify-content-between">
+                                                       
+                            </div>
+                        </div>
+                        -->
+                    </div>
+        
         </div>
     </div>
 </section>
