@@ -1,3 +1,10 @@
+let socket = io();
+
+window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+    if (!window.indexedDB) {
+      window.alert("Lo siento pero su Teléfono no soporta el guardado de Datos");
+    }
+
 let idEditPelicula=0;
 
 let btnToggler = document.getElementById('btnToggler');
@@ -29,6 +36,8 @@ function Iniciarlizar(){
     })       
 
     txtLogin.focus();
+
+ 
 }
 
 // botón inicio o cartelera
@@ -134,7 +143,7 @@ async function fcnLogin(pass){
 // SOCKET
 socket.on('orden nueva', async function(msg){
     try {
-       
+        funciones.NotificacionPersistent(msg);
     } catch (error) {
       console.log('No se logró cargar el listado luego del socket')
     }
@@ -143,17 +152,84 @@ socket.on('orden nueva', async function(msg){
 
 Iniciarlizar();
 
-function fcnImprimirTicket(pelicula,nofila,noasiento,sala){
+async function fcnImprimirTicket(sala){
     funciones.loadView('../views/ticket.html','root')
-        .then(()=>{
+        .then(async ()=>{
             //window.print(); 
             document.getElementById('lbPelicula').innerText = GlobalSelectedPelicula;
-            document.getElementById('lbAsiento').innerText = GlobalSelectedAsiento;           
-            document.getElementById('lbFila').innerText = GlobalSelectedFila;           
             document.getElementById('lbFecha').innerText = GlobalSelectedFecha;           
             let str = `${GlobalSelectedHoraInicio}:${GlobalSelectedMinutoInicio} horas`;
             document.getElementById('lbHora').innerText = str;
-            document.getElementById('lbSala').innerText = 'Sala ' + sala;           
+            document.getElementById('lbSala').innerText = 'Sala ' + sala;
+            
+            //escribe la lista de asientos
+            classDbOp.escribirAsientos('gridContenedor');
+            
+            try {
+                socket.emit('orden nueva', `Sala ${sala},${GlobalSelectedPelicula},${str}`)
+            } catch (error) {
+                
+            }
+
+            document.getElementById('btnAtrasTicket').addEventListener('click',()=>{
+                btnCartelera.click();
+            })
+        })
+}
+
+
+window.onload = function () {
+    initiateDb();
+};
+
+function initiateDb() {
+
+    console.log('Iniciando la db....' + DbName);
+    JsStore.isDbExist(DbName, function (isExist) {
+        if (isExist) {
+            DbConnection = new JsStore.Instance(DbName);
+        } else {
+            var tbl = getTbl();
+            DbConnection = new JsStore.Instance().createDb(tbl);
+        }
+    });
+}
+
+function getTbl() {
+    //TABLA VENTAS TEMPORAL
+    var tblTemp = {
+        Name: "tblTemp",
+        Columns: [
+            { Name: "ID", PrimaryKey: true, AutoIncrement: true },
+            { Name: "nosala", DataType: "number"},
+            { Name: "codasiento", DataType: "number"},
+            { Name: "codfila", DataType: "number"},
+            { Name: "horainicio", DataType: "string"},
+            { Name: "minutoinicio", DataType: "string"}
+        ]
+    }
+
+    var tblTemp2 = {
+        Name: "tblTemp",
+        Columns: [
+            { Name: "ID", PrimaryKey: true, AutoIncrement: true },
+            { Name: "nosala", DataType: "number"},
+            { Name: "codasiento", DataType: "number"},
+            { Name: "codfila", DataType: "number"},
+            { Name: "horainicio", DataType: "string"},
+            { Name: "minutoinicio", DataType: "string"}
+        ]
+    }     
+    var DataBase = {
+        Name: DbName,
+        Tables: [tblTemp,tblTemp2]
+    }
+
+    return DataBase;
+};
+
+
+
 
             /*
             const RUTA_API = "http://localhost:8000"
@@ -179,9 +255,3 @@ function fcnImprimirTicket(pelicula,nofila,noasiento,sala){
                     loguear("Al imprimir: " + valor);
                 })
 */
-
-            document.getElementById('btnAtrasTicket').addEventListener('click',()=>{
-                btnCartelera.click();
-            })
-        })
-}

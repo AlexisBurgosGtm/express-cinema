@@ -221,15 +221,7 @@ function fcnAsignarBotones(){
     } catch (error) {
         
     }
-
-    cmbSalas.addEventListener('change',async ()=>{
-        await fcnCargarButacas('mapcontainer',Number(cmbSalas.value));  
-    });
-
-    btnLiberarAsientos.addEventListener('click',()=>{
-        fcnReHabilitarTodos();
-    })
-
+ 
 }
 
 

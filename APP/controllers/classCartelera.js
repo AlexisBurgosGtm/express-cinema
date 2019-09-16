@@ -303,6 +303,7 @@ function CargarSala1(DescPelicula,horainicio,minutoinicio,horafin,minutofin){
 
     funciones.loadView('../views/viewSala1.html','root')
     .then(()=>{
+
         funciones.loadScript('../controllers/classSala1.js','root')
         .then(async()=>{
             
@@ -312,6 +313,19 @@ function CargarSala1(DescPelicula,horainicio,minutoinicio,horafin,minutofin){
 
             await fcnCargarGrid(1,fecha,DescPelicula,horainicio,minutoinicio);
             await fcnCargarTipoDoc()
+
+            document.getElementById('lbTituloPelicula').innerText = DescPelicula;
+            document.getElementById('btnAsignarAsiento').addEventListener('click',()=>{
+                funciones.Confirmacion('¿Está seguro que desea finalizar esta orden?')
+                .then(async (value)=>{
+                    if(value==true){
+                        await classDbOp.sendAsientos(1)
+        
+                        
+                    }
+                })
+                
+            })
         })
     })
 }
@@ -328,6 +342,19 @@ function CargarSala2(DescPelicula,horainicio,minutoinicio,horafin,minutofin){
             let fecha = y + '/' + m + '/' + d;
             await fcnCargarGrid(2,fecha,DescPelicula,horainicio,minutoinicio);
             await fcnCargarTipoDoc()
+
+            document.getElementById('lbTituloPelicula').innerText = DescPelicula;
+            document.getElementById('btnAsignarAsiento').addEventListener('click',()=>{
+                funciones.Confirmacion('¿Está seguro que desea finalizar esta orden?')
+                .then(async(value)=>{
+                    if(value==true){
+                        await classDbOp.sendAsientos(2)
+                       
+                    }
+                })
+                
+            })
         })
     })
 }
+

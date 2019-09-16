@@ -1,7 +1,7 @@
 USE [EXPRESS-CINEMA]
 GO
 
-/****** Object:  Table [dbo].[CINEMA_ORDERS]    Script Date: 12/07/2019 00:08:00 ******/
+/****** Object:  Table [dbo].[CINEMA_CARTELERA]    Script Date: 16/09/2019 08:26:02 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,24 +11,26 @@ GO
 SET ANSI_PADDING ON
 GO
 
-CREATE TABLE [dbo].[CINEMA_ORDERS](
+CREATE TABLE [dbo].[CINEMA_CARTELERA](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[EMPNIT] [varchar](20) NULL,
-	[CODDOC] [varchar](5) NULL,
-	[CORRELATIVO] [numeric](18, 0) NULL,
 	[FECHA] [date] NULL,
 	[ANIO] [int] NULL,
 	[MES] [int] NULL,
 	[DIA] [int] NULL,
-	[PELICULA] [varchar](255) NULL,
-	[NOSALA] [int] NULL,
-	[NOASIENTO] [int] NULL,
-	[NOFILA] [int] NULL,
-	[HORAINICIO] [varchar](2) NULL,
-	[MINUTOINICIO] [varchar](2) NULL,
+	[TITULO] [varchar](250) NULL,
+	[FECHAINICIO] [date] NULL,
+	[FECHAFIN] [date] NULL,
+	[IMG] [varchar](250) NULL,
+	[CODSALA] [int] NULL,
+	[HORA] [varchar](2) NULL,
+	[MINUTO] [varchar](2) NULL,
 	[HORAFIN] [varchar](2) NULL,
 	[MINUTOFIN] [varchar](2) NULL,
- CONSTRAINT [PK_CINEMA_ORDERS] PRIMARY KEY CLUSTERED 
+	[ANIOF] [int] NULL,
+	[MESF] [int] NULL,
+	[DIAF] [int] NULL,
+	[ACTIVA] [varchar](2) NULL,
+ CONSTRAINT [PK_CARTELERA] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]

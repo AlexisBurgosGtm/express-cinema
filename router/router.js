@@ -1,8 +1,6 @@
 ﻿const express = require('express');
 const router = express.Router();
-
-const config = {user: 'DB_A45479_EXPRESS_admin',password: 'razors1805',server: 'sql7002.site4now.net',database: 'DB_A45479_EXPRESS',pool: {	max: 100,	min: 0,	idleTimeoutMillis: 30000}};
-//const config = {user: 'iEx', password: 'iEx', server: 'SERVERALEXIS\\SQLEXPRESS', database: 'EXPRESS-CINEMA', pool: {max: 100,min: 0,idleTimeoutMillis: 30000}};
+const execute = require('./connection')
 
 
 // OBTIENE LA LISTA DE ASIENTOS DE UNA SALA
@@ -15,53 +13,26 @@ router.get("/asientos", async(req,res)=>{
 	let minutoinicio = req.query.minutoinicio;
 	let fecha = req.query.fecha;
 
-	console.log(pelicula);
-	console.log(horainicio + '-' + minutoinicio);
-	console.log(fecha);
-
-	try {sql.close()} catch (error) {};
-
-	const pool = await sql.connect(config)		
-		try {
-			const result = await sql.query `SELECT FECHA, PELICULA, NOSALA, NOASIENTO, NOFILA, HORAINICIO, MINUTOINICIO, HORAFIN, MINUTOFIN
+	let qry = `SELECT FECHA, PELICULA, NOSALA, NOASIENTO, NOFILA, HORAINICIO, MINUTOINICIO, HORAFIN, MINUTOFIN,CODDOC,CORRELATIVO
 											FROM CINEMA_ORDERS 
-											WHERE (PELICULA=${pelicula}) AND (NOSALA = ${codsala}) 
-											AND (HORAINICIO =${horainicio}) 
-											AND (MINUTOINICIO =${minutoinicio}) 
-											AND (FECHA = ${fecha})`
+											WHERE (PELICULA='${pelicula}') AND (NOSALA = ${codsala}) 
+											AND (HORAINICIO ='${horainicio}') 
+											AND (MINUTOINICIO ='${minutoinicio}') 
+											AND (FECHA = '${fecha}')`
+	execute.Query(res,qry);
 
-				console.dir('Enviando listado de asientos');
-				res.send(result);
-			} catch (err) {
-				console.log(String(err));
-			}
-			sql.close()
 });
 
 // OBTIENE EL LISTADO DE LAS SALAS
 router.get("/salas", async(req,res)=>{
-	const sql = require('mssql')
-	
-	try {sql.close()} catch (error) {};
+	let qry = `SELECT CODSALA, DESSALA, IMG FROM CINEMA_SALAS`
+	execute.Query(res,qry);
 
-	const pool = await sql.connect(config)		
-		try {
-			const result = await sql.query `SELECT CODSALA, DESSALA, IMG FROM CINEMA_SALAS`
-
-				console.dir('Enviando listado de salas');
-				res.send(result);
-			} catch (err) {
-				console.log(String(err));
-			}
-			sql.close()
 });
 
 // OCUPA UN ASIENTO
-router.put("/ocupar", async(req,res)=>{
-	const sql = require('mssql')
-
-	try {sql.close()} catch (error) {}
-
+router.post("/ocupar", async(req,res)=>{
+	
 	let nosala = Number(req.body.nosala);
 	let codasiento = Number(req.body.codasiento);
 	let codfila = Number(req.body.codfila);
@@ -78,31 +49,13 @@ router.put("/ocupar", async(req,res)=>{
 					(EMPNIT,CODDOC,CORRELATIVO,NOSALA,FECHA,PELICULA,NOASIENTO,NOFILA,HORAINICIO,MINUTOINICIO) VALUES 
 					('${empnit}','${coddoc}',${correlativo},${nosala},'${fecha}','${pelicula}',${codasiento},${codfila},'${horainicio}','${minutoinicio}')`
 		
-					//console.log(sqlQry);
-		const pool1 = await new sql.ConnectionPool(config, err => {
-			// Query
-			new sql.Request(pool1)
-			//pool1.request() // or: new sql.Request(pool1)
-			 .query(sqlQry, (err, result) => {
-				if (result.rowsAffected){
-					res.send('Asiento ocupado...')
-				}
-			});
-			//sql.close()
-			//pool1.release();
-		})
-		pool1.on('error', err => {
-			// ... error handler
-			console.log('Error al finalizar: ' + err)
-		})
+	execute.QueryNoSend(res,sqlQry);
+
 });
 
 // DESOCUPA UN ASIENTO
-router.put("/desocupar", async(req,res)=>{
-	const sql = require('mssql')
+router.post("/desocupar", async(req,res)=>{
 
-	try {sql.close()} catch (error) {}
-	
 	let nosala = Number(req.body.nosala);
 	let codasiento = Number(req.body.codasiento);
 	let codfila = Number(req.body.codfila);
@@ -111,59 +64,21 @@ router.put("/desocupar", async(req,res)=>{
 	let fecha = req.body.fecha;
 	let horainicio = req.body.horainicio;
 	let minutoinicio = req.body.minutoinicio;
-
-	console.log('solicitando desocupar asiento.. ' + codasiento);
 			
 	let sqlQry = `DELETE FROM CINEMA_ORDERS WHERE NOSALA=${nosala} AND FECHA='${fecha}' AND PELICULA='${pelicula}' AND NOASIENTO=${codasiento} AND NOFILA=${codfila} AND HORAINICIO='${horainicio}' AND MINUTOINICIO='${minutoinicio}'`
-		//console.log(sqlQry);
+	execute.Query(res,sqlQry);
 
-		const pool1 = await new sql.ConnectionPool(config, err => {
-			// Query
-			new sql.Request(pool1)
-			//pool1.request() // or: new sql.Request(pool1)
-			 .query(sqlQry, (err, result) => {
-				if (result.rowsAffected){
-					res.send('Asiento desocupado...')
-				}
-			});
-			//sql.close()
-			//pool1.release();
-		})
-		pool1.on('error', err => {
-			// ... error handler
-			console.log('Error al finalizar: ' + err)
-		})
 });
 
 // LOGIN
 router.get("/usuarios", async(req,res)=>{
-	const sql = require('mssql')
-	
-	//let user = req.query.user;
 	let pass = req.query.pass;
-
-	
-	try {sql.close()} catch (error) {};
-
-	const pool = await sql.connect(config)		
-		try {
-			//const result = await sql.query `SELECT NOMBRE,NIVEL FROM USUARIOS WHERE NOMBRE=${user} AND CLAVE=${pass}`
-			const result = await sql.query `SELECT NOMBRE,NIVEL FROM USUARIOS WHERE CLAVE=${pass}`
-				res.send(result);
-				console.log('login: ' + result)
-			} catch (err) {
-				console.log(String(err));
-			}
-			sql.close()
+	let sql = `SELECT NOMBRE,NIVEL FROM USUARIOS WHERE CLAVE=${pass}`
+	execute.Query(res,sql);
 });
 
 // INSERTA UN REGISTRO EN LA TABLA CARTELERA
 router.post("/nuevapelicula", async(req,res)=>{
-	const sql = require('mssql')
-
-	try {sql.close()} catch (error) {}
-
-	
 
 	let _anio = Number(req.body.anio);
 	let _mes = Number(req.body.mes);
@@ -181,78 +96,37 @@ router.post("/nuevapelicula", async(req,res)=>{
 		
 	let sqlQry = `INSERT INTO CINEMA_CARTELERA (FECHA,FECHAINICIO,FECHAFIN,ANIO,MES,DIA,HORA,MINUTO,HORAFIN,MINUTOFIN,TITULO,CODSALA,ACTIVA) 
 				  VALUES ('${_fecha}','${_fecha}','${_fechaFin}',${_anio},${_mes},${_dia},'${_hora}','${_minuto}','${_horaf}','${_minutof}','${_titulo}',${_codsala},'SI')`
-
-						
-		const pool1 = await new sql.ConnectionPool(config, err => {
-			// Query
-			new sql.Request(pool1)			
-			 .query(sqlQry, (err, result) => {
-				if (result.rowsAffected){
-					res.send('Nueva pelicula agregada...')
-				}
-			});
-			//sql.close()
-			//pool1.release();
-		})
-		pool1.on('error', err => {
-			// ... error handler
-			console.log('Error al finalizar: ' + err)
-		})
+	execute.Query(res,sqlQry);
+	
 });
 
 // OBTIENE TODAS LAS PELÍCULAS EN CARTELERA
 router.get("/cartelerafecha", async(req,res)=>{
-	const sql = require('mssql');
-	
-	
+
 	let _dia = req.query.dia;
 	let _mes = req.query.mes;
 	let _anio = req.query.anio;
 	let _fecha =   _anio + '/' + _mes + '/' + _dia
 	
 	console.log('solicitando cartelera fecha ' + _fecha)
+	
+	let qry =  `SELECT CINEMA_CARTELERA.ID, CINEMA_CARTELERA.FECHA, CINEMA_CARTELERA.FECHAINICIO, CINEMA_CARTELERA.FECHAFIN, CINEMA_CARTELERA.ANIO, CINEMA_CARTELERA.MES, CINEMA_CARTELERA.DIA, CINEMA_CARTELERA.HORA, CINEMA_CARTELERA.MINUTO, CINEMA_CARTELERA.HORAFIN, CINEMA_CARTELERA.MINUTOFIN, CINEMA_CARTELERA.TITULO,CINEMA_CARTELERA.CODSALA, CINEMA_SALAS.DESSALA
+	FROM CINEMA_CARTELERA LEFT OUTER JOIN CINEMA_SALAS ON CINEMA_CARTELERA.CODSALA = CINEMA_SALAS.CODSALA
+	WHERE (CINEMA_CARTELERA.FECHA <= '${_fecha}') ORDER BY CINEMA_CARTELERA.HORA`
+	
+	execute.Query(res,qry);
 
-	try {sql.close()} catch (error) {};
-
-	const pool = await sql.connect(config)		
-		try {
-			const result = await sql.query `SELECT CINEMA_CARTELERA.ID, CINEMA_CARTELERA.FECHA, CINEMA_CARTELERA.FECHAINICIO, CINEMA_CARTELERA.FECHAFIN, CINEMA_CARTELERA.ANIO, CINEMA_CARTELERA.MES, CINEMA_CARTELERA.DIA, CINEMA_CARTELERA.HORA, CINEMA_CARTELERA.MINUTO, CINEMA_CARTELERA.HORAFIN, CINEMA_CARTELERA.MINUTOFIN, CINEMA_CARTELERA.TITULO,CINEMA_CARTELERA.CODSALA, CINEMA_SALAS.DESSALA
-											FROM CINEMA_CARTELERA LEFT OUTER JOIN CINEMA_SALAS ON CINEMA_CARTELERA.CODSALA = CINEMA_SALAS.CODSALA
-											WHERE (CINEMA_CARTELERA.FECHA <= ${_fecha}) ORDER BY CINEMA_CARTELERA.HORA`
-				res.send(result);
-				console.log('cartelera enviada exitosamente')
-			} catch (err) {
-				console.log(String(err));
-			}
-			sql.close()
 });
 
 // OBTIENE TODAS LAS PELÍCULAS EN CARTELERA
 router.get("/cartelera", async(req,res)=>{
-	const sql = require('mssql')
-	
-
-	
-	try {sql.close()} catch (error) {};
-
-	const pool = await sql.connect(config)		
-		try {
-			const result = await sql.query `SELECT CINEMA_CARTELERA.ID, CINEMA_CARTELERA.FECHA,CINEMA_CARTELERA.FECHAINICIO, CINEMA_CARTELERA.FECHAFIN, CINEMA_CARTELERA.ANIO, CINEMA_CARTELERA.MES, CINEMA_CARTELERA.DIA, CINEMA_CARTELERA.HORA, CINEMA_CARTELERA.MINUTO, CINEMA_CARTELERA.HORAFIN, CINEMA_CARTELERA.MINUTOFIN, CINEMA_CARTELERA.TITULO,CINEMA_CARTELERA.CODSALA, CINEMA_SALAS.DESSALA
+	let qry = `SELECT CINEMA_CARTELERA.ID, CINEMA_CARTELERA.FECHA,CINEMA_CARTELERA.FECHAINICIO, CINEMA_CARTELERA.FECHAFIN, CINEMA_CARTELERA.ANIO, CINEMA_CARTELERA.MES, CINEMA_CARTELERA.DIA, CINEMA_CARTELERA.HORA, CINEMA_CARTELERA.MINUTO, CINEMA_CARTELERA.HORAFIN, CINEMA_CARTELERA.MINUTOFIN, CINEMA_CARTELERA.TITULO,CINEMA_CARTELERA.CODSALA, CINEMA_SALAS.DESSALA
 											FROM CINEMA_CARTELERA LEFT OUTER JOIN CINEMA_SALAS ON CINEMA_CARTELERA.CODSALA = CINEMA_SALAS.CODSALA ORDER BY CINEMA_CARTELERA.FECHA`
-				res.send(result);
-				console.log('cartelera enviada exitosamente')
-			} catch (err) {
-				console.log(String(err));
-			}
-			sql.close()
+	execute.Query(res,qry);
 });
 
 // EDITA UNA PELICULA
 router.put("/editarpelicula", async(req,res)=>{
-	const sql = require('mssql')
-
-	try {sql.close()} catch (error) {}
-
 	let _id = Number(req.body.id);
 	let _hora = req.body.hora;
 	let _minuto = req.body.minuto;
@@ -269,112 +143,38 @@ router.put("/editarpelicula", async(req,res)=>{
 	FECHA='${_fecha}',FECHAINICIO='${_fecha}',FECHAFIN='${_fechaFin}'
 	WHERE ID=${_id}`
 		
-		const pool1 = await new sql.ConnectionPool(config, err => {
-			// Query
-			new sql.Request(pool1)
-			//pool1.request() // or: new sql.Request(pool1)
-			 .query(sqlQry, (err, result) => {
-				if (result.rowsAffected){
-					res.send('Pelicula editada exitosamente..')
-				}
-			});
-			//sql.close()
-			//pool1.release();
-		})
-		pool1.on('error', err => {
-			// ... error handler
-			console.log('Error al finalizar: ' + err)
-		})
+	execute.Query(res,sqlQry);
 });
 
 // ELIMINA UNA PELICULA
 router.put("/pelicula", async(req,res)=>{
-	const sql = require('mssql')
-
-	try {sql.close()} catch (error) {}
 
 	let _id = Number(req.body.id);
 				
 	let sqlQry = `DELETE FROM CINEMA_CARTELERA WHERE ID=${_id}`
 		
-		const pool1 = await new sql.ConnectionPool(config, err => {
-			// Query
-			new sql.Request(pool1)
-			//pool1.request() // or: new sql.Request(pool1)
-			 .query(sqlQry, (err, result) => {
-				if (result.rowsAffected){
-					res.send('Pelicula eliminada de cartelera..')
-				}
-			});
-			//sql.close()
-			//pool1.release();
-		})
-		pool1.on('error', err => {
-			// ... error handler
-			console.log('Error al finalizar: ' + err)
-		})
+	execute.Query(res,sqlQry);
 });
 
 // OBTIENE LOS CODDOC DE LAS FACTURAS
 router.get("/tipodocumentos", async(req,res)=>{
-	const sql = require('mssql')
-		
-	try {sql.close()} catch (error) {};
-
-	const pool = await sql.connect(config)		
-		try {
-			const result = await sql.query `SELECT CODDOC, DESDOC, CORRELATIVO FROM TIPODOCUMENTOS WHERE TIPODOC='FAC'`
-
-				console.dir('Enviando listado de asientos');
-				res.send(result);
-			} catch (err) {
-				console.log(String(err));
-			}
-			sql.close()
+	 let sql = `SELECT CODDOC, DESDOC, CORRELATIVO FROM TIPODOCUMENTOS WHERE TIPODOC='FAC'`
+	execute.Query(res,sql);
 });
 
 // ACTUALIZA EL CORRELATIVO DE TICKETS
 router.post("/correlativo", async(req,res)=>{
-	const sql = require('mssql')
-
-	try {sql.close()} catch (error) {}
-
+	
 	let _correlativo = Number(req.body.anio);
 			
 	let sqlQry = `UPDATE CINEMA_CORRELATIVO SET CORRELATIVO=${_correlativo}`
-						
-		const pool1 = await new sql.ConnectionPool(config, err => {
-			// Query
-			new sql.Request(pool1)			
-			 .query(sqlQry, (err, result) => {
-				if (result.rowsAffected){
-					res.send('Correlativo de ticket actualizado ...')
-				}
-			});
-			//sql.close()
-			//pool1.release();
-		})
-		pool1.on('error', err => {
-			// ... error handler
-			console.log('Error al actualizar correlativo : ' + err)
-		})
+	execute.Query(res,sqlQry);
 });
 
 // OBTIENE EL CORRELATIVO ACTUAL DEL TICKET
 router.get("/correlativo", async(req,res)=>{
-	const sql = require('mssql')
-	
-	try {sql.close()} catch (error) {};
-
-	const pool = await sql.connect(config)		
-		try {
-			const result = await sql.query `SELECT CORRELATIVO FROM CINEMA_CORRELATIVO`
-				res.send(result);
-				console.log('correlativo: ' + result)
-			} catch (err) {
-				console.log(String(err));
-			}
-			sql.close()
+	let sql =  `SELECT CORRELATIVO FROM CINEMA_CORRELATIVO`
+	execute.Query(res,sql);
 });
 
 module.exports = router;

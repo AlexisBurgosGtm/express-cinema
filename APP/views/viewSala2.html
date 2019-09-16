@@ -1,6 +1,9 @@
 <section class="no-padding-top no-padding-bottom">
     <div class="container-fluid">
         <div class="row">
+            <h6 class="text-danger" ID="lbTituloPelicula">--</h6>
+        </div>
+        <div class="row">
                 <div class="col-md-4 col-sm-4">
                         <div class="statistic-block block">
                             <div class="progress-details d-flex align-items-end justify-content-between">
@@ -59,7 +62,7 @@
                 
                 <div class="card-deck" id="fila1">
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-success" id="">
+                            <button class="btn btn-icon btn-md bg-success text-central" id="">
                                 <small class="text-white">F1</small>
                             </button>
                         </div>
@@ -75,8 +78,8 @@
                         </div>
                      
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-warning" id="btn1Asiento1" onClick="fcnOcuparAsiento(1,1)">
-                                <small class="text-centrado">1</small>
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn1Asiento1" onClick="fcnOcuparAsiento(1,1)">
+                                <small class="">1</small>
                              </button>
                         </div>
                         <div class="card">
@@ -120,7 +123,7 @@
                              </button>
                         </div>
                         <div class="card">
-                            <button class="btn btn-md bg-warning btn-icon" id="btn1Asiento10" onClick="fcnOcuparAsiento(1,10)">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn1Asiento10" onClick="fcnOcuparAsiento(1,10)">
                                 <small class="">10</small>
                              </button>
                         </div>
@@ -190,7 +193,7 @@
                 
                 <div class="card-deck" id="fila2">
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-success" id="">
+                            <button class="btn btn-icon btn-md bg-success text-central" id="">
                                 <small class="text-white">F2</small>
                             </button>
                         </div>
@@ -322,7 +325,7 @@
                 
                 <div class="card-deck" id="fila3">
                         <div class="card">
-                                <button class="btn btn-icon btn-md bg-success" id="">
+                                <button class="btn btn-icon btn-md bg-success text-central" id="">
                                     <small class="text-white">F3</small>
                                 </button>
                             </div>
@@ -454,13 +457,13 @@
                 
                 <div class="card-deck" id="fila4">
                         <div class="card">
-                                <button class="btn btn-icon btn-md bg-success" id="">
+                                <button class="btn btn-icon btn-md bg-success text-central" id="">
                                     <small class="text-white">F4</small>
                                 </button>
                             </div>
     
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn4Asiento0">
+                            <button class="btn btn-icon btn-md bg-transparent" id="btn4Asiento0">
                                 <small class=""></small>
                              </button>
                         </div>
@@ -586,7 +589,7 @@
                 
                 <div class="card-deck" id="fila5">
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-success" id="">
+                            <button class="btn btn-icon btn-md bg-success text-central" id="">
                                 <small class="text-white">F5</small>
                             </button>
                         </div>
@@ -718,7 +721,7 @@
                 
                 <div class="card-deck" id="fila6">
                     <div class="card">
-                        <button class="btn btn-icon btn-md bg-success" id="">
+                        <button class="btn btn-icon btn-md bg-success text-central" id="">
                             <small class="text-white">F6</small>
                         </button>
                     </div>
@@ -850,7 +853,7 @@
                 
                 <div class="card-deck" id="fila7">
                     <div class="card">
-                        <button class="btn btn-icon btn-md bg-success" id="">
+                        <button class="btn btn-icon btn-md bg-success text-central" id="">
                             <small class="text-white">F7</small>
                         </button>
                     </div>
@@ -983,34 +986,22 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="card" id="containerdata"></div>
+</div>
+
     <!-- VENTANA MODAL -->
     <div class="modal fade" id="ModOrdenF" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <label class="modal-title text-danger h3">Asignar Asiento</label>
+                    <label class="modal-title text-danger h3">Finalizar Orden</label>
                 <!--<label>No. de Asiento: <b id="txtDataAsiento">0</b></label>-->
                 </div>
                 <div class="modal-body">
                     <div class="col-12">
-                        <div class="form-group">
-                            <label>No. Fila: </label>
-                            <label class="text-danger" id="txtDataFila">0</label>
-                        </div>
-                        <div class="form-group">
-                            <label>No. Asiento: </label>
-                            <label class="text-danger" id="txtDataAsiento">0</label>
-                        </div>
-                        <div class="form-group">
-                            <label>Sala : </label>
-                            <label id="txtDataSala" class="">.</label>
-                        </div>
-                        <!--
-                        <div class="form-group">
-                            <label>Ubicación : </label>
-                            <label id="txtDataUbicacion" class="">.</label>
-                        </div>
-                        -->
+
+            
                         <hr class="sidebar-divider">
 
                         <div class="form-group">
@@ -1036,7 +1027,7 @@
                         CANCELAR
                     </button>
                     
-                    <button type="button" class="btn btn-success btn-round" id="btnAsignarAsiento" onclick="fcnAsignarAsiento()">
+                    <button type="button" class="btn btn-success btn-round" id="btnAsignarAsiento">
                         <i class="now-ui-icons ui-1_check"></i>
                         ASIGNAR
                     </button>

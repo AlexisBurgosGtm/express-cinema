@@ -156,37 +156,44 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/popper.js/umd/popper.min.js"> </script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--
-    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="js/charts-home.js"></script>
-    <script src="js/front.js"></script>
-    -->
     <script src="js/front.js"></script>
     
+    <script src="./controllers/variables.js"></script>
     <script src="./onlineLibrary/socket.io.js"></script>
-
-<script src="./onlineLibrary/sweetalert.min.js"></script> <!--alertas varias-->
-<!--<script src="./onlineLibrary/JsStore.min.js"></script>  para trabajar con IndexDb-->
-<script src="./controllers/funciones.js"></script>
-<script src="./controllers/variables.js"></script>
-
-<script>
-  let socket = io();
-
+    <script src="./onlineLibrary/sweetalert.min.js"></script> 
+    <script src="./onlineLibrary/JsStore.min.js"></script>
+    <script src="./controllers/funciones.js"></script>
+   
     
-    if ('serviceWorker' in navigator) {
+
+    <script>
+      
+        
+        if ('serviceWorker' in navigator) {
             window.addEventListener('load', () =>
            navigator.serviceWorker.register('sw.js')
             .then(registration => console.log('Service Worker registered'))
+            .then(()=>{requestPermission();})
             .catch(err => 'SW registration failed'));
-    };
-    
+        };
 
-</script>
+        
+        if ('Notification' in window) {};
 
-<script src="./controllers/index.js"></script>
+        function requestPermission() {
+          if (!('Notification' in window)) {
+            alert('Notification API not supported!');
+          return;
+        }
+  
+        Notification.requestPermission(function (result) {
+          //$status.innerText = result;
+        });
+}
+           
+    </script>
 
+    <script src="./controllers/index.js"></script>
+    <script src="./controllers/classDbOp.js"></script>
   </body>
 </html>

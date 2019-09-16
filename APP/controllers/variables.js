@@ -6,3 +6,7 @@ let GlobalSelectedHoraInicio;
 let GlobalSelectedMinutoInicio;
 let GlobalEmpnit = '000';
 let GlobalDataTicket;
+
+
+let DbConnection;
+const DbName = "dbcine";
