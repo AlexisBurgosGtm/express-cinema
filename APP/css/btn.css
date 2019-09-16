@@ -4,6 +4,11 @@
     }
 }
 
+/* SALTO DE PAGINA */
+
+br.pageBreak { page-break-after: always; } 
+
+
 /* BOTON FLOTANTE ESQUINA DERECHA */
 #fixed-btn2 { 
 position: fixed;

@@ -80,6 +80,50 @@ classDbOp={
           fcnImprimirTicket(codsala);
         });
     },
+    escribirTicket: async (idContainer,sala)=>{
+        let container = document.getElementById(idContainer);
+        let str = '';
+        
+        DbConnection = new JsStore.Instance(DbName);
+        
+        DbConnection.select({
+            From: 'tblTemp'
+        }, function (asientos) {
+            asientos.forEach(async function (rows){
+            let strhorario = `${GlobalSelectedHoraInicio}:${GlobalSelectedMinutoInicio} horas`;
+    str = str + `<div class="bg-white">
+                    <div class="form-group">
+                        <img src="../img/logo.png" width="130" height="65"></img>
+                        <br>
+                        <h6 id="">${GlobalSelectedPelicula}</h6>
+                        <br>
+                        <h6 id="">Sala No. ${sala}</h6>
+                        <br>
+                        <label>Fecha:</label> <label id="">${GlobalSelectedFecha}</label>
+                        <br>
+                        <label>Hora:</label> <label id="">${strhorario}</label>
+                        <br>
+                        <label>Fila:<b>${rows.codfila}</b></label><label>Asiento:<b>${rows.codasiento}</b></label><br>
+                        <br>
+                        <label>---------------------</label>
+                        <br></br>
+                        <div class="bg-white">
+                            <small>Disfrute la función !!!</small>
+                        </div>
+                    </div>
+                </div>
+                <h1 style ="page-break-after: always"> </h1>`;
+                
+                //console.log(str);
+            }, function (error) {
+                console.log(error);
+                }
+           )
+           
+          container.innerHTML = str;
+          window.print();
+        });
+    },
     escribirAsientos: async (idContainer)=>{
         let container = document.getElementById(idContainer);
         let str = '';

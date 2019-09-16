@@ -156,14 +156,9 @@ async function fcnImprimirTicket(sala){
     funciones.loadView('../views/ticket.html','root')
         .then(async ()=>{
             //window.print(); 
-            document.getElementById('lbPelicula').innerText = GlobalSelectedPelicula;
-            document.getElementById('lbFecha').innerText = GlobalSelectedFecha;           
-            let str = `${GlobalSelectedHoraInicio}:${GlobalSelectedMinutoInicio} horas`;
-            document.getElementById('lbHora').innerText = str;
-            document.getElementById('lbSala').innerText = 'Sala ' + sala;
-            
+
             //escribe la lista de asientos
-            classDbOp.escribirAsientos('gridContenedor');
+            classDbOp.escribirTicket('ticketcontainer',sala);
             
             try {
                 socket.emit('orden nueva', `Sala ${sala},${GlobalSelectedPelicula},${str}`)
@@ -254,4 +249,36 @@ function getTbl() {
                 .then(valor => {
                     loguear("Al imprimir: " + valor);
                 })
+*/
+
+
+/*
+async function fcnImprimirTicket(sala){
+    funciones.loadView('../views/ticket.html','root')
+        .then(async ()=>{
+            //window.print(); 
+            
+            document.getElementById('lbPelicula').innerText = GlobalSelectedPelicula;
+            document.getElementById('lbFecha').innerText = GlobalSelectedFecha;           
+            let str = `${GlobalSelectedHoraInicio}:${GlobalSelectedMinutoInicio} horas`;
+            document.getElementById('lbHora').innerText = str;
+            document.getElementById('lbSala').innerText = 'Sala ' + sala;
+            
+            //escribe la lista de asientos
+            classDbOp.escribirAsientos('gridContenedor');
+            
+            try {
+                socket.emit('orden nueva', `Sala ${sala},${GlobalSelectedPelicula},${str}`)
+            } catch (error) {
+                
+            }
+
+            document.getElementById('btnAtrasTicket').addEventListener('click',()=>{
+                btnCartelera.click();
+            })
+        })
+}
+
+
+
 */
