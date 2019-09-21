@@ -103,7 +103,7 @@ classDbOp={
                         <br>
                         <label>Hora:</label> <label id="">${strhorario}</label>
                         <br>
-                        <label>Fila:<b>${rows.codfila}</b></label><label>Asiento:<b>${rows.codasiento}</b></label><br>
+                        <label>Fila: <b>${rows.codfila}</b></label><label> Asiento: <b>${rows.codasiento}</b></label><br>
                         <br>
                         <label>---------------------</label>
                         <br></br>
