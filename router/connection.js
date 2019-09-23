@@ -69,36 +69,6 @@ let execute = {
 
 }
 
-/*
-let executeQuery = (res,sqlqry)=>{
-	const sql = require('mssql')
-	console.log('ejecutando consulta... ');
-	
-	try {
-	  const pool1 = new sql.ConnectionPool(config, err => {
-		//pool1.request() or: new sql.Request(pool1)
-		new sql.Request(pool1)
-		.query(sqlqry, (err, result) => {
-			//if(err) throw err;
-			if(err){
-				res.send(err.message)
-			}else{
-				res.send(result);
-			}
-				
-		})
-		sql.close();  
-	  })
-	  pool1.on('error', err => {
-		  console.log('error sql = ' + err);
-		  sql.close();
-	  })
-	} catch (error) {
-	  res.send('Error al ejecutar la consulta: ' + error)   
-	  sql.close();
-	}
-};
-*/
 module.exports =  execute;
 
 

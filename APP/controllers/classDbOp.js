@@ -121,7 +121,7 @@ classDbOp={
            )
            
           container.innerHTML = str;
-          window.print();
+          //window.print();
         });
     },
     escribirAsientos: async (idContainer)=>{

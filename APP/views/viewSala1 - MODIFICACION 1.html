@@ -4,48 +4,50 @@
             <h6 class="text-danger" ID="lbTituloPelicula">--</h6>
         </div>
         <div class="row">
-                <div class="col-md-4 col-sm-4">
-                        <div class="statistic-block block">
-                            <div class="progress-details d-flex align-items-end justify-content-between">
-                                <div class="title">
-                                    <div class="icon">
-                                        <i class="icon-user-1"></i>
-                                    </div>
-                                    <label>Asientos Ocupados</label>
-                                </div>
-                                <div class="number text-primary" id="txtOcupadas">0</div>
+
+            <div class="col-md-4 col-sm-4">
+                <div class="statistic-block block">
+                    <div class="progress-details d-flex align-items-end justify-content-between">
+                        <div class="title">
+                            <div class="icon">
+                                <i class="icon-user-1"></i>
                             </div>
+                            <label>Asientos Ocupados</label>
                         </div>
+                        <div class="number text-primary" id="txtOcupadas">0</div>
                     </div>
-        
-                    <div class="col-md-4 col-sm-4">
-                        <div class="statistic-block block">
-                            <div class="progress-details d-flex align-items-end justify-content-between">
-                                <div class="title">
-                                    <div class="icon">
-                                        <i class="icon-grid"></i>
-                                    </div>
-                                    <label>Asientos Disponibles</label>
-                                    </div>
-                                <div class="number text-warning" id="txtDisponibles">0</div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+                <div class="statistic-block block">
+                    <div class="progress-details d-flex align-items-end justify-content-between">
+                        <div class="title">
+                            <div class="icon">
+                                <i class="icon-grid"></i>
                             </div>
-                        </div>
-                    </div>
-        
-                    <div class="col-md-4 col-sm-4">
-                            <button class="btn btn-success btn-icon col-12" id="btnFinalizarTicket" onclick="fcnTerminarTicket();">
-                                    <i class="icon-info"></i>
-                                Finalizar
-                            </button>
-                        <!--
-                        <div class="statistic-block block">
-                            <div class="progress-details d-flex align-items-end justify-content-between">
-                                                       
+                            <label>Asientos Disponibles</label>
                             </div>
-                        </div>
-                        -->
+                        <div class="number text-warning" id="txtDisponibles">0</div>
                     </div>
-        
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+                    <button class="btn btn-success btn-icon col-12" id="btnFinalizarTicket" onclick="fcnTerminarTicket();">
+                            <i class="icon-info"></i>
+                        Finalizar
+                    </button>
+                <!--
+                <div class="statistic-block block">
+                    <div class="progress-details d-flex align-items-end justify-content-between">
+                                               
+                    </div>
+                </div>
+                -->
+            </div>
+
+
         </div>
     </div>
 </section>
@@ -55,31 +57,32 @@
     <br>
     <div class="" id="mapcontainer">
             <div class="card bg-info col-12">
-                    <h4 class="text-center text-white">Pantalla - SALA No. 2</h4>
+                    <h4 class="text-center text-white">Pantalla - SALA No. 1</h4>
                 </div>
                 
                 <div class="row"><br></div>
                 
+                <!-- FILA 1 -->
                 <div class="card-deck" id="fila1">
                         <div class="card">
                             <button class="btn btn-icon btn-md bg-success text-central" id="">
-                                <small class="text-white">F1</small>
+                                <small class="text-white">F1  </small>
                             </button>
                         </div>
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn1Asiento0">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn1Asiento00">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
                      
                         <div class="card">
                             <button class="btn btn-icon btn-md bg-warning text-central" id="btn1Asiento1" onClick="fcnOcuparAsiento(1,1)">
-                                <small class="">1</small>
+                                <small class="text-centrado">1</small>
                              </button>
                         </div>
                         <div class="card">
@@ -123,9 +126,11 @@
                              </button>
                         </div>
                         <div class="card">
+                           
                             <button class="btn btn-icon btn-md bg-warning text-central" id="btn1Asiento10" onClick="fcnOcuparAsiento(1,10)">
                                 <small class="">10</small>
                              </button>
+                            
                         </div>
                         <div class="card">
                             <button class="btn btn-icon btn-md bg-warning text-central" id="btn1Asiento11" onClick="fcnOcuparAsiento(1,11)">
@@ -158,53 +163,43 @@
                              </button>
                         </div>
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn1Asiento17" onClick="fcnOcuparAsiento(1,17)">
-                                <small class="">17 </small>
-                             </button>
-                        </div>
-                        <div class="card">
-                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn1Asiento18" onClick="fcnOcuparAsiento(1,18)">
-                                <small class="">18 </small>
-                             </button>
-                        </div>
-                        <div class="card">
-                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn1Asiento19" onClick="fcnOcuparAsiento(1,19)">
-                                <small class="">19 </small>
-                             </button>
-                        </div>
-                        <div class="card">
-                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn1Asiento20" onClick="fcnOcuparAsiento(1,20)">
-                                <small class="">20 </small>
-                             </button>
-                        </div>
-                
-                        <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn1Asiento0">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn1Asiento00">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
+                                <small class=""></small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
+                                <small class=""></small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
                      
                 </div>
                 
+                <!-- FILA 2 -->
                 <div class="card-deck" id="fila2">
                         <div class="card">
                             <button class="btn btn-icon btn-md bg-success text-central" id="">
-                                <small class="text-white">F2</small>
+                                <small class="text-white">F2  </small>
                             </button>
                         </div>
-    
+
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn2Asiento0">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn2Asiento00">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
@@ -300,43 +295,33 @@
                              </button>
                         </div>
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn2Asiento19" onClick="fcnOcuparAsiento(2,19)">
-                                <small class="">19</small>
-                             </button>
-                        </div>
-                        <div class="card">
-                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn2Asiento20" onClick="fcnOcuparAsiento(2,20)">
-                                <small class="">20</small>
-                             </button>
-                        </div>
-                
-                        <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn2Asiento0">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn2Asiento00">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
                      
                 </div>
                 
+                <!-- FILA 3 -->
                 <div class="card-deck" id="fila3">
                         <div class="card">
-                                <button class="btn btn-icon btn-md bg-success text-central" id="">
-                                    <small class="text-white">F3</small>
-                                </button>
-                            </div>
+                            <button class="btn btn-icon btn-md bg-success text-central" id="">
+                                <small class="text-white">F3  </small>
+                            </button>
+                        </div>
     
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn3Asiento0">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn3Asiento00">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
@@ -441,34 +426,24 @@
                                 <small class="">20</small>
                              </button>
                         </div>
-                
-                        <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn3Asiento0">
-                                <small class=""></small>
-                             </button>
-                        </div>
-                        <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn3Asiento00">
-                                <small class=""></small>
-                             </button>
-                        </div>
                      
                 </div>
                 
+                <!-- FILA 4 -->
                 <div class="card-deck" id="fila4">
                         <div class="card">
                                 <button class="btn btn-icon btn-md bg-success text-central" id="">
-                                    <small class="text-white">F4</small>
+                                    <small class="text-white">F4  </small>
                                 </button>
                             </div>
     
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent" id="btn4Asiento0">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn4Asiento00">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
@@ -573,34 +548,24 @@
                                 <small class="">20</small>
                              </button>
                         </div>
-                
-                        <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn4Asiento0">
-                                <small class=""></small>
-                             </button>
-                        </div>
-                        <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn4Asiento00">
-                                <small class=""></small>
-                             </button>
-                        </div>
                      
                 </div>
                 
+                <!-- FILA 5 -->
                 <div class="card-deck" id="fila5">
                         <div class="card">
                             <button class="btn btn-icon btn-md bg-success text-central" id="">
-                                <small class="text-white">F5</small>
+                                <small class="text-white">F5  </small>
                             </button>
                         </div>
     
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn5Asiento0">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn5Asiento00">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
@@ -705,284 +670,256 @@
                                 <small class="">20</small>
                              </button>
                         </div>
+                     
+                </div>
                 
+                <!-- FILA 6 -->
+                <div class="card-deck" id="fila6">
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn5Asiento0">
+                                <button class="btn btn-icon btn-md bg-success text-central" id="">
+                                    <small class="text-white">F6  </small>
+                                </button>
+                            </div>
+    
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
                         <div class="card">
-                            <button class="btn btn-icon btn-md bg-transparent " id="btn5Asiento00">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
                                 <small class=""></small>
                              </button>
                         </div>
                      
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento1" onClick="fcnOcuparAsiento(6,1)">
+                                <small class="">1</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento2" onClick="fcnOcuparAsiento(6,2)">
+                                <small class="">2</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento3" onClick="fcnOcuparAsiento(6,3)">
+                                <small class="">3</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento4" onClick="fcnOcuparAsiento(6,4)">
+                                <small class="">4</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento5" onClick="fcnOcuparAsiento(6,5)">
+                                <small class="">5</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento6" onClick="fcnOcuparAsiento(6,6)">
+                                <small class="">6</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento7" onClick="fcnOcuparAsiento(6,7)">
+                                <small class="">7</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento8" onClick="fcnOcuparAsiento(6,8)">
+                                <small class="">8</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento9" onClick="fcnOcuparAsiento(6,9)">
+                                <small class="">9</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento10" onClick="fcnOcuparAsiento(6,10)">
+                                <small class="">10</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento11" onClick="fcnOcuparAsiento(6,11)">
+                                <small class="">11</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento12" onClick="fcnOcuparAsiento(6,12)">
+                                <small class="">12</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento13" onClick="fcnOcuparAsiento(6,13)">
+                                <small class="">13</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento14" onClick="fcnOcuparAsiento(6,14)">
+                                <small class="">14</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento15" onClick="fcnOcuparAsiento(6,15)">
+                                <small class="">15</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento16" onClick="fcnOcuparAsiento(6,16)">
+                                <small class="">16</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento17" onClick="fcnOcuparAsiento(6,17)">
+                                <small class="">17</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento18" onClick="fcnOcuparAsiento(6,18)">
+                                <small class="">18</small>
+                             </button>
+                        </div>
+
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
+                                <small class=""></small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
+                                <small class=""></small>
+                             </button>
+                        </div>
+
+                     
                 </div>
-                
-                <div class="card-deck" id="fila6">
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-success text-central" id="">
-                            <small class="text-white">F6</small>
-                        </button>
-                    </div>
-    
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-transparent " id="btn6Asiento0">
-                            <small class=""></small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-transparent " id="btn6Asiento00">
-                            <small class=""></small>
-                         </button>
-                    </div>
-                 
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento1" onClick="fcnOcuparAsiento(6,1)">
-                            <small class="">1</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento2" onClick="fcnOcuparAsiento(6,2)">
-                            <small class="">2</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento3" onClick="fcnOcuparAsiento(6,3)">
-                            <small class="">3</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento4" onClick="fcnOcuparAsiento(6,4)">
-                            <small class="">4</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento5" onClick="fcnOcuparAsiento(6,5)">
-                            <small class="">5</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento6" onClick="fcnOcuparAsiento(6,6)">
-                            <small class="">6</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento7" onClick="fcnOcuparAsiento(6,7)">
-                            <small class="">7</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento8" onClick="fcnOcuparAsiento(6,8)">
-                            <small class="">8</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento9" onClick="fcnOcuparAsiento(6,9)">
-                            <small class="">9</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento10" onClick="fcnOcuparAsiento(6,10)">
-                            <small class="">10</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento11" onClick="fcnOcuparAsiento(6,11)">
-                            <small class="">11</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento12" onClick="fcnOcuparAsiento(6,12)">
-                            <small class="">12</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento13" onClick="fcnOcuparAsiento(6,13)">
-                            <small class="">13</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento14" onClick="fcnOcuparAsiento(6,14)">
-                            <small class="">14</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento15" onClick="fcnOcuparAsiento(6,15)">
-                            <small class="">15</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento16" onClick="fcnOcuparAsiento(6,16)">
-                            <small class="">16</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento17" onClick="fcnOcuparAsiento(6,17)">
-                            <small class="">17</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento18" onClick="fcnOcuparAsiento(6,18)">
-                            <small class="">18</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento19" onClick="fcnOcuparAsiento(6,19)">
-                            <small class="">19</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn6Asiento20" onClick="fcnOcuparAsiento(6,20)">
-                            <small class="">20</small>
-                         </button>
-                    </div>
-                    
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-transparent " id="btn6Asiento0">
-                            <small class=""></small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-transparent " id="btn6Asiento00">
-                            <small class=""></small>
-                         </button>
-                    </div>
-                 
-                </div>
-                
+
+                <!-- FILA 7 -->
                 <div class="card-deck" id="fila7">
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-success text-central" id="">
-                            <small class="text-white">F7</small>
-                        </button>
-                    </div>
+                        <div class="card">
+                                <button class="btn btn-md bg-success text-central" id="">
+                                    <small class="text-white">F7  </small>
+                                </button>
+                            </div>
     
-                 
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento1" onClick="fcnOcuparAsiento(7,1)">
-                            <small class="">1</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento2" onClick="fcnOcuparAsiento(7,2)">
-                            <small class="">2</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento3" onClick="fcnOcuparAsiento(7,3)">
-                            <small class="">3</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento4" onClick="fcnOcuparAsiento(7,4)">
-                            <small class="">4</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento5" onClick="fcnOcuparAsiento(7,5)">
-                            <small class="">5</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento6" onClick="fcnOcuparAsiento(7,6)">
-                            <small class="">6</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento7" onClick="fcnOcuparAsiento(7,7)">
-                            <small class="">7</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento8" onClick="fcnOcuparAsiento(7,8)">
-                            <small class="">8</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento9" onClick="fcnOcuparAsiento(7,9)">
-                            <small class="">9</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento10" onClick="fcnOcuparAsiento(7,10)">
-                            <small class="">10</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento11" onClick="fcnOcuparAsiento(7,11)">
-                            <small class="">11</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento12" onClick="fcnOcuparAsiento(7,12)">
-                            <small class="">12</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento13" onClick="fcnOcuparAsiento(7,13)">
-                            <small class="">13</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento14" onClick="fcnOcuparAsiento(7,14)">
-                            <small class="">14</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento15" onClick="fcnOcuparAsiento(7,15)">
-                            <small class="">15</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento16" onClick="fcnOcuparAsiento(7,16)">
-                            <small class="">16</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento17" onClick="fcnOcuparAsiento(7,17)">
-                            <small class="">17</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento18" onClick="fcnOcuparAsiento(7,18)">
-                            <small class="">18</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento19" onClick="fcnOcuparAsiento(7,19)">
-                            <small class="">19</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento20" onClick="fcnOcuparAsiento(7,20)">
-                            <small class="">20</small>
-                         </button>
-                    </div>
-                 
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento21" onClick="fcnOcuparAsiento(7,21)">
-                            <small class="">21</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento22" onClick="fcnOcuparAsiento(7,22)">
-                            <small class="">22</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento23" onClick="fcnOcuparAsiento(7,23)">
-                            <small class="">23</small>
-                         </button>
-                    </div>
-                    <div class="card">
-                        <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento24" onClick="fcnOcuparAsiento(7,24)">
-                            <small class="">24</small>
-                         </button>
-                    </div>
-                
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento1" onClick="fcnOcuparAsiento(7,1)">
+                                <small class="">1</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento2" onClick="fcnOcuparAsiento(7,2)">
+                                <small class="">2</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento3" onClick="fcnOcuparAsiento(7,3)">
+                                <small class="">3</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento4" onClick="fcnOcuparAsiento(7,4)">
+                                <small class="">4</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento5" onClick="fcnOcuparAsiento(7,5)">
+                                <small class="">5</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento6" onClick="fcnOcuparAsiento(7,6)">
+                                <small class="">6</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento7" onClick="fcnOcuparAsiento(7,7)">
+                                <small class="">7</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento8" onClick="fcnOcuparAsiento(7,8)">
+                                <small class="">8</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento9" onClick="fcnOcuparAsiento(7,9)">
+                                <small class="">9</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento10" onClick="fcnOcuparAsiento(7,10)">
+                                <small class="">10</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento11" onClick="fcnOcuparAsiento(7,11)">
+                                <small class="">11</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento12" onClick="fcnOcuparAsiento(7,12)">
+                                <small class="">12</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento13" onClick="fcnOcuparAsiento(7,13)">
+                                <small class="">13</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento14" onClick="fcnOcuparAsiento(7,14)">
+                                <small class="">14</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento15" onClick="fcnOcuparAsiento(7,15)">
+                                <small class="">15</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento16" onClick="fcnOcuparAsiento(7,16)">
+                                <small class="">16</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento17" onClick="fcnOcuparAsiento(7,17)">
+                                <small class="">17</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento18" onClick="fcnOcuparAsiento(7,18)">
+                                <small class="">18</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento19" onClick="fcnOcuparAsiento(7,19)">
+                                <small class="">19</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento20" onClick="fcnOcuparAsiento(7,20)">
+                                <small class="">20</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-warning text-central" id="btn7Asiento21" onClick="fcnOcuparAsiento(7,21)">
+                                <small class="">21</small>
+                             </button>
+                        </div>
+                        <div class="card">
+                            <button class="btn btn-icon btn-md bg-transparent " disabled="disabled">
+                                <small class=""></small>
+                             </button>
+                        </div>
+                         
+                    
+                     
                 </div>
-                
+    
     </div>
 </div>
 
@@ -990,18 +927,18 @@
     <div class="card" id="containerdata"></div>
 </div>
 
-    <!-- VENTANA MODAL -->
-    <div class="modal fade" id="ModOrdenF" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <!-- VENTANA MODAL -->
+   <div class="modal fade" id="ModOrdenF" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <label class="modal-title text-danger h3">Finalizar Orden</label>
+                
                 <!--<label>No. de Asiento: <b id="txtDataAsiento">0</b></label>-->
                 </div>
                 <div class="modal-body">
                     <div class="col-12">
-
-            
+  
                         <hr class="sidebar-divider">
 
                         <div class="form-group">
