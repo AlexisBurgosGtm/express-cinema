@@ -90,8 +90,45 @@ classDbOp={
             From: 'tblTemp'
         }, function (asientos) {
             asientos.forEach(async function (rows){
+            let fila;
+            switch (rows.codfila) {
+                case 1:
+                    fila='A';
+                break;            
+                case 2:
+                    fila='B';
+                break;            
+                case 3:
+                    fila='C';
+                break;            
+                case 4:
+                    fila='D';
+                break;            
+                case 5:
+                    fila='E';
+                break;            
+                case 6:
+                    fila='F';
+                break;            
+                case 7:
+                    fila='G';
+                break;            
+            }
+            let asiento;
+            switch (rows.codasiento) {
+                case 100:
+                    asiento="A"    
+                break;
+                case 200:
+                    asiento="B"    
+                break;            
+                default:
+                    asiento = rows.codasiento;
+                break;
+            }
+
             let strhorario = `${GlobalSelectedHoraInicio}:${GlobalSelectedMinutoInicio} horas`;
-    str = str + `<div class="bg-white">
+            str = str + `<div class="bg-white">
                     <div class="form-group">
                         <img src="../img/logo.png" width="130" height="65"></img>
                         <br>
@@ -103,7 +140,7 @@ classDbOp={
                         <br>
                         <label>Hora:</label> <label id="">${strhorario}</label>
                         <br>
-                        <label>Fila: <b>${rows.codfila}</b></label><label> Asiento: <b>${rows.codasiento}</b></label><br>
+                        <label>Fila: <b>${fila}</b></label><label> Asiento: <b>${asiento}</b></label><br>
                         <br>
                         <label>---------------------</label>
                         <br></br>

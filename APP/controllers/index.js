@@ -2,7 +2,7 @@ let socket = io();
 
 window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
     if (!window.indexedDB) {
-      window.alert("Lo siento pero su Teléfono no soporta el guardado de Datos");
+      window.alert("Lo siento pero su navegador no soporta el guardado de Datos");
     }
 
 let idEditPelicula=0;
