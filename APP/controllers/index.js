@@ -10,7 +10,7 @@ let idEditPelicula=0;
 let btnToggler = document.getElementById('btnToggler');
 //let btnInicio = document.getElementById('btnInicio');
 let btnCartelera = document.getElementById('btnCartelera');
-let btnAsignar = document.getElementById('btnAsignar');
+//let btnAsignar = document.getElementById('btnAsignar');
 let btnConfig = document.getElementById('btnConfig');
 let btnSalir = document.getElementById('btnSalir');
 let btnLoginIniciar = document.getElementById('btnLoginIniciar');
@@ -83,6 +83,7 @@ btnConfigCartelera.addEventListener('click',(e)=>{
 });
 
 // botón asignar
+/*
 btnAsignar.addEventListener('click',(e)=>{
     e.preventDefault();
 
@@ -100,7 +101,7 @@ btnAsignar.addEventListener('click',(e)=>{
     
         //btnToggler.click();
 });
-
+*/
 // boton salir
 btnSalir.addEventListener('click',(e)=>{
     e.preventDefault();
