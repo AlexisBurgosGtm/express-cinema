@@ -1,4 +1,4 @@
-async function fcnCargarGrid(codsala,fecha,pelicula,horainicio,minutoinicio){
+﻿async function fcnCargarGrid(codsala,fecha,pelicula,horainicio,minutoinicio){
 
     GlobalSelectedFecha= fecha;
     GlobalSelectedPelicula=pelicula;
@@ -6,7 +6,7 @@ async function fcnCargarGrid(codsala,fecha,pelicula,horainicio,minutoinicio){
     GlobalSelectedMinutoInicio=minutoinicio;
 
     let contadorOcupadas =0; 
-    let contadorDisponibles = 135; //144
+    let contadorDisponibles = 135; 
     let Ocupadas = document.getElementById('txtOcupadas');
     let Disponibles = document.getElementById('txtDisponibles');
 

@@ -6,7 +6,7 @@
     GlobalSelectedMinutoInicio=minutoinicio;
 
     let contadorOcupadas =0; 
-    let contadorDisponibles = 139;  //135 144
+    let contadorDisponibles = 139;
     let Ocupadas = document.getElementById('txtOcupadas');
     let Disponibles = document.getElementById('txtDisponibles');
 
