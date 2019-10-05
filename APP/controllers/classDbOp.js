@@ -136,10 +136,9 @@
                         <label class="fontbig7">Hora:</label> <label class="fontbig7">${strhorario}</label>
                         <br><br>
                         <label class="fontbig7">Fecha:</label> <label class="fontbig7">${GlobalSelectedFecha}</label>
-                        <br><br><br>
+                        <br><br>
                         <div class="bg-white">
                             <h4 class="fontbig4">Disfrute la función !!!</h4>
-                            <br>
                         </div>
                     </div>
                 </div>
