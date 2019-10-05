@@ -125,7 +125,7 @@
             let strhorario = `${GlobalSelectedHoraInicio}:${GlobalSelectedMinutoInicio} horas`;
             str = str + `<div class="bg-white col-12">
                     <div class="form-group align-items-center">
-                        <img src="../img/logo.png" width="1200" height="400"></img>
+                        <img src="../img/logo.png" width="1400" height="600"></img>
                             <br>
                         <h1 class="fontbig7">${GlobalSelectedPelicula}</h1>
                         <br><br>
@@ -143,8 +143,6 @@
                     </div>
                 </div>
                 <h1 style ="page-break-after: always"> </h1>`;
-                
-                //console.log(str);
             }, function (error) {
                 console.log(error);
                 }
