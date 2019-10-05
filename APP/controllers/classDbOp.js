@@ -1,11 +1,11 @@
 classDbOp={
     insertAsiento: async (codsala,codfila,codasiento,horainicio,minutoinicio)=>{
         var data = {
-            nosala:codsala,
-            codasiento:codasiento,
-            codfila:codfila,
-            horainicio:horainicio,
-            minutoinicio:minutoinicio
+            nosala:Number(codsala),
+            codasiento:Number(codasiento),
+            codfila:Number(codfila),
+            horainicio:horainicio.toString(),
+            minutoinicio:minutoinicio.toString()
         }
         
         DbConnection = new JsStore.Instance(DbName);
@@ -14,25 +14,20 @@ classDbOp={
             Into: "tblTemp",
             Values: [data]
         }, function (rowsAdded) {
-            console.log('')
+            console.log(`Filas agregadas ${rowsAdded}`)
         }, function (err) {
-            console.log(err);
+            console.log('No se agregó la fila' & err)
         })
     },
     deleteAsiento: async (codfila,codasiento)=>{
         DbConnection = new JsStore.Instance(DbName);
-        console.log(codfila);
-        console.log(codasiento);
-
         DbConnection.select({
             From: 'tblTemp'
         }, function (productos) {
-    
-            productos.forEach(function (prod) {
+                productos.forEach(function (prod) {
                 if(codfila==prod.codfila){
                     if(codasiento==prod.codasiento){
-                        console.log(prod);
-                        let ID = Number(prod.ID)
+                        let ID = Number(prod.ID);
                         // elimina el asiento
                         DbConnection.delete({
                             From: 'tblTemp',
@@ -128,24 +123,23 @@ classDbOp={
             }
 
             let strhorario = `${GlobalSelectedHoraInicio}:${GlobalSelectedMinutoInicio} horas`;
-            str = str + `<div class="bg-white">
-                    <div class="form-group">
-                        <img src="../img/logo.png" width="130" height="65"></img>
-                        <br>
-                        <h6 id="">${GlobalSelectedPelicula}</h6>
-                        <br>
-                        <h6 id="">Sala No. ${sala}</h6>
-                        <br>
-                        <label>Fecha:</label> <label id="">${GlobalSelectedFecha}</label>
-                        <br>
-                        <label>Hora:</label> <label id="">${strhorario}</label>
-                        <br>
-                        <label>Fila: <b>${fila}</b></label><label> Asiento: <b>${asiento}</b></label><br>
-                        <br>
-                        <label>---------------------</label>
-                        <br></br>
+            str = str + `<div class="bg-white col-12">
+                    <div class="form-group align-items-center">
+                        <img src="../img/logo.png" width="1200" height="400"></img>
+                            <br>
+                        <h1 class="fontbig7">${GlobalSelectedPelicula}</h1>
+                        <br><br>
+                        <h2 class="fontbig7">Sala No. ${sala}</h2>
+                        <br><br>                        
+                        <label class="fontbig4">Fila: <b>${fila}</b></label><label class="fontbig4"> Asiento: <b>${asiento}</b></label>
+                        <br><br>
+                        <label class="fontbig4">Hora:</label> <label class="fontbig4">${strhorario}</label>
+                        <br><br>
+                        <label class="fontbig4">Fecha:</label> <label class="fontbig4">${GlobalSelectedFecha}</label>
+                        <br><br><br>
                         <div class="bg-white">
-                            <small>Disfrute la función !!!</small>
+                            <h4 class="fontbig4">Disfrute la función !!!</h4>
+                            <br>
                         </div>
                     </div>
                 </div>
@@ -158,7 +152,12 @@ classDbOp={
            )
            
           container.innerHTML = str;
-          //window.print();
+
+          setTimeout(() => {
+            window.print();    
+          }, 3000);
+
+          
         });
     },
     escribirAsientos: async (idContainer)=>{

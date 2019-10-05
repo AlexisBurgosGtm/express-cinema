@@ -11,7 +11,22 @@
     font-size: 1rem;
 }
 
+.ticket {
+    width: 155px;
+    max-width: 155px;
+}
 /*    background-color: #ffc107;
     border-color: #ffc107;
     color: black;
 */
+.fontbig7{
+    font-size: 7rem;
+};
+
+.fontbig6{
+    font-size: 6rem;
+}
+
+.fontbig4{
+    font-size: 4rem;
+}

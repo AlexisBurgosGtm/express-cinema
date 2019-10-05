@@ -1,11 +1,11 @@
 ﻿
 const config = {user: 'DB_A45479_EXPRESS_admin',password: 'razors1805',server: 'sql7002.site4now.net',database: 'DB_A45479_EXPRESS',pool: {	max: 100,	min: 0,	idleTimeoutMillis: 30000}};
-//const config = {user: 'iEx', password: 'iEx', server: 'SERVERALEXIS\\SQLEXPRESS', database: 'EXPRESS-CINEMA', pool: {max: 100,min: 0,idleTimeoutMillis: 30000}};
-
+//const config = {user: 'iEx', password: 'iEx', server: 'SERVERALEXIS\\SQLEXPRESS', database: 'DB_A45479_EXPRESS', pool: {max: 100,min: 0,idleTimeoutMillis: 30000}};
+const sql = require('mssql');
 
 let execute = {
 	Query : (res,sqlqry)=>{
-		const sql = require('mssql')
+		
 		console.log('ejecutando consulta... ');
 		
 		try {
@@ -36,7 +36,7 @@ let execute = {
 	},
 
 	QueryNoSend : (res,sqlqry)=>{
-		const sql = require('mssql')
+		//const sql = require('mssql')
 		console.log('ejecutando consulta... ');
 		
 		try {

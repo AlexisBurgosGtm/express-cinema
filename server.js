@@ -37,7 +37,6 @@ app.get("/",function(req,res){
 	res.sendFile(path + 'index.html');
 }); 
 
-
 //Router para el cine
 app.use('/api', router);
 
@@ -45,14 +44,8 @@ app.use("/",router);
 
 app.use("*",function(req,res){
   res.send('<h1>NO DISPONIBLE</h1>');
-  //res.sendFile(path + "APP/views/404.html");
 });
 
-/*
-app.listen(PORT, function () {
-	console.log('Servidor iniciado en el puerto ' + String(PORT));
-});
-*/
 
 io.on('connection', function(socket){
 	socket.on('orden nueva', function(msg,user){
@@ -69,19 +62,3 @@ io.on('connection', function(socket){
 http.listen(PORT, function(){
   console.log('listening on *:' + PORT);
 });
-
-
-/*CODIGO PARA EL HTML Y SOCKET
-   $(function () {
-        var socket = io();
-        $('form').submit(function(){
-          socket.emit('chat message', $('#m').val());
-          $('#m').val('');
-          return false;
-        });
-        socket.on('chat message', function(msg){
-          $('#messages').append($('<li>').text(msg));
-          window.scrollTo(0, document.body.scrollHeight);
-        });
-      });
-*/

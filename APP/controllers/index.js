@@ -82,26 +82,6 @@ btnConfigCartelera.addEventListener('click',(e)=>{
         })
 });
 
-// botón asignar
-/*
-btnAsignar.addEventListener('click',(e)=>{
-    e.preventDefault();
-
-    funciones.loadView('../views/viewAsignar.html','root')
-        .then(()=>{
-            funciones.loadScript('../controllers/classAsignar.js','root')
-            .then(async ()=>{
-                
-                //fcnAsignarBotones();
-                await fcnCargarCmbSalas('cmbSalas','mapimage');
-                await fcnCargarButacas('mapcontainer',1);  
-                    
-            })
-        })
-    
-        //btnToggler.click();
-});
-*/
 // boton salir
 btnSalir.addEventListener('click',(e)=>{
     e.preventDefault();
@@ -110,7 +90,6 @@ btnSalir.addEventListener('click',(e)=>{
 
 // boton login iniciar
 btnLoginIniciar.addEventListener('click',()=>{
-    //fcnLogin(document.getElementById('txtLoginUser').value,document.getElementById('txtLoginPass').value);
     fcnLogin(document.getElementById('txtLoginPass').value);
 })
 
@@ -119,7 +98,6 @@ async function fcnLogin(pass){
 
     let nivel = 0;
     try {
-        //const response = await fetch(`/api/usuarios?user=${user}&pass=${pass}`) //&st=${status}`)
         const response = await fetch(`/api/usuarios?pass=${pass}`) //&st=${status}`)
         const json = await response.json();
         
@@ -136,7 +114,6 @@ async function fcnLogin(pass){
         funciones.AvisoError('Su contraseña es incorrecta');
     }else{
         $('.search-panel').fadeOut(100);
-        //document.getElementById('txtLoginUser').value = '';
         document.getElementById('txtLoginPass').value = '';
     }
 }
