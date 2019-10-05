@@ -1,4 +1,4 @@
-classDbOp={
+﻿classDbOp={
     insertAsiento: async (codsala,codfila,codasiento,horainicio,minutoinicio)=>{
         var data = {
             nosala:Number(codsala),
@@ -131,11 +131,11 @@ classDbOp={
                         <br><br>
                         <h2 class="fontbig7">Sala No. ${sala}</h2>
                         <br><br>                        
-                        <label class="fontbig4">Fila: <b>${fila}</b></label><label class="fontbig4"> Asiento: <b>${asiento}</b></label>
+                        <label class="fontbig7">Fila: <b>${fila}</b></label><label class="fontbig7"> Asiento: <b>${asiento}</b></label>
                         <br><br>
-                        <label class="fontbig4">Hora:</label> <label class="fontbig4">${strhorario}</label>
+                        <label class="fontbig7">Hora:</label> <label class="fontbig7">${strhorario}</label>
                         <br><br>
-                        <label class="fontbig4">Fecha:</label> <label class="fontbig4">${GlobalSelectedFecha}</label>
+                        <label class="fontbig7">Fecha:</label> <label class="fontbig7">${GlobalSelectedFecha}</label>
                         <br><br><br>
                         <div class="bg-white">
                             <h4 class="fontbig4">Disfrute la función !!!</h4>
