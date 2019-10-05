@@ -127,7 +127,7 @@
                     <div class="form-group align-items-center">
                         <img src="../img/logo.png" width="1400" height="600"></img>
                             <br>
-                        <h1 class="fontbig7">${GlobalSelectedPelicula}</h1>
+                        <h2 class="fontbig7">${GlobalSelectedPelicula}</h2>
                         <br><br>
                         <h2 class="fontbig7">Sala No. ${sala}</h2>
                         <br><br>                        
